@@ -10,10 +10,12 @@
             .export     initPad
             .export     readPad1, readPad2, readPad3, readPad4
 
+            .export     padPushData1, padReleaseData1
+
 .segment "BSS"
 
-; right  : left   : down   : up     : start  : select : Y      : B
 ; dummy  : dummy  : dummy  : dummy  : R      : L      : X      : A
+; right  : left   : down   : up     : start  : select : Y      : B
 
 padPushData1:
     .res    2, $00
@@ -71,27 +73,10 @@ padReleaseData4:
 .endproc
 
 .macro m_readPad padNumber
-    ; padNumber = padNumber << 1;
-    ; // if pad data still reading we wait
-    ; while((*(byte*)0x4212 & 0x01)) { }
-    ; test = (word) *(byte*)0x4218+padNumber << 8;
-    ; test |= (word) *(byte*)0x4219+padNumber;
-    ; status = (padStatus *) &test;
-    ; return *status;
 
-; CPU_HVBJOY      = $4212
-; CPU_STDCNTRL1L  = $4218
-; CPU_STDCNTRL1H  = $4219
-; CPU_STDCNTRL2L  = $421A
-; CPU_STDCNTRL2H  = $421B
-; CPU_STDCNTRL3L  = $421C
-; CPU_STDCNTRL3H  = $421D
-; CPU_STDCNTRL4L  = $421E
-; CPU_STDCNTRL4H  = $421F
-
-    php
     pha
     phx
+    php
 
     rep #$10
     sep #$20
@@ -103,40 +88,35 @@ waitForPadReady:
     bit #$01
     beq waitForPadReady
 
-    rep #$30
-    .A16
-    .I16
-
     ldx padPushData1            ; save old pushed data to X
     stx padReleaseData1         ; and put it in place of released data
 
-    lda CPU_STDCNTRL1H+((padNumber-1)*2)    ; read pad and put in memory
+    lda CPU_STDCNTRL1L+((padNumber-1)*2)    ; read pad and put in memory
     sta padPushData1
+    lda CPU_STDCNTRL1H+((padNumber-1)*2)    ; read pad and put in memory
+    sta padPushData1+1
 
     ; TODO bit xor for release data
 
+    plp
     plx
     pla
-    plp
+    rts
 
 .endmacro
 
 .proc readPad1
     m_readPad(1)
-    rts
 .endproc
 
 .proc readPad2
     m_readPad(2)
-    rts
 .endproc
 
 .proc readPad3
     m_readPad(3)
-    rts
 .endproc
 
 .proc readPad4
     m_readPad(4)
-    rts
 .endproc

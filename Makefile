@@ -10,6 +10,6 @@ sfclib:
 	/Users/lint/Dropbox/Snes/Projects/Snes_Tools/cc65/bin/ar65 a bin/sfc.lib src/crt0.o src/init.o src/string.o src/debug.o src/pad.o src/event.o
 
 samples:
-	@$(MAKE) -C samples@
+	@$(MAKE) -C samples $@
 
 

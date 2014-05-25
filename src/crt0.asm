@@ -142,7 +142,7 @@ CHEKSUM:            .byte   $00, $00
 N_COP:   .word   dirq
 N_BRK:   .word   dirq
 N_ABORT: .word   dirq
-N_NMI:   .word   irq
+N_NMI:   .word   nmi
 N_RSRVD: .word   dirq
 N_IRQ:   .word   irq
 
