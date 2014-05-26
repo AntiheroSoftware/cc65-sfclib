@@ -7,7 +7,9 @@
 
             .setcpu     "65816"
 
-	        .export		itoa, utoa, stringBuffer
+	        .export		itoa
+	        .export		hextoa
+	        .export     stringBuffer
 
 .segment	"RODATA"
 
@@ -47,29 +49,6 @@ sreg:
     .res 2
 
 .segment "CODE"
-
-; reference code TODO remove
-;
-; char* itoa (int value, char* s, int radix);
-; char* utoa (unsigned value, char* s, int radix);
-;
-; dopop:
-;     sta     tmp1            ; will loose high byte
-;     ldy     #0
-;     lda     (sp),y
-;     sta     ptr2
-;     sta     ptr3
-;     iny
-;     lda     (sp),y
-;     sta     ptr2+1
-;     sta     ptr3+1
-;     iny
-;     lda     (sp),y
-;     sta     sreg
-;     iny
-;     lda     (sp),y
-;     sta     sreg+1
-;     jmp     addysp1         ; Bump stack pointer
 
 ; tmp1 contains radix
 ; ptr2 and ptr3 contains string buffer address
@@ -153,6 +132,8 @@ utoa:
     lda     #$00
     pha                     ; sentinel (end of string)
 
+    ldx     #$0004
+
 ; Divide sreg/tmp1 -> sreg, remainder in a
 
 L5:
@@ -173,6 +154,7 @@ L7:
     tay                     ; get remainder into y
     lda     __hextab,y      ; get hex character
     pha                     ; save char value on stack
+    dex
 
     lda     sreg
     ora     sreg+1
@@ -181,6 +163,12 @@ L7:
 ; Get the characters from the stack into the string
 
     ldy     #0
+    lda     __hextab,y
+pad:
+    pha
+    dex
+    bne     pad
+
 L9:
     pla
     sta     stringBuffer,y
@@ -192,4 +180,97 @@ L9:
 
 L10:
     plp
+    rts
+
+;******************************************************************************
+;*** hextoa *******************************************************************
+;******************************************************************************
+;*** A contains value                                                       ***
+;*** result goes into 'stringBuffer'                                        ***
+;******************************************************************************
+
+hextoa:
+    phx
+    phy
+    php
+
+    .A16
+    .I8
+    rep     #$20
+    sep     #$10
+
+    ldy     #$00
+    phy                     ; push sentinel (end of string)
+
+;*** LOOP 4 START ***
+    pha                     ; save value in stack
+    and     #$000f
+    tax                     ; transfer char index into X
+    pla                     ; get back original A value
+    lsr     a               ; right shift value of A (4)
+    lsr     a
+    lsr     a
+    lsr     a
+
+    ldy     __hextab,x      ; get hex character
+    phy                     ; save char value on stack
+;*** LOOP 4 END ***
+
+;*** LOOP 4 START ***
+    pha                     ; save value in stack
+    and     #$000f
+    tax                     ; transfer char index into X
+    pla                     ; get back original A value
+    lsr     a               ; right shift value of A (4)
+    lsr     a
+    lsr     a
+    lsr     a
+
+    ldy     __hextab,x      ; get hex character
+    phy                     ; save char value on stack
+;*** LOOP 4 END ***
+
+;*** LOOP 4 START ***
+    pha                     ; save value in stack
+    and     #$000f
+    tax                     ; transfer char index into X
+    pla                     ; get back original A value
+    lsr     a               ; right shift value of A (4)
+    lsr     a
+    lsr     a
+    lsr     a
+
+    ldy     __hextab,x      ; get hex character
+    phy                     ; save char value on stack
+;*** LOOP 4 END ***
+
+;*** LOOP 4 START ***
+    pha                     ; save value in stack
+    and     #$000f
+    tax                     ; transfer char index into X
+    pla                     ; get back original A value
+    lsr     a               ; right shift value of A (4)
+    lsr     a
+    lsr     a
+    lsr     a
+
+    ldy     __hextab,x      ; get hex character
+    phy                     ; save char value on stack
+;*** LOOP 4 END ***
+
+    .A8
+    sep     #$20
+
+    ldx     #$00
+reverse:
+    pla
+    sta     stringBuffer,x
+    beq     end             ; jump if sentinel
+    inx
+    bne     reverse         ; jump always
+
+end:
+    plp
+    ply
+    plx
     rts

@@ -80,23 +80,13 @@ irq:
     rti
 
 nmi:
-    .A16
-    .I16
-    rep #$30
     pha
     phx
     phy
     phd
     phb
-    lda	#$0000
-    sep #$30        ; X,Y,A are 8 bit numbers
-    .A8
-    .I8
-    lda CPU_RDNMI   ; Read NMI
-    .A16
-    .I16
-    rep	#$30
     jsr	_NMIHandler
+    lda CPU_RDNMI   ; Read NMI
     plb
     pld
     ply
