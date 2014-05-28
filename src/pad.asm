@@ -11,6 +11,9 @@
             .export     readPad1, readPad2, readPad3, readPad4
 
             .export     padPushData1, padReleaseData1
+            .export     padPushData2, padReleaseData2
+            .export     padPushData3, padReleaseData3
+            .export     padPushData4, padReleaseData4
 
 .segment "BSS"
 
@@ -96,7 +99,14 @@ waitForPadReady:
     lda CPU_STDCNTRL1H+((padNumber-1)*2)    ; read pad and put in memory
     sta padPushData1+1
 
-    ; TODO bit xor for release data
+    rep #$20
+    .A16
+
+    ; Calculate release data
+    lda padPushData1
+    eor #$FFFF
+    and padReleaseData1
+    sta padReleaseData1
 
     plp
     plx

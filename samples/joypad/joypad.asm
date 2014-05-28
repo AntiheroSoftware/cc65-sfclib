@@ -35,6 +35,33 @@
 titleString:
     .asciiz "Pad reader by Antihero Software"
     .byte $00
+pad1DataString:
+    .asciiz "Joypad 1 data"
+    .byte $00
+direction1String:
+    .asciiz "PAD => Right:  Left: "
+    .byte $00
+direction2String:
+    .asciiz "       Down:   Up: "
+    .byte $00
+buttons1String:
+    .asciiz "BUTTONS => A:  B:  X:  Y: "
+    .byte $00
+buttons2String:
+    .asciiz "           L:  R: "
+    .byte $00
+buttons3String:
+    .asciiz "           START:  SELECT: "
+    .byte $00
+pushStateString:
+    .asciiz "*"
+    .byte $00
+releaseStateString:
+    .asciiz "+"
+    .byte $00
+noStateString:
+    .asciiz " "
+    .byte $00
 
 .segment "CODE"
 
@@ -50,6 +77,42 @@ titleString:
     lda #titleString
     jsr writeStringDebug
 
+    ldx #$0000
+    ldy #$0002
+    jsr setCursorDebug
+    lda #pad1DataString
+    jsr writeStringDebug
+
+    ldx #$0000
+    ldy #$0004
+    jsr setCursorDebug
+    lda #direction1String
+    jsr writeStringDebug
+
+    ldx #$0000
+    ldy #$0005
+    jsr setCursorDebug
+    lda #direction2String
+    jsr writeStringDebug
+
+    ldx #$0000
+    ldy #$0007
+    jsr setCursorDebug
+    lda #buttons1String
+    jsr writeStringDebug
+
+    ldx #$0000
+    ldy #$0008
+    jsr setCursorDebug
+    lda #buttons2String
+    jsr writeStringDebug
+
+    ldx #$0000
+    ldy #$0009
+    jsr setCursorDebug
+    lda #buttons3String
+    jsr writeStringDebug
+
     jsr displayDebug
 
 infiniteMainLoop:
@@ -58,7 +121,17 @@ infiniteMainLoop:
     jsr hextoa
 
     ldx #$0000
-    ldy #$0002
+    ldy #$000B
+    jsr setCursorDebug
+
+    lda #stringBuffer
+    jsr writeStringDebug
+
+    lda padReleaseData1
+    jsr hextoa
+
+    ldx #$0000
+    ldy #$000C
     jsr setCursorDebug
 
     lda #stringBuffer
