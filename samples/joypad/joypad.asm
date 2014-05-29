@@ -65,6 +65,31 @@ noStateString:
 
 .segment "CODE"
 
+.macro checkPad mask,xPos,yPos
+
+:   lda padPushData1
+    ldx #xPos
+    ldy #yPos
+    jsr setCursorDebug
+    bit #mask
+    beq :+
+    lda #pushStateString
+    jsr writeStringDebug
+    jmp :+++
+
+:   lda padReleaseData1
+    bit #mask
+    beq :+
+    lda #releaseStateString
+    jsr writeStringDebug
+    jmp :++
+
+:   lda #noStateString
+    jsr writeStringDebug
+:
+
+.endmacro
+
 .proc _main
 
     jsr initDebug   ; init debug data for screen and debug vars
@@ -137,9 +162,22 @@ infiniteMainLoop:
     lda #stringBuffer
     jsr writeStringDebug
 
+    checkPad PAD_RIGHT, $000D, $0004
+    checkPad PAD_LEFT, $0014, $0004
+    checkPad PAD_DOWN, $000C, $0005
+    checkPad PAD_UP, $0012, $0005
+    checkPad PAD_A, $000D, $0007
+    checkPad PAD_B, $0011, $0007
+    checkPad PAD_X, $0015, $0007
+    checkPad PAD_Y, $0019, $0007
+    checkPad PAD_L, $000D, $0008
+    checkPad PAD_R, $0011, $0008
+    checkPad PAD_START, $0011, $0009
+    checkPad PAD_SELECT, $001A, $0009
+
     wai
 
-    bra infiniteMainLoop
+    jmp infiniteMainLoop
 
 .endproc
 

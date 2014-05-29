@@ -94,9 +94,9 @@ waitForPadReady:
     ldx padPushData1            ; save old pushed data to X
     stx padReleaseData1         ; and put it in place of released data
 
-    lda CPU_STDCNTRL1L+((padNumber-1)*2)    ; read pad and put in memory
-    sta padPushData1
     lda CPU_STDCNTRL1H+((padNumber-1)*2)    ; read pad and put in memory
+    sta padPushData1
+    lda CPU_STDCNTRL1L+((padNumber-1)*2)    ; read pad and put in memory
     sta padPushData1+1
 
     rep #$20
