@@ -25,11 +25,6 @@
             .export     _NMIHandler
             .export     _preInit
 
-.segment "BSS"
-
-;stringBuffer:
-;    .res    9, $00
-
 .segment "RODATA"
 
 titleString:
@@ -67,7 +62,7 @@ noStateString:
 
 .macro checkPad mask,xPos,yPos
 
-:   lda padPushData1
+    lda padPushData1
     ldx #xPos
     ldy #yPos
     jsr setCursorDebug
