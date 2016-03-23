@@ -14,13 +14,13 @@
             .export     _NMIHandler
             .export     _preInit
 
-            .import     newinitEvents
-            .import     newaddEvent
-            .import     newremoveEvent
-            .import     newprocessEvents
+            .import     optinitEvents
+            .import     optaddEvent
+            .import     optremoveEvent
+            .import     optprocessEvents
 
 SPLASH_TILE_ADDR	= $2000
-SPLASH_MAP_ADDR  = $1000
+SPLASH_MAP_ADDR     = $1000
 
 .segment "RODATA"
 
@@ -42,11 +42,12 @@ splashPal:
     .A8
     .I16
 
-    jsr newinitEvents
+    jsr optinitEvents
 
-    lda #$12
-    ldx #$3456
-    jsr newaddEvent
+    lda #.BANKBYTE(fadeInEvent)
+    ldx #.LOWORD(fadeInEvent)
+    ldy #$0000
+    jsr optaddEvent
 
     setINIDSP $80   ; Enable forced VBlank during DMA transfer
 
@@ -62,8 +63,6 @@ splashPal:
     CGRAMLoad splashPal, $00, $20
     VRAMLoad splashMap, SPLASH_MAP_ADDR, $800
 
-    setINIDSP $0F   ; Enable screen full brightness
-
     lda #$01        ; setBGMODE(0, 0, 1);
     sta $2105
 
@@ -73,8 +72,13 @@ splashPal:
     lda $00         ; ???
     sta $212d
 
+    setINIDSP $00   ; Disable screen no brightness
+
+    lda #$80        ; Enable NMI
+    sta CPU_NMITIMEN
+
 infiniteMainLoop:
-    bra infiniteMainLoop
+    jmp infiniteMainLoop
 
 .endproc
 
@@ -83,9 +87,54 @@ infiniteMainLoop:
 .endproc
 
 .proc _NMIHandler
+    jsr optprocessEvents
     rts
 .endproc
 
 .proc _preInit
     rts
+.endproc
+
+;******************************************************************************
+;*** Events *******************************************************************
+;******************************************************************************
+
+.segment "CODE"
+
+.proc fadeInEvent
+
+    phx
+    phy
+    php
+
+    tax                     ; put A reg containing counter in X reg
+
+    rep #$10
+    sep #$20
+    .A8
+    .I16
+
+    txa
+    sta PPU_INIDSP
+
+    cmp #$0F
+    bne continueFadeIn
+
+    lda #$00
+    bra fadeInEventReturn
+
+continueFadeIn:
+    lda #$01
+
+fadeInEventReturn:
+
+    plp
+    ply
+    plx
+
+    rtl
+.endproc
+
+.proc fadeOutEvent
+    rtl
 .endproc

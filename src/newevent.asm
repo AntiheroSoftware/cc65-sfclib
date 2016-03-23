@@ -9,14 +9,19 @@
 
             .export     newinitEvents
             .export     newaddEvent
-            .export     newremoveEvents
+            .export     newremoveEvent
             .export     newprocessEvents
 
 EVENT_SIZE = 4
+EVENT_COUNTER_SIZE = 1
 EVENT_NUMBER = 10
 EVENT_TABLE_SIZE = EVENT_SIZE * EVENT_NUMBER
+EVENT_COUNTER_TABLE_SIZE = EVENT_COUNTER_SIZE * EVENT_NUMBER
 
 .segment "BSS"
+
+eventsCounterTable:
+    .res    EVENT_COUNTER_TABLE_SIZE
 
 eventsTable:
     .res    EVENT_TABLE_SIZE
@@ -56,6 +61,7 @@ loopInitCallback:
 ;******************************************************************************
 ;*** A contains bank                                                        ***
 ;*** X contains ptr                                                         ***
+;*** Y contains slot address                                                ***
 ;******************************************************************************
 
 .proc newaddEvent
@@ -69,6 +75,7 @@ loopInitCallback:
     .A8
     .I16
 
+    phy             ; push Y with slot address for later
     txy
 
     ; find first available slot
@@ -94,8 +101,15 @@ foundAvailableSlot:
     rep #$20
     .A16
 
+    ; TODO handle bank
+
     tya
     sta eventsTable,x
+
+    dex                 ; get initital slot address
+    txa
+    plx                 ; get back slot address
+    sta $0000,x
 
 endSearchAvailableSlot:
 
@@ -106,13 +120,85 @@ endSearchAvailableSlot:
     rts
 .endproc
 
+;******************************************************************************
+;*** newprocessEvents *********************************************************
+;******************************************************************************
+;*** No Parameters                                                          ***
+;******************************************************************************
+
 .proc newprocessEvents
+    jsr _incrementCounters
     jsr eventsTable
     rts
 .endproc
 
-.proc newremoveEvents
-    lda 4,S
+;******************************************************************************
+;*** newremoveEvent ***********************************************************
+;******************************************************************************
+;*** A contains slot address                                                ***
+;******************************************************************************
 
+.proc newremoveEvent
+    phx
+    php
+
+    tax
+
+    rep #$10
+    sep #$20
+    .A8
+    .I16
+
+    lda #$EA        ; "NOP" instruction opcode
+    sta eventsTable,x
+    inx
+    sta eventsTable,x
+    inx
+    sta eventsTable,x
+
+    plp
+    plx
+    rts
+.endproc
+
+;******************************************************************************
+;*** _incrementCounters *******************************************************
+;******************************************************************************
+;*** No Parameters                                                          ***
+;******************************************************************************
+
+.proc _incrementCounters
+    phy
+    phx
+    pha
+    php
+
+    ldx #$0000
+    ldy #$0000
+loopSearchActiveSlot:
+    lda eventsTable,x
+    cmp #$EA        ; Check if there is a "NOP" instruction
+    beq lookNextActiveOne
+
+    lda eventsCounterTable,y
+    inc
+    sta eventsCounterTable,y
+
+lookNextActiveOne:
+
+    cpy #EVENT_COUNTER_TABLE_SIZE
+    beq endSearchActiveSlot
+
+    inx
+    inx
+    inx
+    iny
+    bra loopSearchActiveSlot
+
+endSearchActiveSlot:
+    plp
+    pla
+    plx
+    ply
     rts
 .endproc
