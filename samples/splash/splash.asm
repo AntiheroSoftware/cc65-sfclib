@@ -14,10 +14,10 @@
             .export     _NMIHandler
             .export     _preInit
 
-            .import     optinitEvents
-            .import     optaddEvent
-            .import     optremoveEvent
-            .import     optprocessEvents
+            .import     initEvents
+            .import     addEvent
+            .import     removeEvent
+            .import     processEvents
 
 SPLASH_TILE_ADDR	= $2000
 SPLASH_MAP_ADDR     = $1000
@@ -42,12 +42,12 @@ splashPal:
     .A8
     .I16
 
-    jsr optinitEvents
+    jsr initEvents
 
     lda #.BANKBYTE(fadeInEvent)
     ldx #.LOWORD(fadeInEvent)
     ldy #$0000
-    jsr optaddEvent
+    jsr addEvent
 
     setINIDSP $80   ; Enable forced VBlank during DMA transfer
 
@@ -87,7 +87,7 @@ infiniteMainLoop:
 .endproc
 
 .proc _NMIHandler
-    jsr optprocessEvents
+    jsr processEvents
     rts
 .endproc
 
