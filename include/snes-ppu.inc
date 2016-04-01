@@ -100,7 +100,7 @@
     setVMADD vramDst
     setDMAParam $01
     setDMABBus $18
-    setDMA $00, src, size
+    setDMA .BANKBYTE(src), src, size
     startDMA $01
 .endmacro
 
@@ -110,6 +110,6 @@
     setCGADD cgramDst
     setDMAParam $00
     setDMABBus $22
-    setDMA $00, src, size
+    setDMA .BANKBYTE(src), src, size
     startDMA $01
 .endmacro
