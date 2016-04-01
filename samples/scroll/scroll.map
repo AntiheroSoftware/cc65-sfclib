@@ -1,0 +1,63 @@
+Modules list:
+-------------
+scroll.o:
+    CODE              Offs=000000  Size=0000CB  Align=00001  Fill=0000
+    BANK1             Offs=000000  Size=005000  Align=00001  Fill=0000
+    BANK2             Offs=000000  Size=003300  Align=00001  Fill=0000
+/Users/lint/Dropbox/Snes/projects/Snes_Tools/cc65-sfclib/bin/sfc.lib(crt0.o):
+    STARTUP           Offs=000000  Size=000039  Align=00001  Fill=0000
+    ROMINFO           Offs=000000  Size=000030  Align=00001  Fill=0000
+    VECTORS           Offs=000000  Size=00001C  Align=00001  Fill=0000
+/Users/lint/Dropbox/Snes/projects/Snes_Tools/cc65-sfclib/bin/sfc.lib(init.o):
+    CODE              Offs=0000CB  Size=0000F3  Align=00001  Fill=0000
+/Users/lint/Dropbox/Snes/projects/Snes_Tools/cc65-sfclib/bin/sfc.lib(event.o):
+    CODE              Offs=0001BE  Size=00009F  Align=00001  Fill=0000
+    BSS               Offs=000000  Size=000081  Align=00001  Fill=0000
+
+
+Segment list:
+-------------
+Name                   Start     End    Size  Align
+----------------------------------------------------
+BSS                   000200  000280  000081  00001
+STARTUP               008000  008038  000039  00001
+CODE                  008039  008295  00025D  00001
+ROMINFO               00FFB0  00FFDF  000030  00001
+VECTORS               00FFE4  00FFFF  00001C  00001
+BANK1                 018000  01CFFF  005000  00001
+BANK2                 028000  02B2FF  003300  00001
+
+
+Exports list by name:
+---------------------
+_IRQHandler               0080FE RLA    _NMIHandler               0080FF RLA    
+__STARTUP__               000001 REA    _main                     008039 RLA    
+_preInit                  008103 RLA    initSnes                  008104 RLA    
+processEvents             008246 RLA    
+
+
+Exports list by value:
+----------------------
+__STARTUP__               000001 REA    _main                     008039 RLA    
+_IRQHandler               0080FE RLA    _NMIHandler               0080FF RLA    
+_preInit                  008103 RLA    initSnes                  008104 RLA    
+processEvents             008246 RLA    
+
+
+Imports list:
+-------------
+_IRQHandler (scroll.o):
+    crt0.o                    src/crt0.asm(13)
+_NMIHandler (scroll.o):
+    crt0.o                    src/crt0.asm(13)
+__STARTUP__ (crt0.o):
+    scroll.o                  scroll.asm(10)
+_main (scroll.o):
+    crt0.o                    src/crt0.asm(11)
+_preInit (scroll.o):
+    crt0.o                    src/crt0.asm(12)
+initSnes (init.o):
+    crt0.o                    src/crt0.asm(15)
+processEvents (event.o):
+    scroll.o                  scroll.asm(20)
+

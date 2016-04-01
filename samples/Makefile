@@ -5,3 +5,4 @@ all clean:
 	@$(MAKE) -C hello $@
 	@$(MAKE) -C joypad $@
 	@$(MAKE) -C splash $@
+	@$(MAKE) -C scroll $@
