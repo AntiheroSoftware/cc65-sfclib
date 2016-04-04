@@ -22,8 +22,8 @@ EVENT_TABLE_SIZE = EVENT_SIZE * EVENT_NUMBER
 
 ; active (byte)
 ; counter (word)
-; long jump instruction
-; rts opcode
+; long jump instruction (4 bytes)
+; rts opcode (byte)
 
 .segment "BSS"
 
@@ -162,6 +162,7 @@ loopProcessEvents:
     txa
     lsr
     jsr removeEvent
+    jmp skipToNextEvent
 
 noEventRemoval:
 
@@ -169,7 +170,9 @@ noEventRemoval:
     rep #$20
     .A16
     tya
-    sta eventsTable+1,x       ; increment counter in event table
+    sta eventsTable+1,x     ; increment counter in event table
+
+    and #$00ff
     sep #$20
     .A8
 
