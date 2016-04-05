@@ -86,6 +86,13 @@
     sta		PPU_VMADDH
 .endmacro
 
+.macro setVMADDFromPointer vramDst
+    lda		vramDst
+    sta		PPU_VMADDL
+    lda		vramDst+1
+    sta		PPU_VMADDH
+.endmacro
+
 ; void setCGADD(byte cgramDst)
 
 .macro setCGADD cgramDst
@@ -95,12 +102,24 @@
 
 ; VRAMLoad((long) src, (word) vramDst, (word) size)
 
+; TODO make an unique function that detects if a pointer of not ...
+; dunno if possible with CA65
+
 .macro VRAMLoad src, vramDst, size
     setVMAINC $80
     setVMADD vramDst
     setDMAParam $01
     setDMABBus $18
     setDMA .BANKBYTE(src), src, size
+    startDMA $01
+.endmacro
+
+.macro VRAMLoadFromPointer src, vramDst, size
+    setVMAINC $80
+    setVMADDFromPointer vramDst
+    setDMAParam $01
+    setDMABBus $18
+    setDMAFromPointer src, size
     startDMA $01
 .endmacro
 

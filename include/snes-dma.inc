@@ -33,6 +33,19 @@
     sta     DMA_SIZE0H
 .endmacro
 
+.macro setDMAFromPointer src, size
+    lda     src
+    sta     DMA_ABUS0L
+    lda     src+1
+    sta     DMA_ABUS0H
+    lda     src+2
+    sta     DMA_ABUS0B
+    lda		size
+    sta		DMA_SIZE0L
+    lda		size+1
+    sta     DMA_SIZE0H
+.endmacro
+
 .macro startDMA channels
     lda		#channels
     sta		CPU_MDMAEN
