@@ -7,8 +7,8 @@ scroll.o:
     DATA              Offs=000000  Size=000000  Align=00001  Fill=0000
     ZEROPAGE          Offs=000000  Size=000000  Align=00001  Fill=0000
     NULL              Offs=000000  Size=000000  Align=00001  Fill=0000
-    BANK1             Offs=000000  Size=005000  Align=00001  Fill=0000
-    BANK2             Offs=000000  Size=003300  Align=00001  Fill=0000
+    BANK1             Offs=000000  Size=0022E0  Align=00001  Fill=0000
+    BANK2             Offs=000000  Size=0031C0  Align=00001  Fill=0000
 /Users/lint/Dropbox/Snes/projects/Snes_Tools/cc65-sfclib/bin/sfc.lib(crt0.o):
     CODE              Offs=000321  Size=000000  Align=00001  Fill=0000
     RODATA            Offs=000000  Size=000000  Align=00001  Fill=0000
@@ -48,8 +48,8 @@ CODE                  008039  0084F1  0004B9  00001
 RODATA                0084F2  0084F2  000000  00001
 ROMINFO               00FFB0  00FFDF  000030  00001
 VECTORS               00FFE4  00FFFF  00001C  00001
-BANK1                 018000  01CFFF  005000  00001
-BANK2                 028000  02B2FF  003300  00001
+BANK1                 018000  01A2DF  0022E0  00001
+BANK2                 028000  02B1BF  0031C0  00001
 
 
 Exports list by name:

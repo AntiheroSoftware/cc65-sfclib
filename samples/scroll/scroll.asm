@@ -56,7 +56,12 @@ levelMap6 := levelMap+($0700*5)
 levelMap7 := levelMap+($0700*6)
 
 levelPal:
-    .incbin "ressource/level.clr"
+    .incbin "ressource/level0.pal"
+    .incbin "ressource/level1.pal"
+    .incbin "ressource/level2.pal"
+    .incbin "ressource/level3.pal"
+    .incbin "ressource/level4.pal"
+    .incbin "ressource/level5.pal"
 
 .segment "CODE"
 
@@ -77,12 +82,12 @@ levelPal:
     VRAMLoad levelMapInitial, LEVEL_MAP_ADDR, $0700             ; load map
     VRAMLoad levelMapInitialAlt, LEVEL_MAP_ALT_ADDR, $0700
 
-    CGRAMLoad levelPal, $00, $40                                ; load palettes
+    CGRAMLoad levelPal, $00, $C0                                ; load 5 palettes
 
-    lda #$03                        ; set BG mode 3
+    lda #$02                        ; set BG mode 2
     sta $2105
 
-    lda $03                         ; Plane 0 (bit one) , plane 1 (bit two) enable register
+    lda $01                         ; Plane 0 (bit one) enable register
     sta $212c
 
     lda $00                         ; All subPlane disable
