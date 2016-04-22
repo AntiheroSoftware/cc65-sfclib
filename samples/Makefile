@@ -8,3 +8,4 @@ all clean:
 	@$(MAKE) -C scroll $@
 	@$(MAKE) -C dual $@
 	@$(MAKE) -C hdma $@
+	@$(MAKE) -C sprite $@
