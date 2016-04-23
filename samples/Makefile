@@ -9,3 +9,4 @@ all clean:
 	@$(MAKE) -C dual $@
 	@$(MAKE) -C hdma $@
 	@$(MAKE) -C sprite $@
+	@$(MAKE) -C spriteHdmaTrick $@
