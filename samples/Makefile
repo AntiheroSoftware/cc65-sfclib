@@ -6,3 +6,7 @@ all clean:
 	@$(MAKE) -C joypad $@
 	@$(MAKE) -C splash $@
 	@$(MAKE) -C scroll $@
+	@$(MAKE) -C dual $@
+	@$(MAKE) -C hdma $@
+	@$(MAKE) -C sprite $@
+	@$(MAKE) -C spriteHdmaTrick $@

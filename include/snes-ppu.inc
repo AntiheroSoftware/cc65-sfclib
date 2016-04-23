@@ -19,18 +19,14 @@
 ; void setBG1SC(word vramDst, byte bgSize)
 
 .macro setBG1SC vramDst, bgSize
-    vramDstTmp = >vramDst
-    bgSizeTmp = bgSize & $03
-    lda #vramDstTmp | bgSizeTmp
+    lda #>vramDst | (bgSize & $03)
     sta PPU_BG1SC
 .endMacro
 
 ; void setBG2SC(word vramDst, byte bgSize)
 
 .macro setBG2SC vramDst, bgSize
-    vramDstTmp = >vramDst
-    bgSizeTmp = bgSize & $03
-    lda #vramDstTmp | bgSizeTmp
+    lda #>vramDst | (bgSize & $03)
     sta PPU_BG2SC
 .endMacro
 
