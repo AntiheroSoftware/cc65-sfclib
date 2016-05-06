@@ -92,7 +92,7 @@ scorePal:
     setBG12NBA LEVEL_TILE_ADDR, SCORE_TILE_ADDR
 
     ; level tiles
-    VRAMLoad levelTiles, LEVEL_TILE_ADDR, $5000                 ; load tiles
+    VRAMLoad levelTiles, LEVEL_TILE_ADDR, $22e0                 ; load tiles
     VRAMLoad levelMapInitial, LEVEL_MAP_ADDR, $0700             ; load map
     VRAMLoad levelMapInitialAlt, LEVEL_MAP_ALT_ADDR, $0700      ; load second map
     CGRAMLoad levelPal, $00, $C0                                ; load 5 palettes
@@ -119,12 +119,12 @@ scorePal:
     setINIDSP $0f                   ; Disable forced VBlank + full brightness
 
     jsr initEvents
-    jsr scrollInitEvent
+    ;jsr scrollInitEvent
 
-    lda #.BANKBYTE(scrollEvent)
-    ldx #.LOWORD(scrollEvent)
-    ldy #$0000
-    jsr addEvent
+    ;lda #.BANKBYTE(scrollEvent)
+    ;ldx #.LOWORD(scrollEvent)
+    ;ldy #$0000
+    ;jsr addEvent
 
     lda #$80                        ; Enable NMI
     sta CPU_NMITIMEN

@@ -51,9 +51,10 @@
 ; void setBG12NBA(word vramDstBG1, word vramDstBG2)
 
 .macro setBG12NBA vramDstBG1, vramDstBG2
-    vramDstBG1Tmp = >vramDstBG1 >> 4
-    vramDstBG2Tmp = >vramDstBG2
-    lda #vramDstBG1Tmp | vramDstBG2Tmp
+    ;vramDstBG1Tmp = >vramDstBG1 >> 4
+    ;vramDstBG2Tmp = >vramDstBG2
+    ;lda #vramDstBG1Tmp | vramDstBG2Tmp
+    lda #(>vramDstBG1 >> 4) | >vramDstBG2
     sta PPU_BG12NBA
 .endmacro
 

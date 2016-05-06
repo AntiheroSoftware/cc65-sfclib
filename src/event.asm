@@ -12,6 +12,8 @@
             .export     removeEvent
             .export     processEvents
 
+            .export     eventsTable
+
 EVENT_SIZE = 8
 EVENT_NUMBER = 16
 EVENT_TABLE_SIZE = EVENT_SIZE * EVENT_NUMBER
@@ -204,6 +206,10 @@ skipToNextEvent:
     phx
     php
 
+    rep #$20
+	.A16
+
+	and #$000f
     asl
     tax
 

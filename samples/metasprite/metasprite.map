@@ -1,0 +1,145 @@
+Modules list:
+-------------
+metasprite.o:
+    CODE              Offs=000000  Size=0003DB  Align=00001  Fill=0000
+    RODATA            Offs=000000  Size=000048  Align=00001  Fill=0000
+    BSS               Offs=000000  Size=000002  Align=00001  Fill=0000
+    DATA              Offs=000000  Size=000000  Align=00001  Fill=0000
+    ZEROPAGE          Offs=000000  Size=000020  Align=00001  Fill=0000
+    NULL              Offs=000000  Size=000000  Align=00001  Fill=0000
+    BANK1             Offs=000000  Size=002F00  Align=00100  Fill=0000
+    BANK2             Offs=000000  Size=003300  Align=00100  Fill=0000
+    BANK3             Offs=000000  Size=008000  Align=00001  Fill=0000
+/Users/lint/Dropbox/Snes/projects/Snes_Tools/cc65-sfclib/bin/sfc.lib(crt0.o):
+    CODE              Offs=0003DB  Size=000000  Align=00001  Fill=0000
+    RODATA            Offs=000048  Size=000000  Align=00001  Fill=0000
+    BSS               Offs=000002  Size=000000  Align=00001  Fill=0000
+    DATA              Offs=000000  Size=000000  Align=00001  Fill=0000
+    ZEROPAGE          Offs=000020  Size=000000  Align=00001  Fill=0000
+    NULL              Offs=000000  Size=000000  Align=00001  Fill=0000
+    STARTUP           Offs=000000  Size=000039  Align=00001  Fill=0000
+    ROMINFO           Offs=000000  Size=000030  Align=00001  Fill=0000
+    VECTORS           Offs=000000  Size=00001C  Align=00001  Fill=0000
+/Users/lint/Dropbox/Snes/projects/Snes_Tools/cc65-sfclib/bin/sfc.lib(init.o):
+    CODE              Offs=0003DB  Size=0000F3  Align=00001  Fill=0000
+    RODATA            Offs=000048  Size=000000  Align=00001  Fill=0000
+    BSS               Offs=000002  Size=000000  Align=00001  Fill=0000
+    DATA              Offs=000000  Size=000000  Align=00001  Fill=0000
+    ZEROPAGE          Offs=000020  Size=000000  Align=00001  Fill=0000
+    NULL              Offs=000000  Size=000000  Align=00001  Fill=0000
+/Users/lint/Dropbox/Snes/projects/Snes_Tools/cc65-sfclib/bin/sfc.lib(event.o):
+    CODE              Offs=0004CE  Size=0000A5  Align=00001  Fill=0000
+    RODATA            Offs=000048  Size=000000  Align=00001  Fill=0000
+    BSS               Offs=000002  Size=000081  Align=00001  Fill=0000
+    DATA              Offs=000000  Size=000000  Align=00001  Fill=0000
+    ZEROPAGE          Offs=000020  Size=000000  Align=00001  Fill=0000
+    NULL              Offs=000000  Size=000000  Align=00001  Fill=0000
+/Users/lint/Dropbox/Snes/projects/Snes_Tools/cc65-sfclib/bin/sfc.lib(sprite.o):
+    CODE              Offs=000573  Size=000055  Align=00001  Fill=0000
+    RODATA            Offs=000048  Size=000000  Align=00001  Fill=0000
+    BSS               Offs=000083  Size=000220  Align=00001  Fill=0000
+    DATA              Offs=000000  Size=000000  Align=00001  Fill=0000
+    ZEROPAGE          Offs=000020  Size=000000  Align=00001  Fill=0000
+    NULL              Offs=000000  Size=000000  Align=00001  Fill=0000
+
+
+Segment list:
+-------------
+Name                   Start     End    Size  Align
+----------------------------------------------------
+DATA                  000000  000000  000000  00001
+NULL                  000000  000000  000000  00001
+ZEROPAGE              000000  00001F  000020  00001
+BSS                   000200  0004A2  0002A3  00001
+STARTUP               008000  008038  000039  00001
+CODE                  008039  008600  0005C8  00001
+RODATA                008601  008648  000048  00001
+ROMINFO               00FFB0  00FFDF  000030  00001
+VECTORS               00FFE4  00FFFF  00001C  00001
+BANK1                 018000  01AEFF  002F00  00100
+BANK2                 028000  02B2FF  003300  00100
+BANK3                 038000  03FFFF  008000  00001
+
+
+Exports list by name:
+---------------------
+_IRQHandler               008318 RLA    _NMIHandler               008319 RLA    
+__ROMINFO_FILEOFFS__      007FB0  EA    __ROMINFO_LAST__          00FFE0  LA    
+__ROMINFO_SIZE__          000034  EA    __ROMINFO_START__         00FFB0  LA    
+__STARTUP__               000001 REA    __VECTORS_FILEOFFS__      007FE4  EA    
+__VECTORS_LAST__          010000  LA    __VECTORS_SIZE__          00001C  EA    
+__VECTORS_START__         00FFE4  LA    _main                     008039 RLA    
+_preInit                  00831D RLA    addEvent                  00852E RLA    
+animFrameIndex            000200  LA    animationFrameCounter     000201  LA    
+clearOAM                  0085AC RLA    copyOAM                   0085D6 RLA    
+copyOAMEvent              008408  LA    grabbingAnim              0083B4  LA    
+grabbingWalk              00863C  LA    hdmaInit                  00831E  LA    
+hdmaMem                   008601  LA    initEvents                008507 RLA    
+initSnes                  008414 RLA    oamData                   000283 RLA    
+processEvents             008556 RLA    removeEvent               00859A  LA    
+setOam                    00833F  LA    
+
+
+Exports list by value:
+----------------------
+__STARTUP__               000001 REA    __VECTORS_SIZE__          00001C  EA    
+__ROMINFO_SIZE__          000034  EA    animFrameIndex            000200  LA    
+animationFrameCounter     000201  LA    oamData                   000283 RLA    
+__ROMINFO_FILEOFFS__      007FB0  EA    __VECTORS_FILEOFFS__      007FE4  EA    
+_main                     008039 RLA    _IRQHandler               008318 RLA    
+_NMIHandler               008319 RLA    _preInit                  00831D RLA    
+hdmaInit                  00831E  LA    setOam                    00833F  LA    
+grabbingAnim              0083B4  LA    copyOAMEvent              008408  LA    
+initSnes                  008414 RLA    initEvents                008507 RLA    
+addEvent                  00852E RLA    processEvents             008556 RLA    
+removeEvent               00859A  LA    clearOAM                  0085AC RLA    
+copyOAM                   0085D6 RLA    hdmaMem                   008601  LA    
+grabbingWalk              00863C  LA    __ROMINFO_START__         00FFB0  LA    
+__ROMINFO_LAST__          00FFE0  LA    __VECTORS_START__         00FFE4  LA    
+__VECTORS_LAST__          010000  LA    
+
+
+Imports list:
+-------------
+_IRQHandler (metasprite.o):
+    crt0.o                    src/crt0.asm(13)
+_NMIHandler (metasprite.o):
+    crt0.o                    src/crt0.asm(13)
+__ROMINFO_FILEOFFS__ ([linker generated]):
+__ROMINFO_LAST__ ([linker generated]):
+__ROMINFO_SIZE__ ([linker generated]):
+__ROMINFO_START__ ([linker generated]):
+__STARTUP__ (crt0.o):
+    metasprite.o              metasprite.asm(11)
+__VECTORS_FILEOFFS__ ([linker generated]):
+__VECTORS_LAST__ ([linker generated]):
+__VECTORS_SIZE__ ([linker generated]):
+__VECTORS_START__ ([linker generated]):
+_main (metasprite.o):
+    crt0.o                    src/crt0.asm(11)
+_preInit (metasprite.o):
+    crt0.o                    src/crt0.asm(12)
+addEvent (event.o):
+    metasprite.o              metasprite.asm(19)
+animFrameIndex (metasprite.o):
+animationFrameCounter (metasprite.o):
+clearOAM (sprite.o):
+    metasprite.o              metasprite.asm(23)
+copyOAM (sprite.o):
+    metasprite.o              metasprite.asm(24)
+copyOAMEvent (metasprite.o):
+grabbingAnim (metasprite.o):
+grabbingWalk (metasprite.o):
+hdmaInit (metasprite.o):
+hdmaMem (metasprite.o):
+initEvents (event.o):
+    metasprite.o              metasprite.asm(18)
+initSnes (init.o):
+    crt0.o                    src/crt0.asm(15)
+oamData (sprite.o):
+    metasprite.o              metasprite.asm(25)
+processEvents (event.o):
+    metasprite.o              metasprite.asm(21)
+removeEvent (event.o):
+setOam (metasprite.o):
+

@@ -1,3 +1,11 @@
+.import     initPad
+.import     readPad1, readPad2, readPad3, readPad4
+
+.import     padPushData1, padReleaseData1
+.import     padPushData2, padReleaseData2
+.import     padPushData3, padReleaseData3
+.import     padPushData4, padReleaseData4
+
 ; A X L R / / / / B Y SELECT START UP DOWN LEFT RIGHT
 
 PAD_A      = %1000000000000000

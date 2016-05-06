@@ -10,3 +10,4 @@ all clean:
 	@$(MAKE) -C hdma $@
 	@$(MAKE) -C sprite $@
 	@$(MAKE) -C spriteHdmaTrick $@
+	@$(MAKE) -C metasprite $@

@@ -213,4 +213,3 @@ DMA_HLINE7      = $437A
 
         .include    "snes-dma.inc"
         .include    "snes-ppu.inc"
-        .include    "snes-pad.inc"
