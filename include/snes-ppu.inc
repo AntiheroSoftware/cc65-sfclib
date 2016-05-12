@@ -111,6 +111,15 @@
     startDMA $01
 .endmacro
 
+.macro VRAMLoad2 src, vramDst, size
+    setVMAINC $81
+    setVMADD vramDst
+    setDMAParam $01
+    setDMABBus $18
+    setDMA .BANKBYTE(src), src, size
+    startDMA $01
+.endmacro
+
 .macro VRAMLoadFromPointer src, vramDst, size
     setVMAINC $80
     setVMADDFromPointer vramDst
