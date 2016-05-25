@@ -33,6 +33,9 @@ eventsTable:
     .res    EVENT_TABLE_SIZE
     .res    1                  ; rts
 
+eventPointer:
+	.res	2
+
 .segment "CODE"
 
 ;******************************************************************************
@@ -90,12 +93,19 @@ loopInitCallback:
 
     pha
 
+    rep #$20
+	.A16
+
+	lda #$0000
+
     rep #$10
     sep #$20
     .A8
     .I16
 
     tya
+    asl
+    asl
     asl
     tay
 
@@ -153,10 +163,17 @@ loopProcessEvents:
 
     lda eventsTable+1,x     ; load counter into A reg
     tay                     ; save counter in Y reg
-    jsr eventsTable+3       ; jump to event table entry
+    txa
+    adc #eventsTable+2
+    sta eventPointer
 
-    sep #$20
-    .A8
+	sep #$20
+	.A8
+
+    phx
+    ldx #$0000
+    jsr (eventPointer,x)   		; jump to event table entry
+	plx
 
     cmp #$00
     bne noEventRemoval
