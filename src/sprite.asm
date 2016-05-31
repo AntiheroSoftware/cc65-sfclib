@@ -9,6 +9,7 @@
 
             .export     clearOAM
             .export     copyOAM
+            .export 	OAMDataUpdated
 
             .export     oamData
 
@@ -16,6 +17,9 @@
 
 oamData:
     .res 512+32
+
+oamDataUpdated:
+	.res 1
 
 .segment "CODE"
 
@@ -47,6 +51,9 @@ oamData:
         cpx #$0220
         bne spriteDataClear
 
+        lda #$00						; reset oamDataUpdated
+		sta oamDataUpdated
+
         pla
         plx
         plp
@@ -57,6 +64,10 @@ oamData:
 .proc copyOAM
     pha
     phx
+
+    lda oamDataUpdated
+    cmp #$00
+    beq endCopyOAM
 
     ldx #$0000
     stx $2102
@@ -75,7 +86,29 @@ oamData:
     lda #$80                        ; trigger DMA channel 7
     sta $420b
 
+    lda #$00						; reset oamDataUpdated
+    sta oamDataUpdated
+
+endCopyOAM:
+
     plx
     pla
     rts
+.endproc
+
+.proc OAMDataUpdated
+	php
+	pha
+
+	rep #$10
+	sep #$20
+	.A8
+	.I16
+
+	lda #$01
+	sta oamDataUpdated
+
+	pla
+	plp
+	rts
 .endproc
