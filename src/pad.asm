@@ -10,10 +10,14 @@
             .export     initPad
             .export     readPad1, readPad2, readPad3, readPad4
 
-            .export     padPushData1, padReleaseData1
+            .export     padPushData1, padFirstPushData1, padReleaseData1
+            .export     padPushDataHigh1, padPushDataLow1, padFirstPushDataLow1, padFirstPushDataHigh1, padReleaseDataHigh1, padReleaseDataLow1
             .export     padPushData2, padReleaseData2
+			.export     padPushDataHigh2, padPushDataLow2, padReleaseDataHigh2, padReleaseDataLow2
             .export     padPushData3, padReleaseData3
+            .export     padPushDataHigh3, padPushDataLow3, padReleaseDataHigh3, padReleaseDataLow3
             .export     padPushData4, padReleaseData4
+            .export     padPushDataHigh4, padPushDataLow4, padReleaseDataHigh4, padReleaseDataLow4
 
 .segment "BSS"
 
@@ -21,24 +25,58 @@
 ; right  : left   : down   : up     : start  : select : Y      : B
 
 padPushData1:
-    .res    2, $00
+padPushDataLow1:
+    .res    1
+padPushDataHigh1:
+	.res    1
+
+padFirstPushData1:
+padFirstPushDataLow1:
+    .res    1
+padFirstPushDataHigh1:
+	.res    1
+
 padReleaseData1:
-    .res    2, $00
+padReleaseDataLow1:
+    .res    1
+padReleaseDataHigh1:
+    .res    1
 
 padPushData2:
-    .res    2, $00
+padPushDataLow2:
+    .res    1
+padPushDataHigh2:
+	.res    1
+
 padReleaseData2:
-    .res    2, $00
+padReleaseDataLow2:
+    .res    1
+padReleaseDataHigh2:
+    .res    1
 
 padPushData3:
-    .res    2, $00
+padPushDataHigh3:
+    .res    1
+padPushDataLow3:
+	.res    1
+
 padReleaseData3:
-    .res    2, $00
+padReleaseDataHigh3:
+    .res    1
+padReleaseDataLow3:
+    .res    1
 
 padPushData4:
-    .res    2, $00
+padPushDataHigh4:
+    .res    1
+padPushDataLow4:
+	.res    1
+
 padReleaseData4:
-    .res    2, $00
+padReleaseDataHigh4:
+    .res    1
+padReleaseDataLow4:
+    .res    1
 
 .segment "CODE"
 
@@ -101,6 +139,12 @@ waitForPadReady:
 
     rep #$20
     .A16
+
+    ; Calculate first push data
+    lda padPushData1
+    eor padReleaseData1
+    and padPushData1
+    sta padFirstPushData1
 
     ; Calculate release data
     lda padPushData1

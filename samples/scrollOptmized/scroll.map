@@ -1,7 +1,7 @@
 Modules list:
 -------------
 scroll.o:
-    CODE              Offs=000000  Size=000321  Align=00001  Fill=0000
+    CODE              Offs=000000  Size=000318  Align=00001  Fill=0000
     RODATA            Offs=000000  Size=000000  Align=00001  Fill=0000
     BSS               Offs=000000  Size=000028  Align=00001  Fill=0000
     DATA              Offs=000000  Size=000000  Align=00001  Fill=0000
@@ -10,7 +10,7 @@ scroll.o:
     BANK1             Offs=000000  Size=0022E0  Align=00001  Fill=0000
     BANK2             Offs=000000  Size=0031C0  Align=00001  Fill=0000
 /Users/lint/Dropbox/Snes/projects/Snes_Tools/cc65-sfclib/bin/sfc.lib(crt0.o):
-    CODE              Offs=000321  Size=000000  Align=00001  Fill=0000
+    CODE              Offs=000318  Size=000000  Align=00001  Fill=0000
     RODATA            Offs=000000  Size=000000  Align=00001  Fill=0000
     BSS               Offs=000028  Size=000000  Align=00001  Fill=0000
     DATA              Offs=000000  Size=000000  Align=00001  Fill=0000
@@ -20,14 +20,14 @@ scroll.o:
     ROMINFO           Offs=000000  Size=000030  Align=00001  Fill=0000
     VECTORS           Offs=000000  Size=00001C  Align=00001  Fill=0000
 /Users/lint/Dropbox/Snes/projects/Snes_Tools/cc65-sfclib/bin/sfc.lib(init.o):
-    CODE              Offs=000321  Size=0000F3  Align=00001  Fill=0000
+    CODE              Offs=000318  Size=0000F3  Align=00001  Fill=0000
     RODATA            Offs=000000  Size=000000  Align=00001  Fill=0000
     BSS               Offs=000028  Size=000000  Align=00001  Fill=0000
     DATA              Offs=000000  Size=000000  Align=00001  Fill=0000
     ZEROPAGE          Offs=000000  Size=000000  Align=00001  Fill=0000
     NULL              Offs=000000  Size=000000  Align=00001  Fill=0000
 /Users/lint/Dropbox/Snes/projects/Snes_Tools/cc65-sfclib/bin/sfc.lib(event.o):
-    CODE              Offs=000414  Size=0000AA  Align=00001  Fill=0000
+    CODE              Offs=00040B  Size=0000AA  Align=00001  Fill=0000
     RODATA            Offs=000000  Size=000000  Align=00001  Fill=0000
     BSS               Offs=000028  Size=000081  Align=00001  Fill=0000
     DATA              Offs=000000  Size=000000  Align=00001  Fill=0000
@@ -44,8 +44,8 @@ NULL                  000000  000000  000000  00001
 ZEROPAGE              000000  000000  000000  00001
 BSS                   000200  0002A8  0000A9  00001
 STARTUP               008000  008038  000039  00001
-CODE                  008039  0084F6  0004BE  00001
-RODATA                0084F7  0084F7  000000  00001
+CODE                  008039  0084ED  0004B5  00001
+RODATA                0084EE  0084EE  000000  00001
 ROMINFO               00FFB0  00FFDF  000030  00001
 VECTORS               00FFE4  00FFFF  00001C  00001
 BANK1                 018000  01A2DF  0022E0  00001
@@ -54,20 +54,20 @@ BANK2                 028000  02B1BF  0031C0  00001
 
 Exports list by name:
 ---------------------
-_IRQHandler               008354 RLA    _NMIHandler               008355 RLA    
+_IRQHandler               00834B RLA    _NMIHandler               00834C RLA    
 __ROMINFO_FILEOFFS__      007FB0  EA    __ROMINFO_LAST__          00FFE0  LA    
 __ROMINFO_SIZE__          000034  EA    __ROMINFO_START__         00FFB0  LA    
 __STARTUP__               000001 REA    __VECTORS_FILEOFFS__      007FE4  EA    
 __VECTORS_LAST__          010000  LA    __VECTORS_SIZE__          00001C  EA    
 __VECTORS_START__         00FFE4  LA    _main                     008039 RLA    
-_preInit                  008359 RLA    addEvent                  008474 RLA    
-eventsTable               000228  LA    initEvents                00844D RLA    
-initLevelDMA              0082DB  LA    initSnes                  00835A RLA    
+_preInit                  008350 RLA    addEvent                  00846B  LA    
+eventsTable               000228  LA    initEvents                008444 RLA    
+initLevelDMA              0082D2  LA    initSnes                  008351 RLA    
 levelDMADst               000203  LA    levelDMASize              000205  LA    
 levelDMASrc               000200  LA    levelMap                  028000  LA    
 levelMapTable             00020C  LA    mapPosition               000209  LA    
-processEvents             00849C RLA    removeEvent               0084E0  LA    
-scrollDirection           00020B  LA    scrollEvent               0082F1  LA    
+processEvents             008493 RLA    removeEvent               0084D7  LA    
+scrollDirection           00020B  LA    scrollEvent               0082E8  LA    
 
 
 
@@ -79,12 +79,12 @@ levelDMADst               000203  LA    levelDMASize              000205  LA
 mapPosition               000209  LA    scrollDirection           00020B  LA    
 levelMapTable             00020C  LA    eventsTable               000228  LA    
 __ROMINFO_FILEOFFS__      007FB0  EA    __VECTORS_FILEOFFS__      007FE4  EA    
-_main                     008039 RLA    initLevelDMA              0082DB  LA    
-scrollEvent               0082F1  LA    _IRQHandler               008354 RLA    
-_NMIHandler               008355 RLA    _preInit                  008359 RLA    
-initSnes                  00835A RLA    initEvents                00844D RLA    
-addEvent                  008474 RLA    processEvents             00849C RLA    
-removeEvent               0084E0  LA    __ROMINFO_START__         00FFB0  LA    
+_main                     008039 RLA    initLevelDMA              0082D2  LA    
+scrollEvent               0082E8  LA    _IRQHandler               00834B RLA    
+_NMIHandler               00834C RLA    _preInit                  008350 RLA    
+initSnes                  008351 RLA    initEvents                008444 RLA    
+addEvent                  00846B  LA    processEvents             008493 RLA    
+removeEvent               0084D7  LA    __ROMINFO_START__         00FFB0  LA    
 __ROMINFO_LAST__          00FFE0  LA    __VECTORS_START__         00FFE4  LA    
 __VECTORS_LAST__          010000  LA    levelMap                  028000  LA    
 
@@ -111,7 +111,6 @@ _main (scroll.o):
 _preInit (scroll.o):
     crt0.o                    src/crt0.asm(12)
 addEvent (event.o):
-    scroll.o                  scroll.asm(18)
 eventsTable (event.o):
 initEvents (event.o):
     scroll.o                  scroll.asm(17)
