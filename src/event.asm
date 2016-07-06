@@ -49,6 +49,11 @@ eventPointer:
     phx
     php
 
+    rep #$20
+	.A16
+
+	lda #$0000
+
     rep #$10
     sep #$20
     .A8

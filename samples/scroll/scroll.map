@@ -27,9 +27,9 @@ scroll.o:
     ZEROPAGE          Offs=000000  Size=000000  Align=00001  Fill=0000
     NULL              Offs=000000  Size=000000  Align=00001  Fill=0000
 /Users/lint/Dropbox/Snes/projects/Snes_Tools/cc65-sfclib/bin/sfc.lib(event.o):
-    CODE              Offs=000414  Size=0000AA  Align=00001  Fill=0000
+    CODE              Offs=000414  Size=0000BD  Align=00001  Fill=0000
     RODATA            Offs=000000  Size=000000  Align=00001  Fill=0000
-    BSS               Offs=000028  Size=000081  Align=00001  Fill=0000
+    BSS               Offs=000028  Size=000083  Align=00001  Fill=0000
     DATA              Offs=000000  Size=000000  Align=00001  Fill=0000
     ZEROPAGE          Offs=000000  Size=000000  Align=00001  Fill=0000
     NULL              Offs=000000  Size=000000  Align=00001  Fill=0000
@@ -42,10 +42,10 @@ Name                   Start     End    Size  Align
 DATA                  000000  000000  000000  00001
 NULL                  000000  000000  000000  00001
 ZEROPAGE              000000  000000  000000  00001
-BSS                   000200  0002A8  0000A9  00001
+BSS                   000200  0002AA  0000AB  00001
 STARTUP               008000  008038  000039  00001
-CODE                  008039  0084F6  0004BE  00001
-RODATA                0084F7  0084F7  000000  00001
+CODE                  008039  008509  0004D1  00001
+RODATA                00850A  00850A  000000  00001
 ROMINFO               00FFB0  00FFDF  000030  00001
 VECTORS               00FFE4  00FFFF  00001C  00001
 BANK1                 018000  01A2DF  0022E0  00001
@@ -66,7 +66,7 @@ initLevelDMA              0082DB  LA    initSnes                  00835A RLA
 levelDMADst               000203  LA    levelDMASize              000205  LA    
 levelDMASrc               000200  LA    levelMap                  028000  LA    
 levelMapTable             00020C  LA    mapPosition               000209  LA    
-processEvents             00849C RLA    removeEvent               0084E0  LA    
+processEvents             0084A3 RLA    removeEvent               0084F3  LA    
 scrollDirection           00020B  LA    scrollEvent               0082F1  LA    
 
 
@@ -83,8 +83,8 @@ _main                     008039 RLA    initLevelDMA              0082DB  LA
 scrollEvent               0082F1  LA    _IRQHandler               008354 RLA    
 _NMIHandler               008355 RLA    _preInit                  008359 RLA    
 initSnes                  00835A RLA    initEvents                00844D RLA    
-addEvent                  008474 RLA    processEvents             00849C RLA    
-removeEvent               0084E0  LA    __ROMINFO_START__         00FFB0  LA    
+addEvent                  008474 RLA    processEvents             0084A3 RLA    
+removeEvent               0084F3  LA    __ROMINFO_START__         00FFB0  LA    
 __ROMINFO_LAST__          00FFE0  LA    __VECTORS_START__         00FFE4  LA    
 __VECTORS_LAST__          010000  LA    levelMap                  028000  LA    
 

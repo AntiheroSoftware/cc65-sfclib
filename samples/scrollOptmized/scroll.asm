@@ -19,20 +19,8 @@
             .import     removeEvent
             .import     processEvents
 
-; TODO remove it's for testing only
-            .export     levelDMASrc
-            .export     levelDMADst
-            .export     levelDMASize
-            .export     initLevelDMA
-            .export     levelMapTable
-            .export     levelMap
-            .export     mapPosition
-            .export     scrollEvent
-            .export     scrollDirection
-
 LEVEL_TILE_ADDR	    = $1000
 LEVEL_MAP_ADDR      = $0000
-LEVEL_MAP_ALT_ADDR  = $0400
 
 .segment "BANK1"
 
@@ -44,7 +32,10 @@ levelTiles:
 levelMap:
     .incbin "ressource/level.map"
 
-levelMapInitial := levelMap+($0700*6)
+levelMapInitial := levelMap+($0700*6)-$38
+levelMapRestart := levelMap+($0700*1)
+levelMapStart   := levelMap
+levelMapEnd     := levelMap+($0700*7)
 
 levelPal:
     .incbin "ressource/level0.pal"
@@ -69,12 +60,35 @@ levelPal:
     setBG12NBA LEVEL_TILE_ADDR, $0000
 
     VRAMLoad levelTiles, LEVEL_TILE_ADDR, $5000                 ; load tiles
-
-    VRAMLoad2 levelMapInitial, LEVEL_MAP_ADDR, $0038            ; load map
-    VRAMLoad2 levelMapInitial+$38, $0001, $0038    ; load map
-
-
     CGRAMLoad levelPal, $00, $C0                                ; load 5 palettes
+
+	ldx #$001f
+	ldy #.LOWORD(levelMapInitial)
+
+loop:
+	jsr displayLevelLine
+
+	cpx #$003f
+	beq stopLoop
+
+	rep #$20
+	.A16
+
+	inx
+	tya
+	clc
+	adc #$0038
+	tay
+
+	sep #$20
+	.A8
+
+	bra loop
+
+stopLoop:
+
+	sep #$20
+	.A8
 
     lda #$02                        ; set BG mode 2
     sta $2105
@@ -90,136 +104,113 @@ levelPal:
     jsr initEvents
     jsr scrollInitEvent
 
-    ;lda #.BANKBYTE(scrollEvent)
-    ;ldx #.LOWORD(scrollEvent)
-    ;ldy #$0000
-    ;jsr addEvent
+    lda #.BANKBYTE(scrollEvent)
+    ldx #.LOWORD(scrollEvent)
+    ldy #$0000
+    jsr addEvent
 
     lda #$80                        ; Enable NMI
     sta CPU_NMITIMEN
 
 infiniteMainLoop:
-	bra infiniteMainLoop
-
+	ldx scrollValue
     lda scrollDirection
     cmp #$01
     beq scrollRight
 
 scrollLeft:
-    ldx scrollValue                 ; decrement scrollValue
-    dex
+    dex 			                ; decrement scrollValue
     stx scrollValue
+    txa
+    and #%00000111
+    bne scrollValueSet
 
-    ldx mapPosition                 ; decrement mapPosition
-    dex
-    stx mapPosition
+    lda #$01
+    sta doUpdate
 
-    jmp scrollValueSet
+    lda VRAMLine
+    dec
+    and #$3f
+    sta VRAMLine
+
+	rep #$20
+	.A16
+
+	lda MAPOffset
+	sec
+	sbc #$38
+	sta MAPOffset
+
+	cmp #.LOWORD(levelMapStart)
+	bpl scrollValueSet
+
+	sep #$20
+	.A8
+
+	lda #$01
+	sta scrollDirection
+
+	lda VRAMLine
+	clc
+	adc #$21
+	sta VRAMLine
+
+	ldx #.LOWORD(levelMapRestart)
+	stx MAPOffset
+
+    bra scrollValueSet
 
 scrollRight:
-    ldx scrollValue                 ; increment scrollValue
-    inx
+    inx  			                ; increment scrollValue
     stx scrollValue
+	txa
+    and #%00000111
+    bne scrollValueSet
 
-    ldx mapPosition                 ; increment mapPosition
-    inx
-    stx mapPosition
+    lda #$01
+    sta doUpdate
+
+    lda VRAMLine
+    inc
+    and #$3f
+    sta VRAMLine
+
+	rep #$20
+	.A16
+
+	lda MAPOffset
+	clc
+	adc #$38
+	sta MAPOffset
+
+	cmp #.LOWORD(levelMapEnd)
+	bcc scrollValueSet
+
+	sep #$20
+	.A8
+
+	lda #$00
+	sta scrollDirection
+
+	lda VRAMLine
+	sec
+	sbc #$21
+	sta VRAMLine
+
+	ldx #.LOWORD(levelMapInitial)
+	stx MAPOffset
 
 scrollValueSet:
-    lda mapPosition
-    cmp #$ff
-    beq pouet3
-    jmp continue
 
-pouet3:
-    lda mapPosition+1
-    cmp #$ff                        ; #$ff because of overflow in map position
-    bne pouet
-    lda #$01                        ; change direction to go right
-    sta scrollDirection
-    lda #$01                        ; force mapPosition/position to avoid bad VRAMLoad
-    sta mapPosition+1
-    jmp infiniteMainLoop
+	sep #$20
+	.A8
 
-pouet:
-    cmp #$07
-    bne pouet2
-    lda #$00                        ; change direction to go left
-    sta scrollDirection
-    lda #$05                        ; force mapPosition/position to avoid bad VRAMLoad
-    sta mapPosition+1
-    jmp infiniteMainLoop
+	bra waitForVBlank
 
-pouet2:
-    lda mapPosition+1               ; get screen position
-    and #$01                        ; modulo 2
-    bne evenTransfer
-
-oddTransfer:
-    lda mapPosition+1               ; get screen position
-
-    rep #$20                        ; calculation index in levelMapTable from position in register A
-    .A16
-    and #$00ff
-    asl
-    asl
-    tax                             ; put that index in register X
-    sep #$20
-    .A8
-
-    lda levelMapTable,x
-    sta levelDMASrc
-    lda levelMapTable+1,x
-    sta levelDMASrc+1
-    lda levelMapTable+2,x
-    sta levelDMASrc+2
-
-    ldx #LEVEL_MAP_ALT_ADDR
-    stx levelDMADst
-
-    ldx #$0700
-    stx levelDMASize
-
-    ldx #$0000                      ; reset scrollValue to 0
-    stx scrollValue
-
-    jmp continue
-
-evenTransfer:
-    lda mapPosition+1               ; get screen position
-
-    rep #$20                        ; calculation index in levelMapTable from position in register A
-    .A16
-    and #$00ff
-    asl
-    asl
-    tax                             ; put that index in register X
-    sep #$20
-    .A8
-
-    lda levelMapTable,x
-    sta levelDMASrc
-
-    lda levelMapTable+1,x
-    sta levelDMASrc+1
-
-    lda levelMapTable+2,x
-    sta levelDMASrc+2
-
-    ; levelDMADst = LEVEL_MAP;
-    ldx #LEVEL_MAP_ADDR
-    stx levelDMADst
-
-    ldx #$0700
-    stx levelDMASize
-
-    ldx #$00ff                      ; reset scrollValue to 256 (#$00ff)
-    stx scrollValue
-
-continue:
-
+waitForVBlank:
     wai                             ; wait for next interrupt (NMI)
     jmp infiniteMainLoop
+
 .endproc
 
 ;******************************************************************************
@@ -228,26 +219,32 @@ continue:
 
 .segment "BSS"
 
-levelDMASrc:
-    .res    3
+VRAMLine:
+	.res 2
 
-levelDMADst:
-    .res    2
-
-levelDMASize:
-    .res    2
+MAPOffset:
+	.res 2
 
 scrollValue:
-    .res    2
-
-mapPosition:
     .res    2
 
 scrollDirection:
     .res    1
 
-levelMapTable:
-    .res    4*7
+doUpdate:
+	.res 1
+
+.segment "RODATA"
+
+VRAMOffset:
+	.word $0000, $0001, $0002, $0003, $0004, $0005, $0006, $0007
+	.word $0008, $0009, $000a, $000b, $000c, $000d, $000e, $000f
+	.word $0010, $0011, $0012, $0013, $0014, $0015, $0016, $0017
+	.word $0018, $0019, $001a, $001b, $001c, $001d, $001e, $001f
+	.word $0400, $0401, $0402, $0403, $0404, $0405, $0406, $0407
+	.word $0408, $0409, $040a, $040b, $040c, $040d, $040e, $040f
+	.word $0410, $0411, $0412, $0413, $0414, $0415, $0416, $0417
+	.word $0418, $0419, $041a, $041b, $041c, $041d, $041e, $041f
 
 .segment "CODE"
 
@@ -260,131 +257,24 @@ levelMapTable:
     sta $210e
     stz $210e
 
+    lda #$1f
+    sta VRAMLine
+    lda #$00
+    sta VRAMLine+1
+
+	ldx #.LOWORD(levelMapInitial)
+	stx MAPOffset
+
     lda #00                         ; init scrollDirection
     sta scrollDirection             ; 0 -> left ; 1 -> right
+    sta doUpdate
 
     ldx #$0100                      ; init scrollValue
     stx scrollValue
 
-    ldx #$0600
-    stx mapPosition
-
-    jsr initLevelDMA
-
-    ldx #$0000
-
-    lda #.LOBYTE(levelMap1)
-    sta levelMapTable,x
-    lda #.HIBYTE(levelMap1)
-    sta levelMapTable+1,x
-    lda #.BANKBYTE(levelMap1)
-    sta levelMapTable+2,x
-    lda #$00
-    sta levelMapTable+3,x
-
-    inx
-    inx
-    inx
-    inx
-
-    lda #.LOBYTE(levelMap2)
-    sta levelMapTable,x
-    lda #.HIBYTE(levelMap2)
-    sta levelMapTable+1,x
-    lda #.BANKBYTE(levelMap2)
-    sta levelMapTable+2,x
-    lda #$00
-    sta levelMapTable+3,x
-
-    inx
-    inx
-    inx
-    inx
-
-    lda #.LOBYTE(levelMap3)
-    sta levelMapTable,x
-    lda #.HIBYTE(levelMap3)
-    sta levelMapTable+1,x
-    lda #.BANKBYTE(levelMap3)
-    sta levelMapTable+2,x
-    lda #$00
-    sta levelMapTable+3,x
-
-    inx
-    inx
-    inx
-    inx
-
-    lda #.LOBYTE(levelMap4)
-    sta levelMapTable,x
-    lda #.HIBYTE(levelMap4)
-    sta levelMapTable+1,x
-    lda #.BANKBYTE(levelMap4)
-    sta levelMapTable+2,x
-    lda #$00
-    sta levelMapTable+3,x
-
-    inx
-    inx
-    inx
-    inx
-
-    lda #.LOBYTE(levelMap5)
-    sta levelMapTable,x
-    lda #.HIBYTE(levelMap5)
-    sta levelMapTable+1,x
-    lda #.BANKBYTE(levelMap5)
-    sta levelMapTable+2,x
-    lda #$00
-    sta levelMapTable+3,x
-
-    inx
-    inx
-    inx
-    inx
-
-    lda #.LOBYTE(levelMap6)
-    sta levelMapTable,x
-    lda #.HIBYTE(levelMap6)
-    sta levelMapTable+1,x
-    lda #.BANKBYTE(levelMap6)
-    sta levelMapTable+2,x
-    lda #$00
-    sta levelMapTable+3,x
-
-    inx
-    inx
-    inx
-    inx
-
-    lda #.LOBYTE(levelMap7)
-    sta levelMapTable,x
-    lda #.HIBYTE(levelMap7)
-    sta levelMapTable+1,x
-    lda #.BANKBYTE(levelMap7)
-    sta levelMapTable+2,x
-    lda #$00
-    sta levelMapTable+3,x
-
-    inx
-    inx
-    inx
-    inx
-
     plp
     plx
     pla
-    rts
-.endproc
-
-.proc initLevelDMA
-    stz levelDMASrc                 ; init levelDMA values
-    stz levelDMASrc+1
-    stz levelDMASrc+2
-    stz levelDMADst
-    stz levelDMADst+1
-    stz levelDMASize
-    stz levelDMASize+1
     rts
 .endproc
 
@@ -401,12 +291,16 @@ levelMapTable:
     .A8
     .I16
 
-    ldy levelDMASize
-    cpy #$00
+    lda doUpdate
+    cmp #$00
     beq noDMA
 
-    VRAMLoadFromPointer levelDMASrc, levelDMADst, levelDMASize
-    jsr initLevelDMA                ; reset levelDMA values
+    ldx VRAMLine
+	ldy MAPOffset
+	jsr displayLevelLine
+
+	lda #$00
+	sta doUpdate
 
 noDMA:
     lda scrollValue
@@ -421,6 +315,57 @@ noDMA:
     plx
 
     rtl
+.endproc
+
+.proc displayLevelLine
+	pha
+	phx
+	phy
+	php
+
+	rep #$20
+	.A16
+
+	txa
+	asl
+	tax
+
+	sep #$20
+	.A8
+
+	lda #$81
+	sta PPU_VMAINC
+
+	phy
+	ldy VRAMOffset,x
+
+	sty PPU_VMADDL
+	ply
+
+	lda #$01
+	sta DMA_PARAM0
+
+	lda #$18
+	sta DMA_BBUS0
+
+	sty DMA_ABUS0L
+
+	lda #$02						; static bank 2
+	sta DMA_ABUS0B
+
+	lda	#$38						; size of transfer is #$38
+	sta	DMA_SIZE0L
+	lda	#$00
+	sta DMA_SIZE0H
+
+	lda	#%00000001					; enable DMA 0
+	sta	CPU_MDMAEN
+
+	plp
+	ply
+	plx
+	pla
+	rts
 .endproc
 
 .proc _IRQHandler
