@@ -10,7 +10,7 @@ splash.o:
 /Users/lint/Dropbox/Snes/projects/Snes_Tools/cc65-sfclib/bin/sfc.lib(init.o):
     CODE              Offs=000103  Size=0000F3  Align=00001  Fill=0000
 /Users/lint/Dropbox/Snes/projects/Snes_Tools/cc65-sfclib/bin/sfc.lib(event.o):
-    CODE              Offs=0001F6  Size=0000BD  Align=00001  Fill=0000
+    CODE              Offs=0001F6  Size=0000C2  Align=00001  Fill=0000
     BSS               Offs=000000  Size=000083  Align=00001  Fill=0000
 
 
@@ -20,8 +20,8 @@ Name                   Start     End    Size  Align
 ----------------------------------------------------
 BSS                   000200  000282  000083  00001
 STARTUP               008000  008038  000039  00001
-CODE                  008039  0082EB  0002B3  00001
-RODATA                0082EC  00948B  0011A0  00001
+CODE                  008039  0082F0  0002B8  00001
+RODATA                0082F1  009490  0011A0  00001
 ROMINFO               00FFB0  00FFDF  000030  00001
 VECTORS               00FFE4  00FFFF  00001C  00001
 
@@ -30,9 +30,9 @@ Exports list by name:
 ---------------------
 _IRQHandler               00811B RLA    _NMIHandler               00811C RLA    
 __STARTUP__               000001 REA    _main                     008039 RLA    
-_preInit                  008120 RLA    addEvent                  008256 RLA    
+_preInit                  008120 RLA    addEvent                  00825B RLA    
 initEvents                00822F RLA    initSnes                  00813C RLA    
-processEvents             008285 RLA    
+processEvents             00828A RLA    
 
 
 Exports list by value:
@@ -40,8 +40,8 @@ Exports list by value:
 __STARTUP__               000001 REA    _main                     008039 RLA    
 _IRQHandler               00811B RLA    _NMIHandler               00811C RLA    
 _preInit                  008120 RLA    initSnes                  00813C RLA    
-initEvents                00822F RLA    addEvent                  008256 RLA    
-processEvents             008285 RLA    
+initEvents                00822F RLA    addEvent                  00825B RLA    
+processEvents             00828A RLA    
 
 
 Imports list:

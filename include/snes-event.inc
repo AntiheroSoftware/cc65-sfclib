@@ -2,3 +2,4 @@
 .import     addEvent
 .import     removeEvent
 .import     processEvents
+.import     getEventCounter
