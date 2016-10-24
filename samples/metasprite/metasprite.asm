@@ -32,7 +32,7 @@
             .export     copyOAMEvent
             .export     grabbingAnim
             .export     animFrameIndex
-            .export     animationFrameCounter
+            .export     animFrameCounter
             .export     grabbingWalk
 
 
@@ -179,7 +179,7 @@ grabbingWalk:
 animFrameIndex:
     .res 1
 
-animationFrameCounter:
+animFrameCounter:
     .res 1
 
 .segment "ZEROPAGE"
@@ -327,7 +327,7 @@ tempValue8:
 
     lda #$00
     sta animFrameIndex
-    sta animationFrameCounter
+    sta animFrameCounter
 
 infiniteMainLoop:
 
@@ -497,20 +497,20 @@ endFillLoop:
 
     lda animFrameIndex
     tay
-    lda animationFrameCounter
+    lda animFrameCounter
     cmp grabbingWalk,y              ; we did all frames for that index
     beq nextFrame
     cmp #$00                        ; first time we do that animation
     beq nextFrame
 
     inc
-    sta animationFrameCounter
+    sta animFrameCounter
     bra endAnim
 
 nextFrame:
 
     lda #$01
-    sta animationFrameCounter
+    sta animFrameCounter
 
     lda animFrameIndex
     inc
