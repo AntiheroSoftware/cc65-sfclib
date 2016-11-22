@@ -87,6 +87,8 @@ padReleaseDataLow4:
     sep #$20
     .A8
 
+    stz $4016
+
     lda #$81            ; Enable pad reading and NMI
     sta CPU_NMITIMEN
 
@@ -126,8 +128,8 @@ padReleaseDataLow4:
 
 waitForPadReady:
     lda CPU_HVBJOY
-    bit #$01
-    beq waitForPadReady
+    and #$01
+    bne waitForPadReady
 
     ldx padPushData1            ; save old pushed data to X
     stx padReleaseData1         ; and put it in place of released data
