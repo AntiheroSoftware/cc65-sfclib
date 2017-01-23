@@ -19,6 +19,8 @@
             .import     removeEvent
             .import     processEvents
 
+            .export scrollEvent
+
 LEVEL_TILE_ADDR	    = $1000
 LEVEL_MAP_ADDR      = $0000
 
@@ -209,6 +211,11 @@ scrollValueSet:
 
 waitForVBlank:
     wai                             ; wait for next interrupt (NMI)
+
+:   lda $4212
+    and #$80
+    bne :-							; wait for end of VBlank
+
     jmp infiniteMainLoop
 
 .endproc
@@ -373,6 +380,7 @@ noDMA:
 .endproc
 
 .proc _NMIHandler
+	lda CPU_RDNMI
     jsr processEvents
     rts
 .endproc

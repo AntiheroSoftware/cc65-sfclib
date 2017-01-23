@@ -67,13 +67,14 @@ start:
 ;******************************************************************************
 
 irq:
-    rep	#$30
-    .A16
-    .I16
     pha
     phx
     phy
+    phd
+	phb
     jsr	_IRQHandler
+    plb
+	pld
     ply
     plx
     pla
@@ -85,8 +86,8 @@ nmi:
     phy
     phd
     phb
-    jsr	_NMIHandler
     lda CPU_RDNMI   ; Read NMI
+    jsr	_NMIHandler
     plb
     pld
     ply

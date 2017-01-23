@@ -226,6 +226,11 @@ evenTransfer:
 continue:
 
     wai                             ; wait for next interrupt (NMI)
+
+:   lda $4212
+	and #$80
+	bne :-							; wait for end of VBlank
+
     jmp infiniteMainLoop
 .endproc
 

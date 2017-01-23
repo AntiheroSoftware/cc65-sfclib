@@ -17,7 +17,7 @@ metasprite.o:
     DATA              Offs=000000  Size=000000  Align=00001  Fill=0000
     ZEROPAGE          Offs=000020  Size=000000  Align=00001  Fill=0000
     NULL              Offs=000000  Size=000000  Align=00001  Fill=0000
-    STARTUP           Offs=000000  Size=000039  Align=00001  Fill=0000
+    STARTUP           Offs=000000  Size=00003B  Align=00001  Fill=0000
     ROMINFO           Offs=000000  Size=000030  Align=00001  Fill=0000
     VECTORS           Offs=000000  Size=00001C  Align=00001  Fill=0000
 ../../../cc65-sfclib/bin/sfc.lib(init.o):
@@ -51,9 +51,9 @@ DATA                  000000  000000  000000  00001
 NULL                  000000  000000  000000  00001
 ZEROPAGE              000000  00001F  000020  00001
 BSS                   000200  0004A5  0002A6  00001
-STARTUP               008000  008038  000039  00001
-CODE                  008039  008648  000610  00001
-RODATA                008649  008690  000048  00001
+STARTUP               008000  00803A  00003B  00001
+CODE                  00803B  00864A  000610  00001
+RODATA                00864B  008692  000048  00001
 ROMINFO               00FFB0  00FFDF  000030  00001
 VECTORS               00FFE4  00FFFF  00001C  00001
 BANK1                 018000  01AEFF  002F00  00100
@@ -63,22 +63,22 @@ BANK3                 038000  03FFFF  008000  00001
 
 Exports list:
 -------------
-OAMDataUpdated            00863B  LA    _IRQHandler               008318 RLA    
-_NMIHandler               008319 RLA    __ROMINFO_FILEOFFS__      007FB0  EA    
+OAMDataUpdated            00863D  LA    _IRQHandler               00831A RLA    
+_NMIHandler               00831B RLA    __ROMINFO_FILEOFFS__      007FB0  EA    
 __ROMINFO_LAST__          00FFE0  LA    __ROMINFO_SIZE__          000034  EA    
 __ROMINFO_START__         00FFB0  LA    __STARTUP__               000001 REA    
 __VECTORS_FILEOFFS__      007FE4  EA    __VECTORS_LAST__          010000  LA    
 __VECTORS_SIZE__          00001C  EA    __VECTORS_START__         00FFE4  LA    
-_main                     008039 RLA    _preInit                  00831D RLA    
-addEvent                  008533 RLA    animFrameCounter          000201  LA    
-animFrameIndex            000200  LA    clearOAM                  0085D5 RLA    
-copyOAM                   008604 RLA    copyOAMEvent              008408  LA    
-eventsTable               000202  LA    getEventCounter           0085C9  LA    
-grabbingAnim              0083B4  LA    grabbingWalk              008684  LA    
-hdmaInit                  00831E  LA    hdmaMem                   008649  LA    
-initEvents                008507 RLA    initSnes                  008414 RLA    
-oamData                   000285 RLA    processEvents             008562 RLA    
-removeEvent               0085B2  LA    setOam                    00833F  LA    
+_main                     00803B RLA    _preInit                  00831F RLA    
+addEvent                  008535 RLA    animFrameCounter          000201  LA    
+animFrameIndex            000200  LA    clearOAM                  0085D7 RLA    
+copyOAM                   008606 RLA    copyOAMEvent              00840A  LA    
+eventsTable               000202  LA    getEventCounter           0085CB  LA    
+grabbingAnim              0083B6  LA    grabbingWalk              008686  LA    
+hdmaInit                  008320  LA    hdmaMem                   00864B  LA    
+initEvents                008509 RLA    initSnes                  008416 RLA    
+oamData                   000285 RLA    processEvents             008564 RLA    
+removeEvent               0085B4  LA    setOam                    008341  LA    
 
 
 

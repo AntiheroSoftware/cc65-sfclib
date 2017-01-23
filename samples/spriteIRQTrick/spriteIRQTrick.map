@@ -1,35 +1,35 @@
 Modules list:
 -------------
-sprite.o:
-    CODE              Offs=000000  Size=000169  Align=00001  Fill=0000
-    RODATA            Offs=000000  Size=000423  Align=00001  Fill=0000
+spriteIRQTrick.o:
+    CODE              Offs=000000  Size=00023F  Align=00001  Fill=0000
+    RODATA            Offs=000000  Size=001031  Align=00001  Fill=0000
     BSS               Offs=000000  Size=000220  Align=00001  Fill=0000
     DATA              Offs=000000  Size=000000  Align=00001  Fill=0000
-    ZEROPAGE          Offs=000000  Size=000000  Align=00001  Fill=0000
+    ZEROPAGE          Offs=000000  Size=000002  Align=00001  Fill=0000
     NULL              Offs=000000  Size=000000  Align=00001  Fill=0000
 ../../../cc65-sfclib/bin/sfc.lib(crt0.o):
-    CODE              Offs=000169  Size=000000  Align=00001  Fill=0000
-    RODATA            Offs=000423  Size=000000  Align=00001  Fill=0000
+    CODE              Offs=00023F  Size=000000  Align=00001  Fill=0000
+    RODATA            Offs=001031  Size=000000  Align=00001  Fill=0000
     BSS               Offs=000220  Size=000000  Align=00001  Fill=0000
     DATA              Offs=000000  Size=000000  Align=00001  Fill=0000
-    ZEROPAGE          Offs=000000  Size=000000  Align=00001  Fill=0000
+    ZEROPAGE          Offs=000002  Size=000000  Align=00001  Fill=0000
     NULL              Offs=000000  Size=000000  Align=00001  Fill=0000
     STARTUP           Offs=000000  Size=00003B  Align=00001  Fill=0000
     ROMINFO           Offs=000000  Size=000030  Align=00001  Fill=0000
     VECTORS           Offs=000000  Size=00001C  Align=00001  Fill=0000
 ../../../cc65-sfclib/bin/sfc.lib(init.o):
-    CODE              Offs=000169  Size=0000F3  Align=00001  Fill=0000
-    RODATA            Offs=000423  Size=000000  Align=00001  Fill=0000
+    CODE              Offs=00023F  Size=0000F3  Align=00001  Fill=0000
+    RODATA            Offs=001031  Size=000000  Align=00001  Fill=0000
     BSS               Offs=000220  Size=000000  Align=00001  Fill=0000
     DATA              Offs=000000  Size=000000  Align=00001  Fill=0000
-    ZEROPAGE          Offs=000000  Size=000000  Align=00001  Fill=0000
+    ZEROPAGE          Offs=000002  Size=000000  Align=00001  Fill=0000
     NULL              Offs=000000  Size=000000  Align=00001  Fill=0000
 ../../../cc65-sfclib/bin/sfc.lib(event.o):
-    CODE              Offs=00025C  Size=0000CE  Align=00001  Fill=0000
-    RODATA            Offs=000423  Size=000000  Align=00001  Fill=0000
+    CODE              Offs=000332  Size=0000CE  Align=00001  Fill=0000
+    RODATA            Offs=001031  Size=000000  Align=00001  Fill=0000
     BSS               Offs=000220  Size=000083  Align=00001  Fill=0000
     DATA              Offs=000000  Size=000000  Align=00001  Fill=0000
-    ZEROPAGE          Offs=000000  Size=000000  Align=00001  Fill=0000
+    ZEROPAGE          Offs=000002  Size=000000  Align=00001  Fill=0000
     NULL              Offs=000000  Size=000000  Align=00001  Fill=0000
 
 
@@ -39,61 +39,62 @@ Name                   Start     End    Size  Align
 ----------------------------------------------------
 DATA                  000000  000000  000000  00001
 NULL                  000000  000000  000000  00001
-ZEROPAGE              000000  000000  000000  00001
+ZEROPAGE              000000  000001  000002  00001
 BSS                   000200  0004A2  0002A3  00001
 STARTUP               008000  00803A  00003B  00001
-CODE                  00803B  008364  00032A  00001
-RODATA                008365  008787  000423  00001
+CODE                  00803B  00843A  000400  00001
+RODATA                00843B  00946B  001031  00001
 ROMINFO               00FFB0  00FFDF  000030  00001
 VECTORS               00FFE4  00FFFF  00001C  00001
 
 
 Exports list:
 -------------
-_IRQHandler               0080D0 RLA    _NMIHandler               0080D1 RLA    
+_IRQHandler               008186 RLA    _NMIHandler               0081A7 RLA    
 __ROMINFO_FILEOFFS__      007FB0  EA    __ROMINFO_LAST__          00FFE0  LA    
 __ROMINFO_SIZE__          000034  EA    __ROMINFO_START__         00FFB0  LA    
 __STARTUP__               000001 REA    __VECTORS_FILEOFFS__      007FE4  EA    
 __VECTORS_LAST__          010000  LA    __VECTORS_SIZE__          00001C  EA    
 __VECTORS_START__         00FFE4  LA    _main                     00803B RLA    
-_preInit                  0080D5 RLA    addEvent                  0082C3  LA    
-eventsTable               000420  LA    getEventCounter           008359  LA    
-initEvents                008297 RLA    initSnes                  0081A4 RLA    
-oamData                   000200  LA    processEvents             0082F2 RLA    
-removeEvent               008342  LA    spriteInit                0080D6  LA    
-
+_preInit                  0081AB RLA    addEvent                  008399  LA    
+eventsTable               000420  LA    getEventCounter           00842F  LA    
+hdmaMem                   00945B  LA    initEvents                00836D RLA    
+initSnes                  00827A RLA    oamData                   000200  LA    
+processEvents             0083C8 RLA    removeEvent               008418  LA    
+spriteInit                0081AC  LA    
 
 
 Imports list:
 -------------
-_IRQHandler (sprite.o):
+_IRQHandler (spriteIRQTrick.o):
     crt0.o                    src/crt0.asm(13)
-_NMIHandler (sprite.o):
+_NMIHandler (spriteIRQTrick.o):
     crt0.o                    src/crt0.asm(13)
 __ROMINFO_FILEOFFS__ ([linker generated]):
 __ROMINFO_LAST__ ([linker generated]):
 __ROMINFO_SIZE__ ([linker generated]):
 __ROMINFO_START__ ([linker generated]):
 __STARTUP__ (crt0.o):
-    sprite.o                  sprite.asm(10)
+    spriteIRQTrick.o          spriteIRQTrick.asm(10)
 __VECTORS_FILEOFFS__ ([linker generated]):
 __VECTORS_LAST__ ([linker generated]):
 __VECTORS_SIZE__ ([linker generated]):
 __VECTORS_START__ ([linker generated]):
-_main (sprite.o):
+_main (spriteIRQTrick.o):
     crt0.o                    src/crt0.asm(11)
-_preInit (sprite.o):
+_preInit (spriteIRQTrick.o):
     crt0.o                    src/crt0.asm(12)
 addEvent (event.o):
 eventsTable (event.o):
 getEventCounter (event.o):
+hdmaMem (spriteIRQTrick.o):
 initEvents (event.o):
-    sprite.o                  sprite.asm(17)
+    spriteIRQTrick.o          spriteIRQTrick.asm(17)
 initSnes (init.o):
     crt0.o                    src/crt0.asm(15)
-oamData (sprite.o):
+oamData (spriteIRQTrick.o):
 processEvents (event.o):
-    sprite.o                  sprite.asm(20)
+    spriteIRQTrick.o          spriteIRQTrick.asm(20)
 removeEvent (event.o):
-spriteInit (sprite.o):
+spriteInit (spriteIRQTrick.o):
 

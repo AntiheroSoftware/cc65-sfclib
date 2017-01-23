@@ -1,7 +1,7 @@
 Modules list:
 -------------
 scroll.o:
-    CODE              Offs=000000  Size=0001EE  Align=00001  Fill=0000
+    CODE              Offs=000000  Size=0001F8  Align=00001  Fill=0000
     RODATA            Offs=000000  Size=000080  Align=00001  Fill=0000
     BSS               Offs=000000  Size=000008  Align=00001  Fill=0000
     DATA              Offs=000000  Size=000000  Align=00001  Fill=0000
@@ -9,25 +9,25 @@ scroll.o:
     NULL              Offs=000000  Size=000000  Align=00001  Fill=0000
     BANK1             Offs=000000  Size=0022E0  Align=00001  Fill=0000
     BANK2             Offs=000000  Size=0031C0  Align=00001  Fill=0000
-/Users/lint/Dropbox/Snes/projects/Snes_Tools/cc65-sfclib/bin/sfc.lib(crt0.o):
-    CODE              Offs=0001EE  Size=000000  Align=00001  Fill=0000
+../../../cc65-sfclib/bin/sfc.lib(crt0.o):
+    CODE              Offs=0001F8  Size=000000  Align=00001  Fill=0000
     RODATA            Offs=000080  Size=000000  Align=00001  Fill=0000
     BSS               Offs=000008  Size=000000  Align=00001  Fill=0000
     DATA              Offs=000000  Size=000000  Align=00001  Fill=0000
     ZEROPAGE          Offs=000000  Size=000000  Align=00001  Fill=0000
     NULL              Offs=000000  Size=000000  Align=00001  Fill=0000
-    STARTUP           Offs=000000  Size=000039  Align=00001  Fill=0000
+    STARTUP           Offs=000000  Size=000038  Align=00001  Fill=0000
     ROMINFO           Offs=000000  Size=000030  Align=00001  Fill=0000
     VECTORS           Offs=000000  Size=00001C  Align=00001  Fill=0000
-/Users/lint/Dropbox/Snes/projects/Snes_Tools/cc65-sfclib/bin/sfc.lib(init.o):
-    CODE              Offs=0001EE  Size=0000F3  Align=00001  Fill=0000
+../../../cc65-sfclib/bin/sfc.lib(init.o):
+    CODE              Offs=0001F8  Size=0000F3  Align=00001  Fill=0000
     RODATA            Offs=000080  Size=000000  Align=00001  Fill=0000
     BSS               Offs=000008  Size=000000  Align=00001  Fill=0000
     DATA              Offs=000000  Size=000000  Align=00001  Fill=0000
     ZEROPAGE          Offs=000000  Size=000000  Align=00001  Fill=0000
     NULL              Offs=000000  Size=000000  Align=00001  Fill=0000
-/Users/lint/Dropbox/Snes/projects/Snes_Tools/cc65-sfclib/bin/sfc.lib(event.o):
-    CODE              Offs=0002E1  Size=0000C2  Align=00001  Fill=0000
+../../../cc65-sfclib/bin/sfc.lib(event.o):
+    CODE              Offs=0002EB  Size=0000CE  Align=00001  Fill=0000
     RODATA            Offs=000080  Size=000000  Align=00001  Fill=0000
     BSS               Offs=000008  Size=000083  Align=00001  Fill=0000
     DATA              Offs=000000  Size=000000  Align=00001  Fill=0000
@@ -43,41 +43,28 @@ DATA                  000000  000000  000000  00001
 NULL                  000000  000000  000000  00001
 ZEROPAGE              000000  000000  000000  00001
 BSS                   000200  00028A  00008B  00001
-STARTUP               008000  008038  000039  00001
-CODE                  008039  0083DB  0003A3  00001
-RODATA                0083DC  00845B  000080  00001
+STARTUP               008000  008037  000038  00001
+CODE                  008038  0083F0  0003B9  00001
+RODATA                0083F1  008470  000080  00001
 ROMINFO               00FFB0  00FFDF  000030  00001
 VECTORS               00FFE4  00FFFF  00001C  00001
 BANK1                 018000  01A2DF  0022E0  00001
 BANK2                 028000  02B1BF  0031C0  00001
 
 
-Exports list by name:
----------------------
-_IRQHandler               008221 RLA    _NMIHandler               008222 RLA    
+Exports list:
+-------------
+_IRQHandler               008227 RLA    _NMIHandler               008228 RLA    
 __ROMINFO_FILEOFFS__      007FB0  EA    __ROMINFO_LAST__          00FFE0  LA    
 __ROMINFO_SIZE__          000034  EA    __ROMINFO_START__         00FFB0  LA    
 __STARTUP__               000001 REA    __VECTORS_FILEOFFS__      007FE4  EA    
 __VECTORS_LAST__          010000  LA    __VECTORS_SIZE__          00001C  EA    
-__VECTORS_START__         00FFE4  LA    _main                     008039 RLA    
-_preInit                  008226 RLA    addEvent                  008346 RLA    
-eventsTable               000208  LA    initEvents                00831A RLA    
-initSnes                  008227 RLA    processEvents             008375 RLA    
-removeEvent               0083C5  LA    
-
-
-Exports list by value:
-----------------------
-__STARTUP__               000001 REA    __VECTORS_SIZE__          00001C  EA    
-__ROMINFO_SIZE__          000034  EA    eventsTable               000208  LA    
-__ROMINFO_FILEOFFS__      007FB0  EA    __VECTORS_FILEOFFS__      007FE4  EA    
-_main                     008039 RLA    _IRQHandler               008221 RLA    
-_NMIHandler               008222 RLA    _preInit                  008226 RLA    
-initSnes                  008227 RLA    initEvents                00831A RLA    
-addEvent                  008346 RLA    processEvents             008375 RLA    
-removeEvent               0083C5  LA    __ROMINFO_START__         00FFB0  LA    
-__ROMINFO_LAST__          00FFE0  LA    __VECTORS_START__         00FFE4  LA    
-__VECTORS_LAST__          010000  LA    
+__VECTORS_START__         00FFE4  LA    _main                     008038 RLA    
+_preInit                  00822F RLA    addEvent                  00834F RLA    
+eventsTable               000208  LA    getEventCounter           0083E5  LA    
+initEvents                008323 RLA    initSnes                  008230 RLA    
+processEvents             00837E RLA    removeEvent               0083CE  LA    
+scrollEvent               0081BA  LA    
 
 
 Imports list:
@@ -103,6 +90,7 @@ _preInit (scroll.o):
 addEvent (event.o):
     scroll.o                  scroll.asm(18)
 eventsTable (event.o):
+getEventCounter (event.o):
 initEvents (event.o):
     scroll.o                  scroll.asm(17)
 initSnes (init.o):
@@ -110,4 +98,5 @@ initSnes (init.o):
 processEvents (event.o):
     scroll.o                  scroll.asm(20)
 removeEvent (event.o):
+scrollEvent (scroll.o):
 
