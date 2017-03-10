@@ -154,6 +154,7 @@ loopInitCallback:
     .A16
     .I16
 
+	lda #$0000				; clear A register (mostly High Byte)
     ldx #$0000              ; set index
 loopProcessEvents:
 

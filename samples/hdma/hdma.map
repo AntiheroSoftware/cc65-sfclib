@@ -25,7 +25,7 @@ hdma.o:
     ZEROPAGE          Offs=000000  Size=000000  Align=00001  Fill=0000
     NULL              Offs=000000  Size=000000  Align=00001  Fill=0000
 ../../../cc65-sfclib/bin/sfc.lib(event.o):
-    CODE              Offs=000272  Size=0000CE  Align=00001  Fill=0000
+    CODE              Offs=000272  Size=0000D1  Align=00001  Fill=0000
     RODATA            Offs=0012D0  Size=000000  Align=00001  Fill=0000
     BSS               Offs=000204  Size=000083  Align=00001  Fill=0000
     DATA              Offs=000000  Size=000000  Align=00001  Fill=0000
@@ -42,8 +42,8 @@ NULL                  000000  000000  000000  00001
 ZEROPAGE              000000  000000  000000  00001
 BSS                   000200  000486  000287  00001
 STARTUP               008000  00803A  00003B  00001
-CODE                  00803B  00837A  000340  00001
-RODATA                00837B  00964A  0012D0  00001
+CODE                  00803B  00837D  000343  00001
+RODATA                00837E  00964D  0012D0  00001
 ROMINFO               00FFB0  00FFDF  000030  00001
 VECTORS               00FFE4  00FFFF  00001C  00001
 
@@ -57,9 +57,9 @@ __STARTUP__               000001 REA    __VECTORS_FILEOFFS__      007FE4  EA
 __VECTORS_LAST__          010000  LA    __VECTORS_SIZE__          00001C  EA    
 __VECTORS_START__         00FFE4  LA    _main                     00803B RLA    
 _preInit                  008126 RLA    addEvent                  0082D9 RLA    
-eventsTable               000404  LA    getEventCounter           00836F  LA    
+eventsTable               000404  LA    getEventCounter           008372  LA    
 initEvents                0082AD RLA    initSnes                  0081BA RLA    
-processEvents             008308 RLA    removeEvent               008358  LA    
+processEvents             008308 RLA    removeEvent               00835B  LA    
 
 
 

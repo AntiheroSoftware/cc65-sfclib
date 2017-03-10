@@ -27,7 +27,7 @@ scroll.o:
     ZEROPAGE          Offs=000000  Size=000000  Align=00001  Fill=0000
     NULL              Offs=000000  Size=000000  Align=00001  Fill=0000
 ../../../cc65-sfclib/bin/sfc.lib(event.o):
-    CODE              Offs=00041B  Size=0000CE  Align=00001  Fill=0000
+    CODE              Offs=00041B  Size=0000D1  Align=00001  Fill=0000
     RODATA            Offs=000000  Size=000000  Align=00001  Fill=0000
     BSS               Offs=000028  Size=000083  Align=00001  Fill=0000
     DATA              Offs=000000  Size=000000  Align=00001  Fill=0000
@@ -44,8 +44,8 @@ NULL                  000000  000000  000000  00001
 ZEROPAGE              000000  000000  000000  00001
 BSS                   000200  0002AA  0000AB  00001
 STARTUP               008000  00803A  00003B  00001
-CODE                  00803B  008523  0004E9  00001
-RODATA                008524  008524  000000  00001
+CODE                  00803B  008526  0004EC  00001
+RODATA                008527  008527  000000  00001
 ROMINFO               00FFB0  00FFDF  000030  00001
 VECTORS               00FFE4  00FFFF  00001C  00001
 BANK1                 018000  01A2DF  0022E0  00001
@@ -61,13 +61,13 @@ __STARTUP__               000001 REA    __VECTORS_FILEOFFS__      007FE4  EA
 __VECTORS_LAST__          010000  LA    __VECTORS_SIZE__          00001C  EA    
 __VECTORS_START__         00FFE4  LA    _main                     00803B RLA    
 _preInit                  008362 RLA    addEvent                  008482 RLA    
-eventsTable               000228  LA    getEventCounter           008518  LA    
+eventsTable               000228  LA    getEventCounter           00851B  LA    
 initEvents                008456 RLA    initLevelDMA              0082E4  LA    
 initSnes                  008363 RLA    levelDMADst               000203  LA    
 levelDMASize              000205  LA    levelDMASrc               000200  LA    
 levelMap                  028000  LA    levelMapTable             00020C  LA    
 mapPosition               000209  LA    processEvents             0084B1 RLA    
-removeEvent               008501  LA    scrollDirection           00020B  LA    
+removeEvent               008504  LA    scrollDirection           00020B  LA    
 scrollEvent               0082FA  LA    
 
 
