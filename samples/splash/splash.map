@@ -4,7 +4,7 @@ splash.o:
     CODE              Offs=000000  Size=000103  Align=00001  Fill=0000
     RODATA            Offs=000000  Size=0011A0  Align=00001  Fill=0000
 ../../../cc65-sfclib/bin/sfc.lib(crt0.o):
-    STARTUP           Offs=000000  Size=00003B  Align=00001  Fill=0000
+    STARTUP           Offs=000000  Size=000047  Align=00001  Fill=0000
     ROMINFO           Offs=000000  Size=000030  Align=00001  Fill=0000
     VECTORS           Offs=000000  Size=00001C  Align=00001  Fill=0000
 ../../../cc65-sfclib/bin/sfc.lib(init.o):
@@ -19,20 +19,20 @@ Segment list:
 Name                   Start     End    Size  Align
 ----------------------------------------------------
 BSS                   000200  000282  000083  00001
-STARTUP               008000  00803A  00003B  00001
-CODE                  00803B  008301  0002C7  00001
-RODATA                008302  0094A1  0011A0  00001
+STARTUP               008000  008046  000047  00001
+CODE                  008047  00830D  0002C7  00001
+RODATA                00830E  0094AD  0011A0  00001
 ROMINFO               00FFB0  00FFDF  000030  00001
 VECTORS               00FFE4  00FFFF  00001C  00001
 
 
 Exports list:
 -------------
-_IRQHandler               00811D RLA    _NMIHandler               00811E RLA    
-__STARTUP__               000001 REA    _main                     00803B RLA    
-_preInit                  008122 RLA    addEvent                  00825D RLA    
-initEvents                008231 RLA    initSnes                  00813E RLA    
-processEvents             00828C RLA    
+_IRQHandler               008129 RLA    _NMIHandler               00812A RLA    
+__STARTUP__               000001 REA    _main                     008047 RLA    
+_preInit                  00812E RLA    addEvent                  008269 RLA    
+initEvents                00823D RLA    initSnes                  00814A RLA    
+processEvents             008298 RLA    
 
 
 Imports list:
