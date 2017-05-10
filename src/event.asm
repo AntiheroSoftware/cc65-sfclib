@@ -13,6 +13,7 @@
             .export     removeAllEvent
             .export     processEvents
             .export     getEventCounter
+            .export     isEventActive
 
             .export     eventsTable
 
@@ -302,6 +303,30 @@ skipToNextEvent:
 	tay								; set slot index in Y
 
 	ldx eventsTable+1,y
+
+	plp
+	ply
+	rts
+.endproc
+
+;******************************************************************************
+;*** isEventActive ************************************************************
+;******************************************************************************
+;*** A contains slot address                                                ***
+;******************************************************************************
+;*** active flag is returned in A register                                  ***
+;******************************************************************************
+
+.proc isEventActive
+	phy
+	php
+
+	asl								; calculate slot index
+	asl
+	asl
+	tay								; set slot index in Y
+
+	lda eventsTable,y
 
 	plp
 	ply

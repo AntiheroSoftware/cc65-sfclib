@@ -28,14 +28,14 @@ metasprite.o:
     ZEROPAGE          Offs=000020  Size=000000  Align=00001  Fill=0000
     NULL              Offs=000000  Size=000000  Align=00001  Fill=0000
 ../../../cc65-sfclib/bin/sfc.lib(event.o):
-    CODE              Offs=000497  Size=0000D1  Align=00001  Fill=0000
+    CODE              Offs=000497  Size=0000F4  Align=00001  Fill=0000
     RODATA            Offs=000062  Size=000000  Align=00001  Fill=0000
     BSS               Offs=000002  Size=000083  Align=00001  Fill=0000
     DATA              Offs=000000  Size=000000  Align=00001  Fill=0000
     ZEROPAGE          Offs=000020  Size=000000  Align=00001  Fill=0000
     NULL              Offs=000000  Size=000000  Align=00001  Fill=0000
 ../../../cc65-sfclib/bin/sfc.lib(sprite.o):
-    CODE              Offs=000568  Size=000074  Align=00001  Fill=0000
+    CODE              Offs=00058B  Size=000074  Align=00001  Fill=0000
     RODATA            Offs=000062  Size=000000  Align=00001  Fill=0000
     BSS               Offs=000085  Size=000221  Align=00001  Fill=0000
     DATA              Offs=000000  Size=000000  Align=00001  Fill=0000
@@ -52,8 +52,8 @@ NULL                  000000  000000  000000  00001
 ZEROPAGE              000000  00001F  000020  00001
 BSS                   000200  0004A5  0002A6  00001
 STARTUP               008000  008046  000047  00001
-CODE                  008047  008622  0005DC  00001
-RODATA                008623  008684  000062  00001
+CODE                  008047  008645  0005FF  00001
+RODATA                008646  0086A7  000062  00001
 ROMINFO               00FFB0  00FFDF  000030  00001
 VECTORS               00FFE4  00FFFF  00001C  00001
 BANK1                 018000  01AEFF  002F00  00100
@@ -63,7 +63,7 @@ BANK3                 038000  03FFFF  008000  00001
 
 Exports list:
 -------------
-OAMDataUpdated            008615 RLA    _IRQHandler               00833E RLA    
+OAMDataUpdated            008638 RLA    _IRQHandler               00833E RLA    
 _NMIHandler               00833F RLA    __ROMINFO_FILEOFFS__      007FB0  EA    
 __ROMINFO_LAST__          00FFE0  LA    __ROMINFO_SIZE__          000034  EA    
 __ROMINFO_START__         00FFB0  LA    __STARTUP__               000001 REA    
@@ -71,13 +71,14 @@ __VECTORS_FILEOFFS__      007FE4  EA    __VECTORS_LAST__          010000  LA
 __VECTORS_SIZE__          00001C  EA    __VECTORS_START__         00FFE4  LA    
 _main                     008047 RLA    _preInit                  008343 RLA    
 addEvent                  00850A RLA    animFrameCounter          000201  LA    
-animFrameIndex            000200  LA    clearOAM                  0085AF RLA    
-copyOAM                   0085DE RLA    copyOAMEvent              0083DF  LA    
-eventsTable               000202  LA    getEventCounter           0085A3  LA    
-grabbingWalk              008678  LA    hdmaInit                  008344  LA    
-hdmaMem                   008623  LA    initEvents                0084DE RLA    
-initSnes                  0083EB RLA    oamData                   000285 RLA    
-processEvents             008539 RLA    removeEvent               00858C  LA    
+animFrameIndex            000200  LA    clearOAM                  0085D2 RLA    
+copyOAM                   008601 RLA    copyOAMEvent              0083DF  LA    
+eventsTable               000202  LA    getEventCounter           0085BA  LA    
+grabbingWalk              00869B  LA    hdmaInit                  008344  LA    
+hdmaMem                   008646  LA    initEvents                0084DE RLA    
+initSnes                  0083EB RLA    isEventActive             0085C6  LA    
+oamData                   000285 RLA    processEvents             008539 RLA    
+removeAllEvent            0085A3  LA    removeEvent               00858C  LA    
 setOAMFrame               008365  LA    setOAMFrameDMA            00838D  LA    
 setOAMTranslate           0083C2  LA    
 
@@ -122,10 +123,12 @@ initEvents (event.o):
     metasprite.o              metasprite.asm(18)
 initSnes (init.o):
     crt0.o                    src/crt0.asm(15)
+isEventActive (event.o):
 oamData (sprite.o):
     metasprite.o              ../../../cc65-sfclib/include/snes-sprite.inc(5)
 processEvents (event.o):
     metasprite.o              metasprite.asm(21)
+removeAllEvent (event.o):
 removeEvent (event.o):
 setOAMFrame (metasprite.o):
 setOAMFrameDMA (metasprite.o):
