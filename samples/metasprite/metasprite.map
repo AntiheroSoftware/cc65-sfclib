@@ -28,14 +28,14 @@ metasprite.o:
     ZEROPAGE          Offs=000020  Size=000000  Align=00001  Fill=0000
     NULL              Offs=000000  Size=000000  Align=00001  Fill=0000
 ../../../cc65-sfclib/bin/sfc.lib(event.o):
-    CODE              Offs=0004CE  Size=0000F4  Align=00001  Fill=0000
+    CODE              Offs=0004CE  Size=0000FD  Align=00001  Fill=0000
     RODATA            Offs=000048  Size=000000  Align=00001  Fill=0000
     BSS               Offs=000002  Size=000083  Align=00001  Fill=0000
     DATA              Offs=000000  Size=000000  Align=00001  Fill=0000
     ZEROPAGE          Offs=000020  Size=000000  Align=00001  Fill=0000
     NULL              Offs=000000  Size=000000  Align=00001  Fill=0000
 ../../../cc65-sfclib/bin/sfc.lib(sprite.o):
-    CODE              Offs=0005C2  Size=000074  Align=00001  Fill=0000
+    CODE              Offs=0005CB  Size=000074  Align=00001  Fill=0000
     RODATA            Offs=000048  Size=000000  Align=00001  Fill=0000
     BSS               Offs=000085  Size=000221  Align=00001  Fill=0000
     DATA              Offs=000000  Size=000000  Align=00001  Fill=0000
@@ -52,8 +52,8 @@ NULL                  000000  000000  000000  00001
 ZEROPAGE              000000  00001F  000020  00001
 BSS                   000200  0004A5  0002A6  00001
 STARTUP               008000  008046  000047  00001
-CODE                  008047  00867C  000636  00001
-RODATA                00867D  0086C4  000048  00001
+CODE                  008047  008685  00063F  00001
+RODATA                008686  0086CD  000048  00001
 ROMINFO               00FFB0  00FFDF  000030  00001
 VECTORS               00FFE4  00FFFF  00001C  00001
 BANK1                 018000  01AEFF  002F00  00100
@@ -63,7 +63,7 @@ BANK3                 038000  03FFFF  008000  00001
 
 Exports list:
 -------------
-OAMDataUpdated            00866F  LA    _IRQHandler               008326 RLA    
+OAMDataUpdated            008678  LA    _IRQHandler               008326 RLA    
 _NMIHandler               008327 RLA    __ROMINFO_FILEOFFS__      007FB0  EA    
 __ROMINFO_LAST__          00FFE0  LA    __ROMINFO_SIZE__          000034  EA    
 __ROMINFO_START__         00FFB0  LA    __STARTUP__               000001 REA    
@@ -71,11 +71,11 @@ __VECTORS_FILEOFFS__      007FE4  EA    __VECTORS_LAST__          010000  LA
 __VECTORS_SIZE__          00001C  EA    __VECTORS_START__         00FFE4  LA    
 _main                     008047 RLA    _preInit                  00832B RLA    
 addEvent                  008541 RLA    animFrameCounter          000201  LA    
-animFrameIndex            000200  LA    clearOAM                  008609 RLA    
-copyOAM                   008638 RLA    copyOAMEvent              008416  LA    
+animFrameIndex            000200  LA    clearOAM                  008612 RLA    
+copyOAM                   008641 RLA    copyOAMEvent              008416  LA    
 eventsTable               000202  LA    getEventCounter           0085F1  LA    
-grabbingAnim              0083C2  LA    grabbingWalk              0086B8  LA    
-hdmaInit                  00832C  LA    hdmaMem                   00867D  LA    
+grabbingAnim              0083C2  LA    grabbingWalk              0086C1  LA    
+hdmaInit                  00832C  LA    hdmaMem                   008686  LA    
 initEvents                008515 RLA    initSnes                  008422 RLA    
 isEventActive             0085FD  LA    oamData                   000285 RLA    
 processEvents             008570 RLA    removeAllEvent            0085DA  LA    

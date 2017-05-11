@@ -25,7 +25,7 @@ sprite.o:
     ZEROPAGE          Offs=000000  Size=000000  Align=00001  Fill=0000
     NULL              Offs=000000  Size=000000  Align=00001  Fill=0000
 ../../../cc65-sfclib/bin/sfc.lib(event.o):
-    CODE              Offs=00025C  Size=0000F4  Align=00001  Fill=0000
+    CODE              Offs=00025C  Size=0000FD  Align=00001  Fill=0000
     RODATA            Offs=000423  Size=000000  Align=00001  Fill=0000
     BSS               Offs=000220  Size=000083  Align=00001  Fill=0000
     DATA              Offs=000000  Size=000000  Align=00001  Fill=0000
@@ -42,8 +42,8 @@ NULL                  000000  000000  000000  00001
 ZEROPAGE              000000  000000  000000  00001
 BSS                   000200  0004A2  0002A3  00001
 STARTUP               008000  008046  000047  00001
-CODE                  008047  008396  000350  00001
-RODATA                008397  0087B9  000423  00001
+CODE                  008047  00839F  000359  00001
+RODATA                0083A0  0087C2  000423  00001
 ROMINFO               00FFB0  00FFDF  000030  00001
 VECTORS               00FFE4  00FFFF  00001C  00001
 

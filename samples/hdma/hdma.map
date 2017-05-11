@@ -25,7 +25,7 @@ hdma.o:
     ZEROPAGE          Offs=000000  Size=000000  Align=00001  Fill=0000
     NULL              Offs=000000  Size=000000  Align=00001  Fill=0000
 ../../../cc65-sfclib/bin/sfc.lib(event.o):
-    CODE              Offs=000272  Size=0000F4  Align=00001  Fill=0000
+    CODE              Offs=000272  Size=0000FD  Align=00001  Fill=0000
     RODATA            Offs=0012D0  Size=000000  Align=00001  Fill=0000
     BSS               Offs=000204  Size=000083  Align=00001  Fill=0000
     DATA              Offs=000000  Size=000000  Align=00001  Fill=0000
@@ -42,8 +42,8 @@ NULL                  000000  000000  000000  00001
 ZEROPAGE              000000  000000  000000  00001
 BSS                   000200  000486  000287  00001
 STARTUP               008000  008046  000047  00001
-CODE                  008047  0083AC  000366  00001
-RODATA                0083AD  00967C  0012D0  00001
+CODE                  008047  0083B5  00036F  00001
+RODATA                0083B6  009685  0012D0  00001
 ROMINFO               00FFB0  00FFDF  000030  00001
 VECTORS               00FFE4  00FFFF  00001C  00001
 

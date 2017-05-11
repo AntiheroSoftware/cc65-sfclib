@@ -321,10 +321,20 @@ skipToNextEvent:
 	phy
 	php
 
+	rep #$20
+	.A16
+
+	and #$000f
+
 	asl								; calculate slot index
 	asl
 	asl
 	tay								; set slot index in Y
+
+	rep #$10
+	sep #$20
+	.A8
+	.I16
 
 	lda eventsTable,y
 
