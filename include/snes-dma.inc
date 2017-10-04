@@ -20,30 +20,33 @@
     sta     DMA_BBUS0
 .endmacro
 
-.macro setDMA srcBank, srcAddr, size
-    lda     #<srcAddr
-    sta     DMA_ABUS0L
-    lda     #>srcAddr
-    sta     DMA_ABUS0H
-    lda     #srcBank
-    sta     DMA_ABUS0B
-    lda		#<size
-    sta		DMA_SIZE0L
-    lda		#>size
-    sta     DMA_SIZE0H
-.endmacro
-
-.macro setDMAFromPointer src, size
-    lda     src
-    sta     DMA_ABUS0L
-    lda     src+1
-    sta     DMA_ABUS0H
-    lda     src+2
-    sta     DMA_ABUS0B
-    lda		size
-    sta		DMA_SIZE0L
-    lda		size+1
-    sta     DMA_SIZE0H
+.macro setDMA src, size
+    .if (.match (.left (1, {src}), {(})) .and (.match (.right (1, {src}), {)}))
+        lda     .mid(1, .tcount({src})-2, {src})
+        sta     DMA_ABUS0L
+        lda     .mid(1, .tcount({src})-2, {src})+1
+        sta     DMA_ABUS0H
+        lda     .mid(1, .tcount({src})-2, {src})+2
+        sta     DMA_ABUS0B
+    .else
+        lda     #<src
+        sta     DMA_ABUS0L
+        lda     #>src
+        sta     DMA_ABUS0H
+        lda     #^src
+        sta     DMA_ABUS0B
+    .endif
+    .if (.match (.left (1, {size}), {(})) .and (.match (.right (1, {size}), {)}))
+        lda		  .mid(1, .tcount({size})-2, {size})
+        sta		  DMA_SIZE0L
+        lda		  .mid(1, .tcount({size})-2, {size})+1
+        sta     DMA_SIZE0H
+    .else
+        lda		  #<size
+        sta		  DMA_SIZE0L
+        lda		  #>size
+        sta     DMA_SIZE0H
+    .endif
 .endmacro
 
 .macro startDMA channels

@@ -23,6 +23,8 @@
 .segment "STARTUP"
 
 start:
+	jml fast_start
+fast_start:
     sei                           ; Disabled interrupts
     clc                           ; clear carry to switch to native mode
     xce                           ; Exchange carry & emulation bit. Now in native mode (full 65816)
@@ -67,26 +69,31 @@ start:
 ;******************************************************************************
 
 irq:
-    rep	#$30
-    .A16
-    .I16
+	jml fast_irq
+fast_irq:
     pha
     phx
     phy
+    phd
+	phb
     jsr	_IRQHandler
+    plb
+	pld
     ply
     plx
     pla
     rti
 
 nmi:
+	jml fast_nmi
+fast_nmi:
     pha
     phx
     phy
     phd
     phb
-    jsr	_NMIHandler
     lda CPU_RDNMI   ; Read NMI
+    jsr	_NMIHandler
     plb
     pld
     ply
@@ -129,21 +136,21 @@ CHEKSUM:            .byte   $00, $00
 
 ; *** Native vector ***
 
-N_COP:   .word   dirq
-N_BRK:   .word   dirq
-N_ABORT: .word   dirq
-N_NMI:   .word   nmi
-N_RSRVD: .word   dirq
-N_IRQ:   .word   irq
+N_COP:   .word   .LOWORD(dirq)
+N_BRK:   .word   .LOWORD(dirq)
+N_ABORT: .word   .LOWORD(dirq)
+N_NMI:   .word   .LOWORD(nmi)
+N_RSRVD: .word   .LOWORD(dirq)
+N_IRQ:   .word   .LOWORD(irq)
 
          .byte $00, $00, $00, $00 ; vectors padding
 
 ; *** Emulation vector ***
 
-E_COP:   .word   dirq
-E_RSRVD: .word   dirq
-E_ABORT: .word   dirq
-E_NMI:   .word   dirq
-E_RESET: .word   start
-E_IRQ:   .word   dirq
+E_COP:   .word   .LOWORD(dirq)
+E_RSRVD: .word   .LOWORD(dirq)
+E_ABORT: .word   .LOWORD(dirq)
+E_NMI:   .word   .LOWORD(dirq)
+E_RESET: .word   .LOWORD(start)
+E_IRQ:   .word   .LOWORD(dirq)
 

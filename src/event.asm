@@ -10,7 +10,12 @@
             .export     initEvents
             .export     addEvent
             .export     removeEvent
+            .export     removeAllEvent
             .export     processEvents
+            .export     getEventCounter
+            .export     isEventActive
+
+            .export     eventsTable
 
 EVENT_SIZE = 8
 EVENT_NUMBER = 16
@@ -31,6 +36,9 @@ eventsTable:
     .res    EVENT_TABLE_SIZE
     .res    1                  ; rts
 
+eventPointer:
+	.res	2
+
 .segment "CODE"
 
 ;******************************************************************************
@@ -43,6 +51,11 @@ eventsTable:
     pha
     phx
     php
+
+    rep #$20
+	.A16
+
+	lda #$0000
 
     rep #$10
     sep #$20
@@ -88,12 +101,19 @@ loopInitCallback:
 
     pha
 
+    rep #$20
+	.A16
+
+	lda #$0000
+
     rep #$10
     sep #$20
     .A8
     .I16
 
     tya
+    asl
+    asl
     asl
     tay
 
@@ -121,7 +141,7 @@ loopInitCallback:
 .endproc
 
 ;******************************************************************************
-;*** processEvents *********************************************************
+;*** processEvents ************************************************************
 ;******************************************************************************
 ;*** No Parameters                                                          ***
 ;******************************************************************************
@@ -136,6 +156,7 @@ loopInitCallback:
     .A16
     .I16
 
+	lda #$0000				; clear A register (mostly High Byte)
     ldx #$0000              ; set index
 loopProcessEvents:
 
@@ -151,10 +172,17 @@ loopProcessEvents:
 
     lda eventsTable+1,x     ; load counter into A reg
     tay                     ; save counter in Y reg
-    jsr eventsTable+3       ; jump to event table entry
+    txa
+    adc #eventsTable+2
+    sta eventPointer
 
-    sep #$20
-    .A8
+	sep #$20
+	.A8
+
+    phx
+    ldx #$0000
+    jsr (eventPointer,x)   		; jump to event table entry
+	plx
 
     cmp #$00
     bne noEventRemoval
@@ -194,7 +222,7 @@ skipToNextEvent:
 .endproc
 
 ;******************************************************************************
-;*** removeEvent ***********************************************************
+;*** removeEvent **************************************************************
 ;******************************************************************************
 ;*** A contains slot address                                                ***
 ;******************************************************************************
@@ -204,6 +232,10 @@ skipToNextEvent:
     phx
     php
 
+    rep #$20
+	.A16
+
+	and #$000f
     asl
     tax
 
@@ -219,4 +251,94 @@ skipToNextEvent:
     plx
     pla
     rts
+.endproc
+
+;******************************************************************************
+;*** removeAllEvent ***********************************************************
+;******************************************************************************
+;*** No Parameters                                                          ***
+;******************************************************************************
+
+.proc removeAllEvent
+    pha
+    phx
+    php
+
+    rep #$20
+	.A16
+
+	and #$000f
+    asl
+    tax
+
+    rep #$10
+    sep #$20
+    .A8
+    .I16
+
+    lda #$00            ; "NOP" instruction opcode
+    sta eventsTable,x
+
+    plp
+    plx
+    pla
+    rts
+.endproc
+
+;******************************************************************************
+;*** getEventCounter **********************************************************
+;******************************************************************************
+;*** A contains slot address                                                ***
+;******************************************************************************
+;*** counter is returned in X register                                      ***
+;******************************************************************************
+
+.proc getEventCounter
+	phy
+	php
+
+	asl								; calculate slot index
+	asl
+	asl
+	tay								; set slot index in Y
+
+	ldx eventsTable+1,y
+
+	plp
+	ply
+	rts
+.endproc
+
+;******************************************************************************
+;*** isEventActive ************************************************************
+;******************************************************************************
+;*** A contains slot address                                                ***
+;******************************************************************************
+;*** active flag is returned in A register                                  ***
+;******************************************************************************
+
+.proc isEventActive
+	phy
+	php
+
+	rep #$20
+	.A16
+
+	and #$000f
+
+	asl								; calculate slot index
+	asl
+	asl
+	tay								; set slot index in Y
+
+	rep #$10
+	sep #$20
+	.A8
+	.I16
+
+	lda eventsTable,y
+
+	plp
+	ply
+	rts
 .endproc

@@ -6,15 +6,12 @@
 
             .setcpu     "65816"
             .include    "snes.inc"
+            .include    "snes-pad.inc"
 
             .import     initDebug
             .import     setCursorDebug
             .import     writeStringDebug
             .import     displayDebug
-
-            .import     initPad
-            .import     readPad1, readPad2
-            .import     padPushData1, padReleaseData1
 
             .import     hextoa, stringBuffer
 

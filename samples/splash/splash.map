@@ -3,45 +3,45 @@ Modules list:
 splash.o:
     CODE              Offs=000000  Size=000103  Align=00001  Fill=0000
     RODATA            Offs=000000  Size=0011A0  Align=00001  Fill=0000
-/Users/lint/Dropbox/Snes/projects/Snes_Tools/cc65-sfclib/bin/sfc.lib(crt0.o):
-    STARTUP           Offs=000000  Size=000039  Align=00001  Fill=0000
+../../../cc65-sfclib/bin/sfc.lib(crt0.o):
+    STARTUP           Offs=000000  Size=000047  Align=00001  Fill=0000
     ROMINFO           Offs=000000  Size=000030  Align=00001  Fill=0000
     VECTORS           Offs=000000  Size=00001C  Align=00001  Fill=0000
-/Users/lint/Dropbox/Snes/projects/Snes_Tools/cc65-sfclib/bin/sfc.lib(init.o):
+../../../cc65-sfclib/bin/sfc.lib(init.o):
     CODE              Offs=000103  Size=0000F3  Align=00001  Fill=0000
-/Users/lint/Dropbox/Snes/projects/Snes_Tools/cc65-sfclib/bin/sfc.lib(event.o):
-    CODE              Offs=0001F6  Size=00009F  Align=00001  Fill=0000
-    BSS               Offs=000000  Size=000081  Align=00001  Fill=0000
+../../../cc65-sfclib/bin/sfc.lib(event.o):
+    CODE              Offs=0001F6  Size=0000FD  Align=00001  Fill=0000
+    BSS               Offs=000000  Size=000083  Align=00001  Fill=0000
 
 
 Segment list:
 -------------
 Name                   Start     End    Size  Align
 ----------------------------------------------------
-BSS                   000200  000280  000081  00001
-STARTUP               008000  008038  000039  00001
-CODE                  008039  0082CD  000295  00001
-RODATA                0082CE  00946D  0011A0  00001
+BSS                   000200  000282  000083  00001
+STARTUP               008000  008046  000047  00001
+CODE                  008047  008339  0002F3  00001
+RODATA                00833A  0094D9  0011A0  00001
 ROMINFO               00FFB0  00FFDF  000030  00001
 VECTORS               00FFE4  00FFFF  00001C  00001
 
 
 Exports list by name:
 ---------------------
-_IRQHandler               00811B RLA    _NMIHandler               00811C RLA    
-__STARTUP__               000001 REA    _main                     008039 RLA    
-_preInit                  008120 RLA    addEvent                  008256 RLA    
-initEvents                00822F RLA    initSnes                  00813C RLA    
-processEvents             00827E RLA    
+_IRQHandler               008129 RLA    _NMIHandler               00812A RLA    
+__STARTUP__               000001 REA    _main                     008047 RLA    
+_preInit                  00812E RLA    addEvent                  008269 RLA    
+initEvents                00823D RLA    initSnes                  00814A RLA    
+processEvents             008298 RLA    
 
 
 Exports list by value:
 ----------------------
-__STARTUP__               000001 REA    _main                     008039 RLA    
-_IRQHandler               00811B RLA    _NMIHandler               00811C RLA    
-_preInit                  008120 RLA    initSnes                  00813C RLA    
-initEvents                00822F RLA    addEvent                  008256 RLA    
-processEvents             00827E RLA    
+__STARTUP__               000001 REA    _main                     008047 RLA    
+_IRQHandler               008129 RLA    _NMIHandler               00812A RLA    
+_preInit                  00812E RLA    initSnes                  00814A RLA    
+initEvents                00823D RLA    addEvent                  008269 RLA    
+processEvents             008298 RLA    
 
 
 Imports list:

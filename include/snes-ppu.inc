@@ -51,9 +51,7 @@
 ; void setBG12NBA(word vramDstBG1, word vramDstBG2)
 
 .macro setBG12NBA vramDstBG1, vramDstBG2
-    vramDstBG1Tmp = >vramDstBG1 >> 4
-    vramDstBG2Tmp = >vramDstBG2
-    lda #vramDstBG1Tmp | vramDstBG2Tmp
+    lda #(>vramDstBG1 >> 4) | >vramDstBG2
     sta PPU_BG12NBA
 .endmacro
 
@@ -66,65 +64,78 @@
     sta PPU_BG34NBA
 .endmacro
 
-; void setVMAINC(byte value)
-
 .macro setVMAINC value
     lda #value
     sta PPU_VMAINC
 .endmacro
 
-; void setVMADD(word value)
-
 .macro setVMADD vramDst
-    lda		#<vramDst
-    sta		PPU_VMADDL
-    lda		#>vramDst
-    sta		PPU_VMADDH
+    .if (.match (.left (1, {vramDst}), {(})) .and (.match (.right (1, {vramDst}), {)}))
+        lda		.mid(1, .tcount({vramDst})-2, {vramDst})
+        sta		PPU_VMADDL
+        lda		.mid(1, .tcount({vramDst})-2, {vramDst})+1
+        sta		PPU_VMADDH
+    .else
+        lda		#<vramDst
+        sta		PPU_VMADDL
+        lda		#>vramDst
+        sta		PPU_VMADDH
+    .endif
 .endmacro
-
-.macro setVMADDFromPointer vramDst
-    lda		vramDst
-    sta		PPU_VMADDL
-    lda		vramDst+1
-    sta		PPU_VMADDH
-.endmacro
-
-; void setCGADD(byte cgramDst)
 
 .macro setCGADD cgramDst
     lda #cgramDst
     sta PPU_CGADD
 .endmacro
 
-; VRAMLoad((long) src, (word) vramDst, (word) size)
-
-; TODO make an unique function that detects if a pointer of not ...
-; dunno if possible with CA65
+.macro setWMADD wramDst
+    ldx #.LOWORD(wramDst)
+    stx PPU_WMADDL
+    lda #.BANKBYTE(wramDst)
+    sta PPU_VMADDH
+.endmacro
 
 .macro VRAMLoad src, vramDst, size
     setVMAINC $80
     setVMADD vramDst
     setDMAParam $01
     setDMABBus $18
-    setDMA .BANKBYTE(src), src, size
+    setDMA src, size
     startDMA $01
 .endmacro
 
-.macro VRAMLoadFromPointer src, vramDst, size
+.macro VRAMClear src, vramDst, size
     setVMAINC $80
-    setVMADDFromPointer vramDst
+    setVMADD vramDst
+    setDMAParam $09
+    setDMABBus $18
+    setDMA src, size
+    startDMA $01
+.endmacro
+
+; TODO change name or add param for transfer type
+
+.macro VRAMLoad2 src, vramDst, size
+    setVMAINC $81
+    setVMADD vramDst
     setDMAParam $01
     setDMABBus $18
-    setDMAFromPointer src, size
+    setDMA src, size
     startDMA $01
 .endmacro
-
-; CGRAMLoad((long) src, (word) cgramDst, (word) size)
 
 .macro CGRAMLoad src, cgramDst, size
     setCGADD cgramDst
     setDMAParam $00
     setDMABBus $22
-    setDMA .BANKBYTE(src), src, size
+    setDMA src, size
+    startDMA $01
+.endmacro
+
+.macro WRAMLoad src, wramDst, size
+    setWMADD wramDst
+    setDMAParam $00
+    setDMABBus $80
+    setDMA src, size
     startDMA $01
 .endmacro
