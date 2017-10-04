@@ -52,8 +52,8 @@ BANK1                 018000  01A2DF  0022E0  00001
 BANK2                 028000  02B1BF  0031C0  00001
 
 
-Exports list:
--------------
+Exports list by name:
+---------------------
 _IRQHandler               008369 RLA    _NMIHandler               00836A RLA    
 __ROMINFO_FILEOFFS__      007FB0  EA    __ROMINFO_LAST__          00FFE0  LA    
 __ROMINFO_SIZE__          000034  EA    __ROMINFO_START__         00FFB0  LA    
@@ -70,6 +70,26 @@ levelMapTable             00020C  LA    mapPosition               000209  LA
 processEvents             0084BD RLA    removeAllEvent            008527  LA    
 removeEvent               008510  LA    scrollDirection           00020B  LA    
 scrollEvent               008306  LA    
+
+
+Exports list by value:
+----------------------
+__STARTUP__               000001 REA    __VECTORS_SIZE__          00001C  EA    
+__ROMINFO_SIZE__          000034  EA    levelDMASrc               000200  LA    
+levelDMADst               000203  LA    levelDMASize              000205  LA    
+mapPosition               000209  LA    scrollDirection           00020B  LA    
+levelMapTable             00020C  LA    eventsTable               000228  LA    
+__ROMINFO_FILEOFFS__      007FB0  EA    __VECTORS_FILEOFFS__      007FE4  EA    
+_main                     008047 RLA    initLevelDMA              0082F0  LA    
+scrollEvent               008306  LA    _IRQHandler               008369 RLA    
+_NMIHandler               00836A RLA    _preInit                  00836E RLA    
+initSnes                  00836F RLA    initEvents                008462 RLA    
+addEvent                  00848E RLA    processEvents             0084BD RLA    
+removeEvent               008510  LA    removeAllEvent            008527  LA    
+getEventCounter           00853E  LA    isEventActive             00854A  LA    
+__ROMINFO_START__         00FFB0  LA    __ROMINFO_LAST__          00FFE0  LA    
+__VECTORS_START__         00FFE4  LA    __VECTORS_LAST__          010000  LA    
+levelMap                  028000  LA    
 
 
 Imports list:

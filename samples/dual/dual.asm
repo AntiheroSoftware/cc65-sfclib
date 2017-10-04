@@ -435,7 +435,7 @@ levelMapTable:
     cpy #$00
     beq noDMA
 
-    VRAMLoadFromPointer levelDMASrc, levelDMADst, levelDMASize
+    VRAMLoad (levelDMASrc), (levelDMADst), (levelDMASize)
     jsr initLevelDMA                ; reset levelDMA values
 
 noDMA:

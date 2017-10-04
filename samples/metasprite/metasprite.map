@@ -61,8 +61,8 @@ BANK2                 028000  02B2FF  003300  00100
 BANK3                 038000  03FFFF  008000  00001
 
 
-Exports list:
--------------
+Exports list by name:
+---------------------
 OAMDataUpdated            008678  LA    _IRQHandler               008326 RLA    
 _NMIHandler               008327 RLA    __ROMINFO_FILEOFFS__      007FB0  EA    
 __ROMINFO_LAST__          00FFE0  LA    __ROMINFO_SIZE__          000034  EA    
@@ -80,6 +80,28 @@ initEvents                008515 RLA    initSnes                  008422 RLA
 isEventActive             0085FD  LA    oamData                   000285 RLA    
 processEvents             008570 RLA    removeAllEvent            0085DA  LA    
 removeEvent               0085C3  LA    setOam                    00834D  LA    
+
+
+
+Exports list by value:
+----------------------
+__STARTUP__               000001 REA    __VECTORS_SIZE__          00001C  EA    
+__ROMINFO_SIZE__          000034  EA    animFrameIndex            000200  LA    
+animFrameCounter          000201  LA    eventsTable               000202  LA    
+oamData                   000285 RLA    __ROMINFO_FILEOFFS__      007FB0  EA    
+__VECTORS_FILEOFFS__      007FE4  EA    _main                     008047 RLA    
+_IRQHandler               008326 RLA    _NMIHandler               008327 RLA    
+_preInit                  00832B RLA    hdmaInit                  00832C  LA    
+setOam                    00834D  LA    grabbingAnim              0083C2  LA    
+copyOAMEvent              008416  LA    initSnes                  008422 RLA    
+initEvents                008515 RLA    addEvent                  008541 RLA    
+processEvents             008570 RLA    removeEvent               0085C3  LA    
+removeAllEvent            0085DA  LA    getEventCounter           0085F1  LA    
+isEventActive             0085FD  LA    clearOAM                  008612 RLA    
+copyOAM                   008641 RLA    OAMDataUpdated            008678  LA    
+hdmaMem                   008686  LA    grabbingWalk              0086C1  LA    
+__ROMINFO_START__         00FFB0  LA    __ROMINFO_LAST__          00FFE0  LA    
+__VECTORS_START__         00FFE4  LA    __VECTORS_LAST__          010000  LA    
 
 
 

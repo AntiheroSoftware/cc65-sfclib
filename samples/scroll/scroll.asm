@@ -87,10 +87,10 @@ levelPal:
     lda #$02                        ; set BG mode 2
     sta $2105
 
-    lda $01                         ; Plane 0 (bit one) enable register
+    lda #$01                         ; Plane 0 (bit one) enable register
     sta $212c
 
-    lda $00                         ; All subPlane disable
+    lda #$00                         ; All subPlane disable
     sta $212d
 
     setINIDSP $0f                   ; Disable forced VBlank + full brightness
@@ -417,7 +417,7 @@ levelMapTable:
     cpy #$00
     beq noDMA
 
-    VRAMLoadFromPointer levelDMASrc, levelDMADst, levelDMASize
+    VRAMLoad (levelDMASrc), (levelDMADst), (levelDMASize)
     jsr initLevelDMA                ; reset levelDMA values
 
 noDMA:

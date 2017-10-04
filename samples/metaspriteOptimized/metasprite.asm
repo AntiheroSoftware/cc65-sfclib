@@ -311,17 +311,19 @@ tempValue8:
     ldy #grabbingWalk2
     jsr setOAMFrame
 
+	ldx #$20
+	ldy #$20
+	jsr setOAMTranslate
+
     ldx #oamData
 	ldy #grabbingWalk2
 	jsr setOAMFrameDMA
 
-	jsr setOAMTranslate
-
     lda #$00
     sta $2101                       ; set sprite address
 
-	jsr OAMDataUpdated
-    jsr copyOAM
+	;jsr OAMDataUpdated
+    ;jsr copyOAM
 
     lda #.BANKBYTE(copyOAMEvent)
     ldx #.LOWORD(copyOAMEvent)
@@ -414,7 +416,7 @@ infiniteMainLoop:
 	xba								; clear high byte of A register
     lda ($02,s),Y					; get size of frame
 
-	sta tempValue1
+	sta tempValue1					; TODO get rid of tempValue1 and use stack instead
 
 	iny
 	iny
@@ -457,7 +459,7 @@ copyLoop:
 	lda #$00
 	sta $2183
 
-	stx $2181
+	stx $2181					; set offset in OAM
 
 	lda #$00
 	xba							; clear high byte of A register
@@ -473,13 +475,13 @@ copyLoop:
 	sty $4362					;Data offset
 	stz $4364					;Data bank
 
-	lda #$80
-	sta $4361
-
 	;*** Set mode, destination and start transfer
 
 	ldx     #$00
 	stx     $4360
+
+	lda #$80
+	sta $4361
 
 	lda     #%01000000
 	sta     $420b

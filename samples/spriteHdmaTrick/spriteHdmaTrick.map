@@ -48,8 +48,8 @@ ROMINFO               00FFB0  00FFDF  000030  00001
 VECTORS               00FFE4  00FFFF  00001C  00001
 
 
-Exports list:
--------------
+Exports list by name:
+---------------------
 _IRQHandler               008184 RLA    _NMIHandler               008185 RLA    
 __ROMINFO_FILEOFFS__      007FB0  EA    __ROMINFO_LAST__          00FFE0  LA    
 __ROMINFO_SIZE__          000034  EA    __ROMINFO_START__         00FFB0  LA    
@@ -63,6 +63,23 @@ initSnes                  008258 RLA    isEventActive             008433  LA
 oamData                   000200  LA    processEvents             0083A6 RLA    
 removeAllEvent            008410  LA    removeEvent               0083F9  LA    
 spriteInit                00818A  LA    
+
+
+Exports list by value:
+----------------------
+__STARTUP__               000001 REA    __VECTORS_SIZE__          00001C  EA    
+__ROMINFO_SIZE__          000034  EA    oamData                   000200  LA    
+eventsTable               000420  LA    __ROMINFO_FILEOFFS__      007FB0  EA    
+__VECTORS_FILEOFFS__      007FE4  EA    _main                     008047 RLA    
+_IRQHandler               008184 RLA    _NMIHandler               008185 RLA    
+_preInit                  008189 RLA    spriteInit                00818A  LA    
+initSnes                  008258 RLA    initEvents                00834B RLA    
+addEvent                  008377  LA    processEvents             0083A6 RLA    
+removeEvent               0083F9  LA    removeAllEvent            008410  LA    
+getEventCounter           008427  LA    isEventActive             008433  LA    
+hdmaMem                   009468  LA    __ROMINFO_START__         00FFB0  LA    
+__ROMINFO_LAST__          00FFE0  LA    __VECTORS_START__         00FFE4  LA    
+__VECTORS_LAST__          010000  LA    
 
 
 Imports list:
