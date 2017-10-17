@@ -189,6 +189,8 @@ loopProcessEvents:
 
     txa
     lsr
+    lsr
+    lsr
     jsr removeEvent
     jmp skipToNextEvent
 
@@ -236,6 +238,8 @@ skipToNextEvent:
 	.A16
 
 	and #$000f
+    asl
+    asl
     asl
     tax
 

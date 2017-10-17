@@ -10,7 +10,7 @@ splash.o:
 ../../../cc65-sfclib/bin/sfc.lib(init.o):
     CODE              Offs=000103  Size=0000F3  Align=00001  Fill=0000
 ../../../cc65-sfclib/bin/sfc.lib(event.o):
-    CODE              Offs=0001F6  Size=0000FD  Align=00001  Fill=0000
+    CODE              Offs=0001F6  Size=000101  Align=00001  Fill=0000
     BSS               Offs=000000  Size=000083  Align=00001  Fill=0000
 
 
@@ -20,27 +20,18 @@ Name                   Start     End    Size  Align
 ----------------------------------------------------
 BSS                   000200  000282  000083  00001
 STARTUP               008000  008046  000047  00001
-CODE                  008047  008339  0002F3  00001
-RODATA                00833A  0094D9  0011A0  00001
+CODE                  008047  00833D  0002F7  00001
+RODATA                00833E  0094DD  0011A0  00001
 ROMINFO               00FFB0  00FFDF  000030  00001
 VECTORS               00FFE4  00FFFF  00001C  00001
 
 
-Exports list by name:
----------------------
+Exports list:
+-------------
 _IRQHandler               008129 RLA    _NMIHandler               00812A RLA    
 __STARTUP__               000001 REA    _main                     008047 RLA    
 _preInit                  00812E RLA    addEvent                  008269 RLA    
 initEvents                00823D RLA    initSnes                  00814A RLA    
-processEvents             008298 RLA    
-
-
-Exports list by value:
-----------------------
-__STARTUP__               000001 REA    _main                     008047 RLA    
-_IRQHandler               008129 RLA    _NMIHandler               00812A RLA    
-_preInit                  00812E RLA    initSnes                  00814A RLA    
-initEvents                00823D RLA    addEvent                  008269 RLA    
 processEvents             008298 RLA    
 
 

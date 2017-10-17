@@ -92,7 +92,7 @@
     ldx #.LOWORD(wramDst)
     stx PPU_WMADDL
     lda #.BANKBYTE(wramDst)
-    sta PPU_VMADDH
+    sta PPU_WMADDH
 .endmacro
 
 .macro VRAMLoad src, vramDst, size
@@ -135,6 +135,14 @@
 .macro WRAMLoad src, wramDst, size
     setWMADD wramDst
     setDMAParam $00
+    setDMABBus $80
+    setDMA src, size
+    startDMA $01
+.endmacro
+
+.macro WRAMClear src, wramDst, size
+    setWMADD wramDst
+    setDMAParam $08
     setDMABBus $80
     setDMA src, size
     startDMA $01
