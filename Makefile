@@ -10,7 +10,8 @@ sfclib:
 	../cc65/bin/ca65 -t none -I include src/pad.asm
 	../cc65/bin/ca65 -t none -I include src/event.asm
 	../cc65/bin/ca65 -t none -I include src/sprite.asm
-	../cc65/bin/ar65 a bin/sfc.lib src/crt0.o src/init.o src/string.o src/debug.o src/pad.o src/event.o src/sprite.o
+	../cc65/bin/ca65 -t none -I include src/waitvblank.asm
+	../cc65/bin/ar65 a bin/sfc.lib src/crt0.o src/init.o src/string.o src/debug.o src/pad.o src/event.o src/sprite.o src/waitvblank.o
 
 samples:
 	@$(MAKE) -C samples

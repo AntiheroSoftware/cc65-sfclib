@@ -5,21 +5,20 @@
 ;
 
         .setcpu     "65816"
-        .include    "snes.inc"
-        .export     _waitvblank
+        .export     waitForVBlank
 
-.proc       _waitvblank
+.A8
+.I16
 
-        php
-        pha
-	    sep		#$20
-	    .A8
-wait:   lda		CPU_RDNMI
-	    and		#<$80
-	    beq		wait
-	    pla
-	    plp
-	    rts
+.proc waitForVBlank
+
+	pha
+:   lda $4212
+	bmi :-
+:   lda $4212
+	bpl :-
+	pla
+	rts
 
 .endproc
 

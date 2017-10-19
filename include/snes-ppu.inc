@@ -7,6 +7,7 @@
 ;
 
             .setcpu     "65816"
+            .import     waitForVBlank
 
 ; void setINIDSP(word value) {
 ; put value in register A (8-bit mode)
