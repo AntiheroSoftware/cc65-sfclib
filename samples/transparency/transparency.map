@@ -1,15 +1,15 @@
 Modules list:
 -------------
 transparency.o:
-    CODE              Offs=000000  Size=000290  Align=00001  Fill=0000
+    CODE              Offs=000000  Size=000317  Align=00001  Fill=0000
     RODATA            Offs=000000  Size=000960  Align=00001  Fill=0000
     BSS               Offs=000000  Size=000220  Align=00001  Fill=0000
     DATA              Offs=000000  Size=000000  Align=00001  Fill=0000
     ZEROPAGE          Offs=000000  Size=000000  Align=00001  Fill=0000
     NULL              Offs=000000  Size=000000  Align=00001  Fill=0000
-    BANK1             Offs=000000  Size=001C80  Align=00001  Fill=0000
+    BANK1             Offs=000000  Size=000040  Align=00001  Fill=0000
 ../../../cc65-sfclib/bin/sfc.lib(crt0.o):
-    CODE              Offs=000290  Size=000000  Align=00001  Fill=0000
+    CODE              Offs=000317  Size=000000  Align=00001  Fill=0000
     RODATA            Offs=000960  Size=000000  Align=00001  Fill=0000
     BSS               Offs=000220  Size=000000  Align=00001  Fill=0000
     DATA              Offs=000000  Size=000000  Align=00001  Fill=0000
@@ -19,14 +19,14 @@ transparency.o:
     ROMINFO           Offs=000000  Size=000030  Align=00001  Fill=0000
     VECTORS           Offs=000000  Size=00001C  Align=00001  Fill=0000
 ../../../cc65-sfclib/bin/sfc.lib(init.o):
-    CODE              Offs=000290  Size=0000F3  Align=00001  Fill=0000
+    CODE              Offs=000317  Size=0000F3  Align=00001  Fill=0000
     RODATA            Offs=000960  Size=000000  Align=00001  Fill=0000
     BSS               Offs=000220  Size=000000  Align=00001  Fill=0000
     DATA              Offs=000000  Size=000000  Align=00001  Fill=0000
     ZEROPAGE          Offs=000000  Size=000000  Align=00001  Fill=0000
     NULL              Offs=000000  Size=000000  Align=00001  Fill=0000
 ../../../cc65-sfclib/bin/sfc.lib(event.o):
-    CODE              Offs=000383  Size=000101  Align=00001  Fill=0000
+    CODE              Offs=00040A  Size=000101  Align=00001  Fill=0000
     RODATA            Offs=000960  Size=000000  Align=00001  Fill=0000
     BSS               Offs=000220  Size=000083  Align=00001  Fill=0000
     DATA              Offs=000000  Size=000000  Align=00001  Fill=0000
@@ -43,27 +43,27 @@ NULL                  000000  000000  000000  00001
 ZEROPAGE              000000  000000  000000  00001
 BSS                   000200  0004A2  0002A3  00001
 STARTUP               008000  008046  000047  00001
-CODE                  008047  0084CA  000484  00001
-RODATA                0084CB  008E2A  000960  00001
+CODE                  008047  008551  00050B  00001
+RODATA                008552  008EB1  000960  00001
 ROMINFO               00FFB0  00FFDF  000030  00001
 VECTORS               00FFE4  00FFFF  00001C  00001
-BANK1                 018000  019C7F  001C80  00001
+BANK1                 018000  01803F  000040  00001
 
 
 Exports list by name:
 ---------------------
-_IRQHandler               0081F4 RLA    _NMIHandler               0081F5 RLA    
+_IRQHandler               0081F9 RLA    _NMIHandler               0081FA RLA    
 __ROMINFO_FILEOFFS__      007FB0  EA    __ROMINFO_LAST__          00FFE0  LA    
 __ROMINFO_SIZE__          000034  EA    __ROMINFO_START__         00FFB0  LA    
 __STARTUP__               000001 REA    __VECTORS_FILEOFFS__      007FE4  EA    
 __VECTORS_LAST__          010000  LA    __VECTORS_SIZE__          00001C  EA    
 __VECTORS_START__         00FFE4  LA    _main                     008047 RLA    
-_preInit                  0081F9 RLA    addEvent                  0083F6  LA    
-eventsTable               000420  LA    getEventCounter           0084AA  LA    
-initEvents                0083CA RLA    initSnes                  0082D7 RLA    
-isEventActive             0084B6  LA    oamData                   000200  LA    
-processEvents             008425 RLA    removeAllEvent            008493  LA    
-removeEvent               00847A  LA    spriteInit                0081FA  LA    
+_preInit                  0081FE RLA    addEvent                  00847D  LA    
+eventsTable               000420  LA    getEventCounter           008531  LA    
+initEvents                008451 RLA    initSnes                  00835E RLA    
+isEventActive             00853D  LA    oamData                   000200  LA    
+processEvents             0084AC RLA    removeAllEvent            00851A  LA    
+removeEvent               008501  LA    spriteInit                0081FF  LA    
 
 
 
@@ -73,12 +73,12 @@ __STARTUP__               000001 REA    __VECTORS_SIZE__          00001C  EA
 __ROMINFO_SIZE__          000034  EA    oamData                   000200  LA    
 eventsTable               000420  LA    __ROMINFO_FILEOFFS__      007FB0  EA    
 __VECTORS_FILEOFFS__      007FE4  EA    _main                     008047 RLA    
-_IRQHandler               0081F4 RLA    _NMIHandler               0081F5 RLA    
-_preInit                  0081F9 RLA    spriteInit                0081FA  LA    
-initSnes                  0082D7 RLA    initEvents                0083CA RLA    
-addEvent                  0083F6  LA    processEvents             008425 RLA    
-removeEvent               00847A  LA    removeAllEvent            008493  LA    
-getEventCounter           0084AA  LA    isEventActive             0084B6  LA    
+_IRQHandler               0081F9 RLA    _NMIHandler               0081FA RLA    
+_preInit                  0081FE RLA    spriteInit                0081FF  LA    
+initSnes                  00835E RLA    initEvents                008451 RLA    
+addEvent                  00847D  LA    processEvents             0084AC RLA    
+removeEvent               008501  LA    removeAllEvent            00851A  LA    
+getEventCounter           008531  LA    isEventActive             00853D  LA    
 __ROMINFO_START__         00FFB0  LA    __ROMINFO_LAST__          00FFE0  LA    
 __VECTORS_START__         00FFE4  LA    __VECTORS_LAST__          010000  LA    
 
