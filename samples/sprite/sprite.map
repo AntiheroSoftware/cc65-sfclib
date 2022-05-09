@@ -1,16 +1,16 @@
 Modules list:
 -------------
 sprite.o:
-    CODE              Offs=000000  Size=000169  Align=00001  Fill=0000
+    CODE              Offs=000000  Size=000141  Align=00001  Fill=0000
     RODATA            Offs=000000  Size=000423  Align=00001  Fill=0000
-    BSS               Offs=000000  Size=000220  Align=00001  Fill=0000
+    BSS               Offs=000000  Size=000000  Align=00001  Fill=0000
     DATA              Offs=000000  Size=000000  Align=00001  Fill=0000
     ZEROPAGE          Offs=000000  Size=000000  Align=00001  Fill=0000
     NULL              Offs=000000  Size=000000  Align=00001  Fill=0000
 ../../bin/sfc.lib(crt0.o):
-    CODE              Offs=000169  Size=000000  Align=00001  Fill=0000
+    CODE              Offs=000141  Size=000000  Align=00001  Fill=0000
     RODATA            Offs=000423  Size=000000  Align=00001  Fill=0000
-    BSS               Offs=000220  Size=000000  Align=00001  Fill=0000
+    BSS               Offs=000000  Size=000000  Align=00001  Fill=0000
     DATA              Offs=000000  Size=000000  Align=00001  Fill=0000
     ZEROPAGE          Offs=000000  Size=000000  Align=00001  Fill=0000
     NULL              Offs=000000  Size=000000  Align=00001  Fill=0000
@@ -18,16 +18,23 @@ sprite.o:
     ROMINFO           Offs=000000  Size=000030  Align=00001  Fill=0000
     VECTORS           Offs=000000  Size=00001C  Align=00001  Fill=0000
 ../../bin/sfc.lib(init.o):
-    CODE              Offs=000169  Size=0000F3  Align=00001  Fill=0000
+    CODE              Offs=000141  Size=0000F3  Align=00001  Fill=0000
     RODATA            Offs=000423  Size=000000  Align=00001  Fill=0000
-    BSS               Offs=000220  Size=000000  Align=00001  Fill=0000
+    BSS               Offs=000000  Size=000000  Align=00001  Fill=0000
     DATA              Offs=000000  Size=000000  Align=00001  Fill=0000
     ZEROPAGE          Offs=000000  Size=000000  Align=00001  Fill=0000
     NULL              Offs=000000  Size=000000  Align=00001  Fill=0000
 ../../bin/sfc.lib(event.o):
-    CODE              Offs=00025C  Size=000101  Align=00001  Fill=0000
+    CODE              Offs=000234  Size=000101  Align=00001  Fill=0000
     RODATA            Offs=000423  Size=000000  Align=00001  Fill=0000
-    BSS               Offs=000220  Size=000083  Align=00001  Fill=0000
+    BSS               Offs=000000  Size=000083  Align=00001  Fill=0000
+    DATA              Offs=000000  Size=000000  Align=00001  Fill=0000
+    ZEROPAGE          Offs=000000  Size=000000  Align=00001  Fill=0000
+    NULL              Offs=000000  Size=000000  Align=00001  Fill=0000
+../../bin/sfc.lib(sprite.o):
+    CODE              Offs=000335  Size=000074  Align=00001  Fill=0000
+    RODATA            Offs=000423  Size=000000  Align=00001  Fill=0000
+    BSS               Offs=000083  Size=000221  Align=00001  Fill=0000
     DATA              Offs=000000  Size=000000  Align=00001  Fill=0000
     ZEROPAGE          Offs=000000  Size=000000  Align=00001  Fill=0000
     NULL              Offs=000000  Size=000000  Align=00001  Fill=0000
@@ -40,50 +47,54 @@ Name                   Start     End    Size  Align
 DATA                  000000  000000  000000  00001
 NULL                  000000  000000  000000  00001
 ZEROPAGE              000000  000000  000000  00001
-BSS                   000200  0004A2  0002A3  00001
+BSS                   000200  0004A3  0002A4  00001
 STARTUP               008000  008046  000047  00001
-CODE                  008047  0083A3  00035D  00001
-RODATA                0083A4  0087C6  000423  00001
+CODE                  008047  0083EF  0003A9  00001
+RODATA                0083F0  008812  000423  00001
 ROMINFO               00FFB0  00FFDF  000030  00001
 VECTORS               00FFE4  00FFFF  00001C  00001
 
 
 Exports list by name:
 ---------------------
-_IRQHandler               0080DC RLA    _NMIHandler               0080DD RLA    
-__ROMINFO_FILEOFFS__      007FB0  EA    __ROMINFO_LAST__          00FFE0  LA    
-__ROMINFO_SIZE__          000034  EA    __ROMINFO_START__         00FFB0  LA    
-__STARTUP__               000001 REA    __VECTORS_FILEOFFS__      007FE4  EA    
-__VECTORS_LAST__          010000  LA    __VECTORS_SIZE__          00001C  EA    
-__VECTORS_START__         00FFE4  LA    _main                     008047 RLA    
-_preInit                  0080E1 RLA    addEvent                  0082CF  LA    
-eventsTable               000420  LA    getEventCounter           008383  LA    
-initEvents                0082A3 RLA    initSnes                  0081B0 RLA    
-isEventActive             00838F  LA    oamData                   000200  LA    
-processEvents             0082FE RLA    removeAllEvent            00836C  LA    
-removeEvent               008353  LA    spriteInit                0080E2  LA    
-
+OAMDataUpdated            0083E2 RLA    _IRQHandler               0080DC RLA    
+_NMIHandler               0080DD RLA    __ROMINFO_FILEOFFS__      007FB0  EA    
+__ROMINFO_LAST__          00FFE0  LA    __ROMINFO_SIZE__          000034  EA    
+__ROMINFO_START__         00FFB0  LA    __STARTUP__               000001 REA    
+__VECTORS_FILEOFFS__      007FE4  EA    __VECTORS_LAST__          010000  LA    
+__VECTORS_SIZE__          00001C  EA    __VECTORS_START__         00FFE4  LA    
+_main                     008047 RLA    _preInit                  0080E1 RLA    
+addEvent                  0082A7  LA    clearOAM                  00837C  LA    
+copyOAM                   0083AB RLA    eventsTable               000200  LA    
+getEventCounter           00835B  LA    initEvents                00827B RLA    
+initSnes                  008188 RLA    isEventActive             008367  LA    
+oamData                   000283 RLA    processEvents             0082D6 RLA    
+removeAllEvent            008344  LA    removeEvent               00832B  LA    
+spriteInit                0080E2  LA    
 
 
 Exports list by value:
 ----------------------
 __STARTUP__               000001 REA    __VECTORS_SIZE__          00001C  EA    
-__ROMINFO_SIZE__          000034  EA    oamData                   000200  LA    
-eventsTable               000420  LA    __ROMINFO_FILEOFFS__      007FB0  EA    
+__ROMINFO_SIZE__          000034  EA    eventsTable               000200  LA    
+oamData                   000283 RLA    __ROMINFO_FILEOFFS__      007FB0  EA    
 __VECTORS_FILEOFFS__      007FE4  EA    _main                     008047 RLA    
 _IRQHandler               0080DC RLA    _NMIHandler               0080DD RLA    
 _preInit                  0080E1 RLA    spriteInit                0080E2  LA    
-initSnes                  0081B0 RLA    initEvents                0082A3 RLA    
-addEvent                  0082CF  LA    processEvents             0082FE RLA    
-removeEvent               008353  LA    removeAllEvent            00836C  LA    
-getEventCounter           008383  LA    isEventActive             00838F  LA    
-__ROMINFO_START__         00FFB0  LA    __ROMINFO_LAST__          00FFE0  LA    
-__VECTORS_START__         00FFE4  LA    __VECTORS_LAST__          010000  LA    
-
+initSnes                  008188 RLA    initEvents                00827B RLA    
+addEvent                  0082A7  LA    processEvents             0082D6 RLA    
+removeEvent               00832B  LA    removeAllEvent            008344  LA    
+getEventCounter           00835B  LA    isEventActive             008367  LA    
+clearOAM                  00837C  LA    copyOAM                   0083AB RLA    
+OAMDataUpdated            0083E2 RLA    __ROMINFO_START__         00FFB0  LA    
+__ROMINFO_LAST__          00FFE0  LA    __VECTORS_START__         00FFE4  LA    
+__VECTORS_LAST__          010000  LA    
 
 
 Imports list:
 -------------
+OAMDataUpdated (sprite.o):
+    sprite.o                  ../../include/snes-sprite.inc(3)
 _IRQHandler (sprite.o):
     crt0.o                    src/crt0.asm(13)
 _NMIHandler (sprite.o):
@@ -93,7 +104,7 @@ __ROMINFO_LAST__ ([linker generated]):
 __ROMINFO_SIZE__ ([linker generated]):
 __ROMINFO_START__ ([linker generated]):
 __STARTUP__ (crt0.o):
-    sprite.o                  sprite.asm(10)
+    sprite.o                  sprite.asm(11)
 __VECTORS_FILEOFFS__ ([linker generated]):
 __VECTORS_LAST__ ([linker generated]):
 __VECTORS_SIZE__ ([linker generated]):
@@ -103,16 +114,20 @@ _main (sprite.o):
 _preInit (sprite.o):
     crt0.o                    src/crt0.asm(12)
 addEvent (event.o):
+clearOAM (sprite.o):
+copyOAM (sprite.o):
+    sprite.o                  ../../include/snes-sprite.inc(2)
 eventsTable (event.o):
 getEventCounter (event.o):
 initEvents (event.o):
-    sprite.o                  sprite.asm(17)
+    sprite.o                  sprite.asm(18)
 initSnes (init.o):
     crt0.o                    src/crt0.asm(15)
 isEventActive (event.o):
 oamData (sprite.o):
+    sprite.o                  ../../include/snes-sprite.inc(5)
 processEvents (event.o):
-    sprite.o                  sprite.asm(20)
+    sprite.o                  sprite.asm(21)
 removeAllEvent (event.o):
 removeEvent (event.o):
 spriteInit (sprite.o):
