@@ -7,6 +7,7 @@
             .setcpu     "65816"
             .feature	c_comments
             .include    "snes.inc"
+            .include    "snes-sprite.inc"
 
             .forceimport	__STARTUP__
 
@@ -19,10 +20,6 @@
             .import     addEvent
             .import     removeEvent
             .import     processEvents
-
-            ; TODO remove just for debug
-            .export     oamData
-            .export     spriteInit
 
 SPRITE_TILE_ADDR	= $0000
 SHADOW_TILE_ADDR	= $0100
@@ -63,11 +60,6 @@ backgroundPal:
 backgroundTiles:
     ;.incbin "resource/background.pic"
     .incbin "resource/background-checker.pic"
-
-.segment "BSS"
-
-oamData:
-    .res 512+32
 
 .segment "CODE"
 
@@ -165,32 +157,14 @@ infiniteMainLoop:
     phx
     pha
 
-    ldx #$0000
-spriteClear:
-    stz oamData,x
-    inx
-    lda #$e0
-    sta oamData,x
-    inx
-    stz oamData,x
-    inx
-    stz oamData,x
-    inx
-    cpx #$0200
-    bne spriteClear
-
-spriteDataClear:
-    stz oamData,x
-    inx
-    cpx #$0220
-    bne spriteDataClear
+    jsr clearOAM
 
     ;*************************
     ;*** Start main Sprite ***
     ;*************************
 
     lda #$60
-    sta oamData+32                     ; H pos of the first sprite
+    sta oamData+32                  ; H pos of the first sprite
     lda #$60
     sta oamData+33                  ; V pos of the first sprite
     lda #$00
@@ -199,7 +173,7 @@ spriteDataClear:
     sta oamData+35
 
     lda #$68
-    sta oamData+36                   ; H pos of the first sprite
+    sta oamData+36                  ; H pos of the first sprite
     lda #$60
     sta oamData+37                  ; V pos of the first sprite
     lda #$01
@@ -213,7 +187,7 @@ spriteDataClear:
     sta oamData+41                   ; V pos of the first sprite
     lda #$02
     sta oamData+42
-    lda #%00110000                  ; no flip full priority palette 0 (8 global palette)
+    lda #%00110000                   ; no flip full priority palette 0 (8 global palette)
     sta oamData+43
 
     lda #$68
@@ -257,7 +231,7 @@ spriteDataClear:
     ;*** Start shadow Sprite ***
     ;***************************
 
-    lda #$5b
+    lda #$5b                        ; Sprite slot #0
     sta oamData                     ; H pos of the first sprite
     lda #$65
     sta oamData+1                   ; V pos of the first sprite
@@ -266,7 +240,7 @@ spriteDataClear:
     lda #%00111000                  ; no flip full priority palette 0 (8 global palette)
     sta oamData+3
 
-    lda #$63
+    lda #$63                        ; Sprite slot #1
     sta oamData+4                   ; H pos of the first sprite
     lda #$65
     sta oamData+5                   ; V pos of the first sprite
@@ -275,7 +249,7 @@ spriteDataClear:
     lda #%00111000                  ; no flip full priority palette 0 (8 global palette)
     sta oamData+7
 
-    lda #$6b
+    lda #$6b                        ; Sprite slot #2
     sta oamData+8                   ; H pos of the first sprite
     lda #$65
     sta oamData+9                   ; V pos of the first sprite
@@ -284,28 +258,28 @@ spriteDataClear:
     lda #%00111000                  ; no flip full priority palette 0 (8 global palette)
     sta oamData+11
 
-    lda #$5b
-    sta oamData+12                   ; H pos of the first sprite
+    lda #$5b                        ; Sprite slot #3
+    sta oamData+12                  ; H pos of the first sprite
     lda #$6d
-    sta oamData+13                   ; V pos of the first sprite
+    sta oamData+13                  ; V pos of the first sprite
     lda #$13
     sta oamData+14
     lda #%00111000                  ; no flip full priority palette 0 (8 global palette)
     sta oamData+15
 
-    lda #$63
-    sta oamData+48                     ; H pos of the first sprite
+    lda #$63                        ; Sprite slot #12
+    sta oamData+48                  ; H pos of the first sprite
     lda #$6d
-    sta oamData+49                   ; V pos of the first sprite
+    sta oamData+49                  ; V pos of the first sprite
     lda #$14
     sta oamData+50
     lda #%00111000                  ; no flip full priority palette 0 (8 global palette)
     sta oamData+51
 
-    lda #$6b
-    sta oamData+52                   ; H pos of the first sprite
+    lda #$6b                        ; Sprite slot #13
+    sta oamData+52                  ; H pos of the first sprite
     lda #$6d
-    sta oamData+53                   ; V pos of the first sprite
+    sta oamData+53                  ; V pos of the first sprite
     lda #$15
     sta oamData+54
     lda #%00111000                  ; no flip full priority palette 0 (8 global palette)
@@ -325,35 +299,10 @@ spriteDataClear:
     lda #$00
     sta $2101                       ; set sprite address
 
+    jsr OAMDataUpdated
     jsr copyOAM
 
     pla
     plx
-    rts
-.endproc
-
-.proc copyOAM
-    pha
-    phx
-
-    ldx #$8000
-    stx $2102
-
-    lda #$00
-    sta $4370
-    lda #$04
-    sta $4371
-    ldx #oamData
-    stx $4372
-    lda #.BANKBYTE(oamData)
-    sta $4374
-    ldx #$0220
-    stx $4375
-
-    lda #$80                        ; trigger DMA channel 7
-    sta $420b
-
-    plx
-    pla
     rts
 .endproc
