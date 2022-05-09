@@ -6,6 +6,7 @@
 
             .setcpu     "65816"
             .include    "snes.inc"
+            .include    "snes-sprite.inc"
 
             .forceimport	__STARTUP__
 
@@ -20,7 +21,6 @@
             .import     processEvents
 
             ; TODO remove just for debug
-            .export     oamData
             .export     hdmaMem
             .export     spriteInit
 
@@ -47,7 +47,6 @@ knifePal:
     .incbin "resource/knife.pal"
 
 hdmaMem:
-    ;.byte $73,%00000000,$10,%00001000,$10,%00010000,$10,%00011000,$00
     .byte $74,%00000000,$10,%00001000,$10,%00010000,$10,%00011000,$00
 
 .segment "ZEROPAGE"
@@ -65,11 +64,6 @@ spriteTrickIRQValue:
 	.byte %00001000
 	.byte %00010000
 	.byte %00011000
-
-.segment "BSS"
-
-oamData:
-    .res 512+32
 
 .segment "CODE"
 
@@ -236,36 +230,11 @@ spriteDataClear:
     lda #$00
     sta $2101                       ; set sprite address
 
+    jsr OAMDataUpdated
     jsr copyOAM
 
     pla
     plx
-    rts
-.endproc
-
-.proc copyOAM
-    pha
-    phx
-
-    ldx #$0000
-    stx $2102
-
-    lda #$00
-    sta $4370
-    lda #$04
-    sta $4371
-    ldx #oamData
-    stx $4372
-    lda #.BANKBYTE(oamData)
-    sta $4374
-    ldx #$0220
-    stx $4375
-
-    lda #$80                        ; trigger DMA channel 7
-    sta $420b
-
-    plx
-    pla
     rts
 .endproc
 
