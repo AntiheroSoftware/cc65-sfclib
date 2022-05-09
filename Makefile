@@ -3,17 +3,15 @@ all: sfclib samples
 .PHONY: sfclib samples
 
 sfclib:
-	../cc65/bin/ca65 -t none -I include src/crt0.asm
-	../cc65/bin/ca65 -t none -I include src/init.asm
-	../cc65/bin/ca65 -t none -I include src/string.asm
-	../cc65/bin/ca65 -t none -I include src/debug.asm
-	../cc65/bin/ca65 -t none -I include src/pad.asm
-	../cc65/bin/ca65 -t none -I include src/event.asm
-	../cc65/bin/ca65 -t none -I include src/sprite.asm
-	../cc65/bin/ca65 -t none -I include src/waitvblank.asm
-	../cc65/bin/ar65 a bin/sfc.lib src/crt0.o src/init.o src/string.o src/debug.o src/pad.o src/event.o src/sprite.o src/waitvblank.o
+	ca65 -t none -I include src/crt0.asm
+	ca65 -t none -I include src/init.asm
+	ca65 -t none -I include src/string.asm
+	ca65 -t none -I include src/debug.asm
+	ca65 -t none -I include src/pad.asm
+	ca65 -t none -I include src/event.asm
+	ca65 -t none -I include src/sprite.asm
+	ca65 -t none -I include src/waitvblank.asm
+	ar65 a bin/sfc.lib src/crt0.o src/init.o src/string.o src/debug.o src/pad.o src/event.o src/sprite.o src/waitvblank.o
 
 samples:
 	@$(MAKE) -C samples
-
-
