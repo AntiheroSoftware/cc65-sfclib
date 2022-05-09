@@ -12,3 +12,4 @@ all clean:
 	@$(MAKE) -C spriteHdmaTrick $@
 	@$(MAKE) -C metasprite $@
 	@$(MAKE) -C metaspriteOptimized $@
+	@$(MAKE) -C transparency $@

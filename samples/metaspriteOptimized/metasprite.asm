@@ -25,12 +25,14 @@
             .export     hdmaInit
 
             .export     setOAMFrame
+            .export     setOAMFrameMV
             .export     setOAMFrameDMA
             .export     setOAMTranslate
             .export     copyOAMEvent
             .export     animFrameIndex
             .export     animFrameCounter
             .export     grabbingWalk
+            .export     grabbingWalk2
 
 
 SPRITE_TILE_ALL_ADDR	= $0000
@@ -108,6 +110,23 @@ spriteBank4Tiles:
 
 .segment "RODATA"
 
+highByte:
+	.byte %10101010
+	.byte %10101011
+	.byte %10101110
+	.byte %10101111
+	.byte %10111010
+	.byte %10111011
+	.byte %10111110
+	.byte %10111111
+	.byte %11101010
+	.byte %11101011
+	.byte %11101110
+	.byte %11101111
+	.byte %11111010
+	.byte %11111011
+	.byte %11111110
+
 hdmaMem:
     .byte $70,%00000000,$20,%00000000,$10,%00001000,$10,%00010000,$10,%00011000,$00
 
@@ -165,9 +184,9 @@ grabbingWalk3:
     .byte   $09, $00, $00, $21
     .byte   $09, $10, $04, $21
     .byte   $01, $20, $06, $21
-    .byte	$10, $20, $08, $21
+    .byte	  $10, $20, $08, $21
     .byte   $01, $30, $06, $21
-    .byte	$10, $30, $08, $21
+    .byte	  $10, $30, $08, $21
 
 ;******************************************************************************
 ;*** Animation frames *********************************************************
@@ -245,6 +264,9 @@ tempValue7:
 tempValue8:
     .res 2
 
+EnemyCurrentXOffset:
+    .res 2
+
 .segment "CODE"
 
 .proc _main
@@ -310,6 +332,10 @@ tempValue8:
     ldx #$0000
     ldy #grabbingWalk2
     jsr setOAMFrame
+
+    ldx #grabbingWalk2
+    ldy #$0000
+    jsr setOAMFrameMV
 
 	ldx #$20
 	ldy #$20
@@ -443,6 +469,57 @@ copyLoop:
 .endproc
 
 ;******************************************************************************
+;*** setOAMFrameMV ennemies with hdma trick ***********************************
+;******************************************************************************
+;*** dataAddr  (X register)                                                 ***
+;*** offsetOAM   (Y register)                                               ***
+;******************************************************************************
+
+.proc setOAMFrameMV
+
+    pha
+    phx
+    phy
+    php
+
+    rep #$30
+    .A16
+    .I16
+
+    tya
+    clc
+    adc #oamData
+    tay                             ; set OAMData dst into Y register
+
+    phy
+    txy
+
+    rep #$10
+    sep #$20
+    .A8
+    .I16
+
+    lda #$00
+	xba								; clear high byte of A register
+    lda ($04,s),Y					; get size of frame
+
+    ply
+
+    inx
+    inx                             ; set correct address for data source (skip sprite count and status)
+
+                                    ; TODO set correct values
+    mvn $00,$00                     ; src bank and dst bank
+
+    plp
+    ply
+    plx
+    pla
+    rts
+
+.endproc
+
+;******************************************************************************
 ;*** setOAMFrameDMA ***********************************************************
 ;******************************************************************************
 ;*** offsetOAM  (X register)                                                ***
@@ -477,14 +554,14 @@ copyLoop:
 
 	;*** Set mode, destination and start transfer
 
-	ldx     #$00
-	stx     $4360
+	ldx #$00
+	stx $4360
 
 	lda #$80
 	sta $4361
 
-	lda     #%01000000
-	sta     $420b
+	lda #%01000000
+	sta $420b
 
 	plp
 	ply
@@ -497,26 +574,96 @@ copyLoop:
 ;******************************************************************************
 ;*** setOAMTranslate ennemies *************************************************
 ;******************************************************************************
-;*** OAM sprite number (A register)                                         ***
+;*** OAM sprite slot offset (A register)                                    ***
 ;*** X translate (X register)                                               ***
 ;*** Y translate (Y register)                                               ***
 ;******************************************************************************
 
 .proc setOAMTranslate
 
-	pha
-	phx
-	phy
-	php
+	pha                             ; Stack::09
+	phx                             ; Stack::07
+	phy                             ; Stack::05
+	php                             ; Stack::03
 
-	; TODO handle that correctly in function (NOT HARD CODED)
-	lda #%10101010
-	sta oamData + $200
-	sta oamData + $201
-	sta oamData + $202
-	sta oamData + $203
-	sta oamData + $204
-	sta oamData + $205
+    rep #$20
+	.A16
+
+    sty $0001
+    ora #$0F
+    tax
+
+    lda #$0000                      ; Stack::01 Used to store High Bytes of X offset
+    pha
+
+blockLoop:
+    lda $06,s						; check if high byte of X pos is greater than $00
+    cmp #$00
+    beq :+
+
+    lda ($03,s),Y					; load X pos for that
+    sec
+    sbc EnemyCurrentXOffset
+    clc
+    adc $05,s                		; add saved Global X Pos
+    sta oamData,X                   ; H (X) pos of the sprite
+
+    bcs :++							; check and branch if carry is set
+
+    lda $01,s
+    lsr
+    ora #%10000000
+    sta $01,s		                ; set high byte on for the sprite
+
+    bra :++
+
+:	lda ($03,s),Y                   ; load X pos for that
+    sec
+    sbc EnemyCurrentXOffset
+    clc
+    adc $05,s                		; add saved Global X Pos
+    sta oamData,X                   ; H (X) pos of the sprite
+
+    bcc :+							; check and branch if carry is clear
+
+    lda ($03,s),Y
+    sec
+    sbc EnemyCurrentXOffset
+    cmp #$e0						; allow metasprite offset of -31
+
+    bcs :+							; if carry is set we are good
+                                    ; skip on carry clear
+
+    iny								; skip this sprite cause of overflow
+    iny
+    bra blockLoop
+
+:	lda $01,s
+    lsr
+    sta $01,s
+
+    bra blockLoop
+
+    ; check value of X translate, if 0 skip update
+
+    ; check value of Y translate, if 0 skip update
+
+    ; X must contains slot offset (TODO remove comment after)
+    ; EnemyTempXOffsetHigh use a stack space
+    lda $01,s
+	and #$0f
+	tay
+	lda highByte,Y
+	sta oamData + $200,X
+
+	lda $01,s
+	lsr
+	lsr
+	lsr
+	lsr
+	tay
+	lda highByte,Y
+	sta oamData + $201,X
 
 	plp
 	ply

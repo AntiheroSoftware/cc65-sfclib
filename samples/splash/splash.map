@@ -3,13 +3,13 @@ Modules list:
 splash.o:
     CODE              Offs=000000  Size=000103  Align=00001  Fill=0000
     RODATA            Offs=000000  Size=0011A0  Align=00001  Fill=0000
-../../../cc65-sfclib/bin/sfc.lib(crt0.o):
+../../bin/sfc.lib(crt0.o):
     STARTUP           Offs=000000  Size=000047  Align=00001  Fill=0000
     ROMINFO           Offs=000000  Size=000030  Align=00001  Fill=0000
     VECTORS           Offs=000000  Size=00001C  Align=00001  Fill=0000
-../../../cc65-sfclib/bin/sfc.lib(init.o):
+../../bin/sfc.lib(init.o):
     CODE              Offs=000103  Size=0000F3  Align=00001  Fill=0000
-../../../cc65-sfclib/bin/sfc.lib(event.o):
+../../bin/sfc.lib(event.o):
     CODE              Offs=0001F6  Size=000101  Align=00001  Fill=0000
     BSS               Offs=000000  Size=000083  Align=00001  Fill=0000
 
@@ -26,12 +26,21 @@ ROMINFO               00FFB0  00FFDF  000030  00001
 VECTORS               00FFE4  00FFFF  00001C  00001
 
 
-Exports list:
--------------
+Exports list by name:
+---------------------
 _IRQHandler               008129 RLA    _NMIHandler               00812A RLA    
 __STARTUP__               000001 REA    _main                     008047 RLA    
 _preInit                  00812E RLA    addEvent                  008269 RLA    
 initEvents                00823D RLA    initSnes                  00814A RLA    
+processEvents             008298 RLA    
+
+
+Exports list by value:
+----------------------
+__STARTUP__               000001 REA    _main                     008047 RLA    
+_IRQHandler               008129 RLA    _NMIHandler               00812A RLA    
+_preInit                  00812E RLA    initSnes                  00814A RLA    
+initEvents                00823D RLA    addEvent                  008269 RLA    
 processEvents             008298 RLA    
 
 
