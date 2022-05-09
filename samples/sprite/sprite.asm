@@ -6,6 +6,7 @@
 
             .setcpu     "65816"
             .include    "snes.inc"
+            .include    "snes-sprite.inc"
 
             .forceimport	__STARTUP__
 
@@ -20,7 +21,6 @@
             .import     processEvents
 
             ; TODO remove just for debug
-            .export     oamData
             .export     spriteInit
 
 SPRITE_TILE_ADDR	= $0000
@@ -35,11 +35,6 @@ spritePal:
 
 hdmaMem:
     .byte $4b,$00,$00
-
-.segment "BSS"
-
-oamData:
-    .res 512+32
 
 .segment "CODE"
 
@@ -168,36 +163,11 @@ spriteDataClear:
     lda #$00
     sta $2101                       ; set sprite address
 
+    jsr OAMDataUpdated
     jsr copyOAM
 
     pla
     plx
-    rts
-.endproc
-
-.proc copyOAM
-    pha
-    phx
-
-    ldx #$0000
-    stx $2102
-
-    lda #$00
-    sta $4370
-    lda #$04
-    sta $4371
-    ldx #oamData
-    stx $4372
-    lda #.BANKBYTE(oamData)
-    sta $4374
-    ldx #$0220
-    stx $4375
-
-    lda #$80                        ; trigger DMA channel 7
-    sta $420b
-
-    plx
-    pla
     rts
 .endproc
 
