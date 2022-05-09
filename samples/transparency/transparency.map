@@ -8,7 +8,7 @@ transparency.o:
     ZEROPAGE          Offs=000000  Size=000000  Align=00001  Fill=0000
     NULL              Offs=000000  Size=000000  Align=00001  Fill=0000
     BANK1             Offs=000000  Size=000040  Align=00001  Fill=0000
-../../../cc65-sfclib/bin/sfc.lib(crt0.o):
+../../bin/sfc.lib(crt0.o):
     CODE              Offs=000317  Size=000000  Align=00001  Fill=0000
     RODATA            Offs=000960  Size=000000  Align=00001  Fill=0000
     BSS               Offs=000220  Size=000000  Align=00001  Fill=0000
@@ -18,14 +18,14 @@ transparency.o:
     STARTUP           Offs=000000  Size=000047  Align=00001  Fill=0000
     ROMINFO           Offs=000000  Size=000030  Align=00001  Fill=0000
     VECTORS           Offs=000000  Size=00001C  Align=00001  Fill=0000
-../../../cc65-sfclib/bin/sfc.lib(init.o):
+../../bin/sfc.lib(init.o):
     CODE              Offs=000317  Size=0000F3  Align=00001  Fill=0000
     RODATA            Offs=000960  Size=000000  Align=00001  Fill=0000
     BSS               Offs=000220  Size=000000  Align=00001  Fill=0000
     DATA              Offs=000000  Size=000000  Align=00001  Fill=0000
     ZEROPAGE          Offs=000000  Size=000000  Align=00001  Fill=0000
     NULL              Offs=000000  Size=000000  Align=00001  Fill=0000
-../../../cc65-sfclib/bin/sfc.lib(event.o):
+../../bin/sfc.lib(event.o):
     CODE              Offs=00040A  Size=000101  Align=00001  Fill=0000
     RODATA            Offs=000960  Size=000000  Align=00001  Fill=0000
     BSS               Offs=000220  Size=000083  Align=00001  Fill=0000

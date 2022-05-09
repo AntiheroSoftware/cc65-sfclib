@@ -106,7 +106,7 @@ oamData:
     lda #$01         ; setBGMODE(0, 0, 1);
     sta $2105
 
-    lda #$11         ; main screen definition (OAM)
+    lda #$11         ; main screen definition (OAM+BG1)
     sta $212c
 
     lda #$01         ; sub screen definition (BG1)
@@ -242,25 +242,7 @@ spriteDataClear:
     sta oamData+22
     lda #%00110000                  ; no flip full priority palette 0 (8 global palette)
     sta oamData+23
-/*
-    lda #$6c
-    sta oamData+24                   ; H pos of the first sprite
-    lda #$74
-    sta oamData+25                   ; V pos of the first sprite
-    lda #$05
-    sta oamData+26
-    lda #%00110000                  ; no flip full priority palette 0 (8 global palette)
-    sta oamData+27
 
-    lda #$6c
-    sta oamData+28                   ; H pos of the first sprite
-    lda #$7c
-    sta oamData+29                   ; V pos of the first sprite
-    lda #$07
-    sta oamData+30
-    lda #%00110000                  ; no flip full priority palette 0 (8 global palette)
-    sta oamData+31
-*/
     lda #%00000000
     sta oamData + $200
 
@@ -328,6 +310,7 @@ spriteDataClear:
     sta oamData+54
     lda #%00111000                  ; no flip full priority palette 0 (8 global palette)
     sta oamData+55
+
 
     lda #%00000000
     sta oamData + $202
