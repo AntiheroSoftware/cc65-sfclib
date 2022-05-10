@@ -119,12 +119,12 @@ scorePal:
     setINIDSP $0f                   ; Disable forced VBlank + full brightness
 
     jsr initEvents
-    ;jsr scrollInitEvent
+    jsr scrollInitEvent
 
-    ;lda #.BANKBYTE(scrollEvent)
-    ;ldx #.LOWORD(scrollEvent)
-    ;ldy #$0000
-    ;jsr addEvent
+    lda #.BANKBYTE(scrollEvent)
+    ldx #.LOWORD(scrollEvent)
+    ldy #$0000
+    jsr addEvent
 
     lda #$80                        ; Enable NMI
     sta CPU_NMITIMEN
