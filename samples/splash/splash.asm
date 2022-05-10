@@ -6,6 +6,7 @@
 
             .setcpu     "65816"
             .include    "snes.inc"
+            .include    "events/fadeIn.inc"
 
             .forceimport	__STARTUP__
 
@@ -44,8 +45,15 @@ splashPal:
 
     jsr initEvents
 
-    lda #.BANKBYTE(fadeInEvent)
-    ldx #.LOWORD(fadeInEvent)
+    ; You need to init the fadeIn
+    jsr EVENT_InitFadeIn
+
+    ; Set fade in speed
+    ldx #$0080
+    stx EVENT_FadeIn_Speed
+
+    lda #.BANKBYTE(EVENT_FadeIn)
+    ldx #.LOWORD(EVENT_FadeIn)
     ldy #$0000
     jsr addEvent
 
@@ -53,11 +61,10 @@ splashPal:
 
     setBG1SC SPLASH_MAP_ADDR, $00
     setBG12NBA SPLASH_TILE_ADDR, $0000
-    setINIDSP $80
 
     VRAMLoad splashTiles, SPLASH_TILE_ADDR, $0980
 
-    lda $00
+    lda #$00
     sta $2121
 
     CGRAMLoad splashPal, $00, $20
@@ -66,13 +73,13 @@ splashPal:
     lda #$01        ; setBGMODE(0, 0, 1);
     sta $2105
 
-    lda $01         ; ???
+    lda #$01         ; Enable screen 1
     sta $212c
 
-    lda $00         ; ???
+    lda #$00         ; ???
     sta $212d
 
-    setINIDSP $00   ; Disable screen no brightness
+    setINIDSP $00   ; Disable forced VBlank + screen no brightness
 
     lda #$80        ; Enable NMI
     sta CPU_NMITIMEN
@@ -100,40 +107,6 @@ infiniteMainLoop:
 ;******************************************************************************
 
 .segment "CODE"
-
-.proc fadeInEvent
-
-    phx
-    phy
-    php
-
-    tax                     ; put A reg containing counter in X reg
-
-    rep #$10
-    sep #$20
-    .A8
-    .I16
-
-    txa
-    sta PPU_INIDSP
-
-    cmp #$0F
-    bne continueFadeIn
-
-    lda #$00
-    bra fadeInEventReturn
-
-continueFadeIn:
-    lda #$01
-
-fadeInEventReturn:
-
-    plp
-    ply
-    plx
-
-    rtl
-.endproc
 
 .proc fadeOutEvent
     rtl
