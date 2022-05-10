@@ -70,11 +70,10 @@ hdmaMem:
 
     setBG1SC SPLASH_MAP_ADDR, $00
     setBG12NBA SPLASH_TILE_ADDR, $0000
-    setINIDSP $80
 
     VRAMLoad splashTiles, SPLASH_TILE_ADDR, $0980
 
-    lda $00
+    lda #$00
     sta $2121
 
     CGRAMLoad splashPal, $00, $20
@@ -83,10 +82,10 @@ hdmaMem:
     lda #$01        ; setBGMODE(0, 0, 1);
     sta $2105
 
-    lda $01         ; ???
+    lda #$01         ; ???
     sta $212c
 
-    lda $00         ; ???
+    lda #$00         ; ???
     sta $212d
 
     setINIDSP $0F   ; Enable screen full brightness
