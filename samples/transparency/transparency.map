@@ -33,7 +33,7 @@ transparency.o:
     ZEROPAGE          Offs=000000  Size=000000  Align=00001  Fill=0000
     NULL              Offs=000000  Size=000000  Align=00001  Fill=0000
 ../../bin/sfc.lib(sprite.o):
-    CODE              Offs=0004C3  Size=000074  Align=00001  Fill=0000
+    CODE              Offs=0004C3  Size=00041C  Align=00001  Fill=0000
     RODATA            Offs=000960  Size=000000  Align=00001  Fill=0000
     BSS               Offs=000083  Size=000221  Align=00001  Fill=0000
     DATA              Offs=000000  Size=000000  Align=00001  Fill=0000
@@ -50,8 +50,8 @@ NULL                  000000  000000  000000  00001
 ZEROPAGE              000000  000000  000000  00001
 BSS                   000200  0004A3  0002A4  00001
 STARTUP               008000  008046  000047  00001
-CODE                  008047  00857D  000537  00001
-RODATA                00857E  008EDD  000960  00001
+CODE                  008047  008925  0008DF  00001
+RODATA                008926  009285  000960  00001
 ROMINFO               00FFB0  00FFDF  000030  00001
 VECTORS               00FFE4  00FFFF  00001C  00001
 BANK1                 018000  01803F  000040  00001
@@ -70,6 +70,8 @@ addEvent                  008435  LA    clearOAM                  00850A RLA
 copyOAM                   008539 RLA    eventsTable               000200  LA    
 getEventCounter           0084E9  LA    initEvents                008409 RLA    
 initSnes                  008316 RLA    isEventActive             0084F5  LA    
+loadSprite16              008872  LA    loadSprite32              008778  LA    
+loadSprite64              00857E  LA    loadSprite8               0088EC  LA    
 oamData                   000283 RLA    processEvents             008464 RLA    
 removeAllEvent            0084D2  LA    removeEvent               0084B9  LA    
 
@@ -88,6 +90,8 @@ processEvents             008464 RLA    removeEvent               0084B9  LA
 removeAllEvent            0084D2  LA    getEventCounter           0084E9  LA    
 isEventActive             0084F5  LA    clearOAM                  00850A RLA    
 copyOAM                   008539 RLA    OAMDataUpdated            008570 RLA    
+loadSprite64              00857E  LA    loadSprite32              008778  LA    
+loadSprite16              008872  LA    loadSprite8               0088EC  LA    
 __ROMINFO_START__         00FFB0  LA    __ROMINFO_LAST__          00FFE0  LA    
 __VECTORS_START__         00FFE4  LA    __VECTORS_LAST__          010000  LA    
 
@@ -127,8 +131,12 @@ initEvents (event.o):
 initSnes (init.o):
     crt0.o                    src/crt0.asm(15)
 isEventActive (event.o):
+loadSprite16 (sprite.o):
+loadSprite32 (sprite.o):
+loadSprite64 (sprite.o):
+loadSprite8 (sprite.o):
 oamData (sprite.o):
-    transparency.o            ../../include/snes-sprite.inc(5)
+    transparency.o            ../../include/snes-sprite.inc(9)
 processEvents (event.o):
     transparency.o            transparency.asm(22)
 removeAllEvent (event.o):

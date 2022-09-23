@@ -1,0 +1,28 @@
+; Calculate X high byte for 1 sprite
+; V-BLANK : 5000 cycles / OUTSIDE V_BLANK 40.000 cycles
+; we assume that :
+;   * X contains sprite index
+;   * A contains position X of sprite
+
+lda .......					; 5 cycles
+bit #$0100                  ; 3 cycles
+beq :+                      ; 2 cycles
+                                            ; 10
+
+; save and set DP           ; -> 12 cycles
+phd                         ; 4 cycles
+lda #$...                   ; 3 cycles
+pld                         ; 5 cycles
+                                            ; 12
+
+lda (tableInDP,X)           ; 7 cycles
+and (tableInDP2,X)          ; 7 cycles
+sta (tableInDP,X)           ; 7 cycles
+                                            ; 21
+; restore DP
+pld                         ; 5 cycles
+                                            ; 5
+
+                                            ; 48
+
+                                            ; 48 * 8 -> 384

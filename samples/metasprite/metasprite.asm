@@ -7,6 +7,7 @@
             .setcpu     "65816"
             .include    "snes.inc"
             .include    "snes-pad.inc"
+            .include    "snes-sprite.inc"
 
             .forceimport	__STARTUP__
 
@@ -19,14 +20,6 @@
             .import     addEvent
             .import     removeEvent
             .import     processEvents
-
-            .import     clearOAM
-            .import     copyOAM
-            .import     oamData
-
-            ; TODO remove just for debug
-            .export     hdmaMem
-            .export     hdmaInit
 
             .export     setOam
             .export     copyOAMEvent
@@ -111,9 +104,6 @@ spriteBank4Tiles:
 
 .segment "RODATA"
 
-hdmaMem:
-    .byte $70,%00000000,$20,%00000000,$10,%00001000,$10,%00010000,$10,%00011000,$00
-
 verticalOffsetTable:
     .byte $80, $90, $a0, $b0
 
@@ -184,6 +174,9 @@ animFrameCounter:
 
 .segment "ZEROPAGE"
 
+spriteTrickIndex:
+	.res 2
+
 functionArg1:
     .res 2
 
@@ -231,6 +224,17 @@ tempValue7:
 
 tempValue8:
     .res 2
+
+.segment "RODATA"
+
+spriteTrickIRQVTimer:
+	.byte $00, $74, $84, $94
+
+spriteTrickIRQValue:
+	.byte %00000000
+	.byte %00001000
+	.byte %00010000
+	.byte %00011000
 
 .segment "CODE"
 
@@ -284,7 +288,6 @@ tempValue8:
     sta $212d
 
     jsr clearOAM
-    jsr hdmaInit
 
     ;ldx #$00
     ;stx functionArg1
@@ -313,6 +316,7 @@ tempValue8:
     lda #$00
     sta $2101                       ; set sprite address
 
+    jsr OAMDataUpdated
     jsr copyOAM
 
     lda #.BANKBYTE(copyOAMEvent)
@@ -322,7 +326,16 @@ tempValue8:
 
     setINIDSP $0F   ; Enable screen full brightness
 
-    lda #$80        ; Enable NMI
+    ldx #$00FF
+    stx $4207
+    ldx #$0000
+    stx $4209
+
+    ldx #$0000
+    stx spriteTrickIndex
+
+    ;lda #$80        ; Enable NMI
+    lda #$B0        ; Enable NMI + IRQ V&H
     sta CPU_NMITIMEN
 
     lda #$00
@@ -339,6 +352,28 @@ infiniteMainLoop:
 .endproc
 
 .proc _IRQHandler
+    pha
+    phx
+
+    lda $4211           ; clear interrupt flag
+
+    ldx spriteTrickIndex
+    lda spriteTrickIRQValue,X
+    sta $2101
+
+    inx
+    cpx #$04
+    bne :+
+
+    ldx #$0000
+
+:	stx spriteTrickIndex
+    lda spriteTrickIRQVTimer,X
+    sta $4209
+
+    plx
+    pla
+
     rts
 .endproc
 
@@ -352,35 +387,6 @@ infiniteMainLoop:
 .endproc
 
 .segment "CODE"
-
-;******************************************************************************
-;*** hdmaInit *****************************************************************
-;******************************************************************************
-;*** TODO explain trick *******************************************************
-;******************************************************************************
-
-.proc hdmaInit
-    pha
-    phx
-    php
-
-    lda #$00                        ; 1 byte value hdma (count,byte)
-    sta $4300
-    lda #$01                        ; sprite N select
-    sta $4301
-    ldx #hdmaMem
-    stx $4302
-    lda #.BANKBYTE(hdmaMem)
-    sta $4304
-    lda #01
-    sta $420c                       ; enable hdma channel 0
-
-    plp
-    plx
-    pla
-
-    rts
-.endproc
 
 ;******************************************************************************
 ;*** setOam ennemies with hdma trick ******************************************
@@ -477,6 +483,8 @@ endFillLoop:
     sta oamData + $203
     sta oamData + $204
     sta oamData + $205
+
+    jsr OAMDataUpdated
 
     plx
 

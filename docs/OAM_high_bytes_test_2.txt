@@ -1,0 +1,30 @@
+; Calculate X high byte for 1 sprite
+; V-BLANK : 5000 cycles / OUTSIDE V_BLANK 40.000 cycles
+; we assume that X contains sprite index
+
+lda .......					; 5 cycles
+cmp #$00                    ; 3 cycles
+beq :+                      ; 2 cycles
+                                            ; 10
+
+; TODO set A 8 bit
+
+; get index in Y
+txa                         ; 3 cycles
+lsr                         ; 2 cycles
+lsr                         ; 2 cycles
+tay                         ; 3 cycles
+phy                         ; 4 cycles
+                                            ; 14
+; get value in A
+txa                         ; 3 cycles
+and #$03                    ; 3 cycles
+tay                         ; 3 cycles
+and .....,Y                 ; 5 cycles
+ply                         ; 5 cycles
+sta .....,Y                 ; 6 cycles
+                                            ; 25
+
+                                            ; 49
+
+                                            ; 49 * 8 -> 392

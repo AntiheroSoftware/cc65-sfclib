@@ -1,14 +1,14 @@
 Modules list:
 -------------
 spriteIRQTrick.o:
-    CODE              Offs=000000  Size=000217  Align=00001  Fill=0000
+    CODE              Offs=000000  Size=0001F9  Align=00001  Fill=0000
     RODATA            Offs=000000  Size=001031  Align=00001  Fill=0000
     BSS               Offs=000000  Size=000000  Align=00001  Fill=0000
     DATA              Offs=000000  Size=000000  Align=00001  Fill=0000
     ZEROPAGE          Offs=000000  Size=000002  Align=00001  Fill=0000
     NULL              Offs=000000  Size=000000  Align=00001  Fill=0000
 ../../bin/sfc.lib(crt0.o):
-    CODE              Offs=000217  Size=000000  Align=00001  Fill=0000
+    CODE              Offs=0001F9  Size=000000  Align=00001  Fill=0000
     RODATA            Offs=001031  Size=000000  Align=00001  Fill=0000
     BSS               Offs=000000  Size=000000  Align=00001  Fill=0000
     DATA              Offs=000000  Size=000000  Align=00001  Fill=0000
@@ -18,21 +18,21 @@ spriteIRQTrick.o:
     ROMINFO           Offs=000000  Size=000030  Align=00001  Fill=0000
     VECTORS           Offs=000000  Size=00001C  Align=00001  Fill=0000
 ../../bin/sfc.lib(init.o):
-    CODE              Offs=000217  Size=0000F3  Align=00001  Fill=0000
+    CODE              Offs=0001F9  Size=0000F3  Align=00001  Fill=0000
     RODATA            Offs=001031  Size=000000  Align=00001  Fill=0000
     BSS               Offs=000000  Size=000000  Align=00001  Fill=0000
     DATA              Offs=000000  Size=000000  Align=00001  Fill=0000
     ZEROPAGE          Offs=000002  Size=000000  Align=00001  Fill=0000
     NULL              Offs=000000  Size=000000  Align=00001  Fill=0000
 ../../bin/sfc.lib(event.o):
-    CODE              Offs=00030A  Size=000101  Align=00001  Fill=0000
+    CODE              Offs=0002EC  Size=000101  Align=00001  Fill=0000
     RODATA            Offs=001031  Size=000000  Align=00001  Fill=0000
     BSS               Offs=000000  Size=000083  Align=00001  Fill=0000
     DATA              Offs=000000  Size=000000  Align=00001  Fill=0000
     ZEROPAGE          Offs=000002  Size=000000  Align=00001  Fill=0000
     NULL              Offs=000000  Size=000000  Align=00001  Fill=0000
 ../../bin/sfc.lib(sprite.o):
-    CODE              Offs=00040B  Size=000074  Align=00001  Fill=0000
+    CODE              Offs=0003ED  Size=00041C  Align=00001  Fill=0000
     RODATA            Offs=001031  Size=000000  Align=00001  Fill=0000
     BSS               Offs=000083  Size=000221  Align=00001  Fill=0000
     DATA              Offs=000000  Size=000000  Align=00001  Fill=0000
@@ -49,28 +49,30 @@ NULL                  000000  000000  000000  00001
 ZEROPAGE              000000  000001  000002  00001
 BSS                   000200  0004A3  0002A4  00001
 STARTUP               008000  008046  000047  00001
-CODE                  008047  0084C5  00047F  00001
-RODATA                0084C6  0094F6  001031  00001
+CODE                  008047  00884F  000809  00001
+RODATA                008850  009880  001031  00001
 ROMINFO               00FFB0  00FFDF  000030  00001
 VECTORS               00FFE4  00FFFF  00001C  00001
 
 
 Exports list by name:
 ---------------------
-OAMDataUpdated            0084B8 RLA    _IRQHandler               008192 RLA    
+OAMDataUpdated            00849A RLA    _IRQHandler               008192 RLA    
 _NMIHandler               0081B3 RLA    __ROMINFO_FILEOFFS__      007FB0  EA    
 __ROMINFO_LAST__          00FFE0  LA    __ROMINFO_SIZE__          000034  EA    
 __ROMINFO_START__         00FFB0  LA    __STARTUP__               000001 REA    
 __VECTORS_FILEOFFS__      007FE4  EA    __VECTORS_LAST__          010000  LA    
 __VECTORS_SIZE__          00001C  EA    __VECTORS_START__         00FFE4  LA    
 _main                     008047 RLA    _preInit                  0081B7 RLA    
-addEvent                  00837D  LA    clearOAM                  008452  LA    
-copyOAM                   008481 RLA    eventsTable               000200  LA    
-getEventCounter           008431  LA    hdmaMem                   0094E6  LA    
-initEvents                008351 RLA    initSnes                  00825E RLA    
-isEventActive             00843D  LA    oamData                   000283 RLA    
-processEvents             0083AC RLA    removeAllEvent            00841A  LA    
-removeEvent               008401  LA    spriteInit                0081B8  LA    
+addEvent                  00835F  LA    clearOAM                  008434  LA    
+copyOAM                   008463 RLA    eventsTable               000200  LA    
+getEventCounter           008413  LA    hdmaMem                   009870  LA    
+initEvents                008333 RLA    initSnes                  008240 RLA    
+isEventActive             00841F  LA    loadSprite16              00879C  LA    
+loadSprite32              0086A2  LA    loadSprite64              0084A8  LA    
+loadSprite8               008816  LA    oamData                   000283 RLA    
+processEvents             00838E RLA    removeAllEvent            0083FC  LA    
+removeEvent               0083E3  LA    spriteInit                0081B8  LA    
 
 
 
@@ -82,12 +84,14 @@ oamData                   000283 RLA    __ROMINFO_FILEOFFS__      007FB0  EA
 __VECTORS_FILEOFFS__      007FE4  EA    _main                     008047 RLA    
 _IRQHandler               008192 RLA    _NMIHandler               0081B3 RLA    
 _preInit                  0081B7 RLA    spriteInit                0081B8  LA    
-initSnes                  00825E RLA    initEvents                008351 RLA    
-addEvent                  00837D  LA    processEvents             0083AC RLA    
-removeEvent               008401  LA    removeAllEvent            00841A  LA    
-getEventCounter           008431  LA    isEventActive             00843D  LA    
-clearOAM                  008452  LA    copyOAM                   008481 RLA    
-OAMDataUpdated            0084B8 RLA    hdmaMem                   0094E6  LA    
+initSnes                  008240 RLA    initEvents                008333 RLA    
+addEvent                  00835F  LA    processEvents             00838E RLA    
+removeEvent               0083E3  LA    removeAllEvent            0083FC  LA    
+getEventCounter           008413  LA    isEventActive             00841F  LA    
+clearOAM                  008434  LA    copyOAM                   008463 RLA    
+OAMDataUpdated            00849A RLA    loadSprite64              0084A8  LA    
+loadSprite32              0086A2  LA    loadSprite16              00879C  LA    
+loadSprite8               008816  LA    hdmaMem                   009870  LA    
 __ROMINFO_START__         00FFB0  LA    __ROMINFO_LAST__          00FFE0  LA    
 __VECTORS_START__         00FFE4  LA    __VECTORS_LAST__          010000  LA    
 
@@ -127,8 +131,12 @@ initEvents (event.o):
 initSnes (init.o):
     crt0.o                    src/crt0.asm(15)
 isEventActive (event.o):
+loadSprite16 (sprite.o):
+loadSprite32 (sprite.o):
+loadSprite64 (sprite.o):
+loadSprite8 (sprite.o):
 oamData (sprite.o):
-    spriteIRQTrick.o          ../../include/snes-sprite.inc(5)
+    spriteIRQTrick.o          ../../include/snes-sprite.inc(9)
 processEvents (event.o):
     spriteIRQTrick.o          spriteIRQTrick.asm(21)
 removeAllEvent (event.o):

@@ -1,0 +1,39 @@
+; Calculate temp X high byte for 8 sprites (per sprite)
+; V-BLANK : 5000 cycles / OUTSIDE V_BLANK 40.000 cycles
+
+lda $06,s					; 5 cycles
+cmp #$00                    ; 3 cycles
+beq :+                      ; 2 cycles
+
+lda EnemyTempXOffsetHigh    ; 5 cycles
+lsr                         ; 2 cycles
+ora #%10000000              ; 3 cycles
+sta EnemyTempXOffsetHigh    ; 5 cycles
+
+:                           ; 1 cycle (from beq)
+lda EnemyTempXOffsetHigh    ; 5 cycles
+lsr                         ; 2 cycles
+sta EnemyTempXOffsetHigh    ; 5 cycles
+
+                            ; total -> 21/23 cycles per sprite
+
+; Set X high byte for 8 sprites
+
+lda EnemyTempXOffsetHigh    ; 5 cycles
+and #$0f                    ; 2 cycles
+tay                         ; 2 cycles
+lda highByte,Y              ; 5 cycles
+sta oamData + $200,X        ; 6 cycles
+
+lda EnemyTempXOffsetHigh    ; 5 cycles
+lsr                         ; 2 cycles
+lsr                         ; 2 cycles
+lsr                         ; 2 cycles
+lsr                         ; 2 cycles
+tay                         ; 2 cycles
+lda highByte,Y              ; 5 cycles
+sta oamData + $201,X        ; 6 cycles
+
+                            ; total -> 46 cycles
+
+                            ; 46 + (8*23) -> 230

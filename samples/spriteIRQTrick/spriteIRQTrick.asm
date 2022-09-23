@@ -98,8 +98,6 @@ spriteTrickIRQValue:
 
     jsr spriteInit
 
-    ;jsr hdmaInit
-
     setINIDSP $0F   ; Enable screen full brightness
 
     ldx #$00FF
@@ -235,27 +233,5 @@ spriteDataClear:
 
     pla
     plx
-    rts
-.endproc
-
-.proc hdmaInit
-    pha
-    phx
-    php
-
-    lda #$00                        ; 1 byte value hdma (count,byte)
-    sta $4300
-    lda #$01                        ; sprite N select
-    sta $4301
-    ldx #hdmaMem
-    stx $4302
-    lda .BANKBYTE(hdmaMem)
-    lda #01
-    sta $420c                       ; enable hdma channel 0
-
-    plp
-    plx
-    pla
-
     rts
 .endproc
