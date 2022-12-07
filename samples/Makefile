@@ -8,6 +8,7 @@ all clean:
 	@$(MAKE) -C scrollOptimized $@
 	@$(MAKE) -C dual $@
 	@$(MAKE) -C hdma $@
+	@$(MAKE) -C hdmaRipple $@
 	@$(MAKE) -C metasprite $@
 	# @$(MAKE) -C metaspriteOptimized $@
 	@$(MAKE) -C splash $@
