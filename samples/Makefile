@@ -9,6 +9,7 @@ all clean:
 	@$(MAKE) -C dual $@
 	@$(MAKE) -C hdma $@
 	@$(MAKE) -C hdmaRipple $@
+	@$(MAKE) -C hdmaMosaic $@
 	@$(MAKE) -C metasprite $@
 	# @$(MAKE) -C metaspriteOptimized $@
 	@$(MAKE) -C splash $@
